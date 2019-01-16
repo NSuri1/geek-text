@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Geek-Text backend server and API router",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "server",
+    "geek-text",
+    "web",
+    "application",
+    "books",
+    "search"
+  ],
+  "author": "Group 8",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

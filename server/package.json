@@ -4,7 +4,11 @@
   "description": "Geek-Text backend server and API router",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "populate-mock": "node utils/gtdb_parse_upload.js",
+	"database-export": "mongodump --db geek-text -o db_dump",
+	"database-import": "mongorestore --db geek-text db_dump/geek-text/"
   },
   "keywords": [
     "server",
@@ -19,5 +23,8 @@
   "dependencies": {
     "express": "^4.16.4",
     "mongodb": "^3.1.12"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
   }
 }

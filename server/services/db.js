@@ -7,7 +7,7 @@ const onError = error => {
 
 const connect = uri => {
   mongoose.connection.on('error', onError);
-  return mongoose.connect(uri)
+  return mongoose.connect(uri, {useNewUrlParser: true})
     .then(() => {
       console.log(`Mongo connected to ${mongoose.connection.host}:${mongoose.connection.port}/${mongoose.connection.db.databaseName}`);
     });

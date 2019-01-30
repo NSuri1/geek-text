@@ -1,8 +1,8 @@
-import Book from './model'
+import CreditCard from './model'
 
-const create = (book) => {
-    Book.create(book).then(createdBook => {
-        return createdBook
+const create = (creditCard) => {
+    CreditCard.create(creditCard).then(createdCard => {
+        return createdCard
     }).catch(error => {
         console.error(error.message)
         return null;
@@ -10,8 +10,8 @@ const create = (book) => {
 }
 
 const fetchAll = () => {
-    Book.find().then(books => {
-        return books
+    CreditCard.find().then(creditCards => {
+        return creditCards
     }).catch(error => {
         console.error(error.message)
         return null

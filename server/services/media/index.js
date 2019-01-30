@@ -1,8 +1,8 @@
-import Book from './model'
+import Media from './model'
 
-const create = (book) => {
-    Book.create(book).then(createdBook => {
-        return createdBook
+const create = (media) => {
+    Media.create(book).then(createdMedia => {
+        return createdMedia
     }).catch(error => {
         console.error(error.message)
         return null;
@@ -10,8 +10,8 @@ const create = (book) => {
 }
 
 const fetchAll = () => {
-    Book.find().then(books => {
-        return books
+    Media.find().then(media => {
+        return media
     }).catch(error => {
         console.error(error.message)
         return null

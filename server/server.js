@@ -16,6 +16,9 @@ app.get('/', (req, res) => {
 });
 
 app.listen(config.port, () => {
-	console.log(`Geek-Text server now up on port ${config.port}`);
-	db.connect(`mongodb://${config.db.username}:${config.db.password}@${config.db.url}/${config.db.name}`);
+	console.log(`Geek-Text server now up on http://localhost:${config.port}`);
+	const dbUri = (config.db.username && config.db.password) ?
+									`mongodb://${config.db.username}:${config.db.password}@${config.db.url}/${config.db.name}` :
+									`mongodb://${config.db.url}/${config.db.name}`
+	db.connect(dbUri);
 });

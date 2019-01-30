@@ -1,8 +1,8 @@
-import Book from './model'
+import BookList from './model'
 
-const create = (book) => {
-    Book.create(book).then(createdBook => {
-        return createdBook
+const create = (list) => {
+    BookList.create(list).then(createdList => {
+        return createdList
     }).catch(error => {
         console.error(error.message)
         return null;
@@ -10,8 +10,8 @@ const create = (book) => {
 }
 
 const fetchAll = () => {
-    Book.find().then(books => {
-        return books
+    BookList.find().then(lists => {
+        return lists
     }).catch(error => {
         console.error(error.message)
         return null

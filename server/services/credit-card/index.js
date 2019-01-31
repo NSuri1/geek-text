@@ -1,20 +1,16 @@
 import CreditCard from './model'
 
-const create = (creditCard) => {
-    CreditCard.create(creditCard).then(createdCard => {
-        return createdCard
-    }).catch(error => {
-        console.error(error.message)
-        return null;
+const create = (card, callback) => {
+    CreditCard.create(card, (error, created) => {
+        if (error) console.log(error.message)
+        if (callback) callback(error ? null : created)
     })
 }
 
-const fetchAll = () => {
-    CreditCard.find().then(creditCards => {
-        return creditCards
-    }).catch(error => {
-        console.error(error.message)
-        return null
+const fetchAll = (callback) => {
+    CreditCard.find({}, (error, cards) => {
+      if (error) console.log(error.message)
+      if (callback) callback(error ? null : cards)
     })
 }
 

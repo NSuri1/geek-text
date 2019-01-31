@@ -7,20 +7,20 @@ router.post('/new', createMedia)
 router.get('/', fetchMedia)
 
 function createMedia(request, response) {
-    let result = mediaService.create(request.body)
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    mediaService.create(request.body, (result) => {
+        response.json({
+            success: result != null ? true : false,
+            book: result
+        })
     })
 }
 
 function fetchMedia(request, response) {
-    let result = mediaService.fetchAll()
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    mediaService.fetchAll(result => {
+      response.json({
+          success: result != null ? true : false,
+          books: result
+      })
     })
 }
 

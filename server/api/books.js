@@ -7,20 +7,20 @@ router.post('/new', createBook)
 router.get('/', fetchBooks)
 
 function createBook(request, response) {
-    let result = bookService.create(request.body)
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    bookService.create(request.body, (result) => {
+        response.json({
+            success: result != null ? true : false,
+            book: result
+        })
     })
 }
 
 function fetchBooks(request, response) {
-    let result = bookService.fetchAll()
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    bookService.fetchAll(result => {
+      response.json({
+          success: result != null ? true : false,
+          books: result
+      })
     })
 }
 

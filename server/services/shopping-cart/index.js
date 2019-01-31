@@ -1,20 +1,16 @@
 import ShoppingCart from './model'
 
-const create = (cart) => {
-    ShoppingCart.create(book).then(createdCart => {
-        return createdCart
-    }).catch(error => {
-        console.error(error.message)
-        return null;
+const create = (cart, callback) => {
+    ShoppingCart.create(cart, (error, created) => {
+        if (error) console.log(error.message)
+        if (callback) callback(error ? null : created)
     })
 }
 
-const fetchAll = () => {
-    ShoppingCart.find().then(carts => {
-        return carts
-    }).catch(error => {
-        console.error(error.message)
-        return null
+const fetchAll = (callback) => {
+    ShoppingCart.find({}, (error, carts) => {
+      if (error) console.log(error.message)
+      if (callback) callback(error ? null : carts)
     })
 }
 

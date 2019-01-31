@@ -1,20 +1,16 @@
 import User from './model'
 
-const create = (user) => {
-    User.create(book).then(createdUser => {
-        return createdUser
-    }).catch(error => {
-        console.error(error.message)
-        return null;
+const create = (user, callback) => {
+    User.create(user, (error, created) => {
+        if (error) console.log(error.message)
+        if (callback) callback(error ? null : created)
     })
 }
 
-const fetchAll = () => {
-    User.find().then(users => {
-        return users
-    }).catch(error => {
-        console.error(error.message)
-        return null
+const fetchAll = (callback) => {
+    User.find({}, (error, users) => {
+      if (error) console.log(error.message)
+      if (callback) callback(error ? null : users)
     })
 }
 

@@ -7,20 +7,20 @@ router.post('/new', createAddress)
 router.get('/', fetchAddresses)
 
 function createAddress(request, response) {
-    let result = addressService.create(request.body)
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    addressService.create(request.body, (result) => {
+        response.json({
+            success: result != null ? true : false,
+            book: result
+        })
     })
 }
 
 function fetchAddresses(request, response) {
-    let result = addressService.fetchAll()
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    addressService.fetchAll(result => {
+      response.json({
+          success: result != null ? true : false,
+          books: result
+      })
     })
 }
 

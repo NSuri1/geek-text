@@ -7,20 +7,20 @@ router.post('/new', createCreditCard)
 router.get('/', fetchCreditCards)
 
 function createCreditCard(request, response) {
-    let result = creditCardService.create(request.body)
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    creditCardService.create(request.body, (result) => {
+        response.json({
+            success: result != null ? true : false,
+            book: result
+        })
     })
 }
 
 function fetchCreditCards(request, response) {
-    let result = creditCardService.fetchAll()
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    creditCardService.fetchAll(result => {
+      response.json({
+          success: result != null ? true : false,
+          books: result
+      })
     })
 }
 

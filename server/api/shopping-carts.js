@@ -7,20 +7,20 @@ router.post('/new', createdCart)
 router.get('/', fetchCarts)
 
 function createdCart(request, response) {
-    let result = cartService.create(request.body)
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    cartService.create(request.body, (result) => {
+        response.json({
+            success: result != null ? true : false,
+            book: result
+        })
     })
 }
 
 function fetchCarts(request, response) {
-    let result = cartService.fetchAll()
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    cartService.fetchAll(result => {
+      response.json({
+          success: result != null ? true : false,
+          books: result
+      })
     })
 }
 

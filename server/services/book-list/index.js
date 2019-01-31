@@ -1,20 +1,16 @@
 import BookList from './model'
 
-const create = (list) => {
-    BookList.create(list).then(createdList => {
-        return createdList
-    }).catch(error => {
-        console.error(error.message)
-        return null;
+const create = (list, callback) => {
+    BookList.create(list, (error, created) => {
+        if (error) console.log(error.message)
+        if (callback) callback(error ? null : created)
     })
 }
 
-const fetchAll = () => {
-    BookList.find().then(lists => {
-        return lists
-    }).catch(error => {
-        console.error(error.message)
-        return null
+const fetchAll = (callback) => {
+    BookList.find({}, (error, lists) => {
+      if (error) console.log(error.message)
+      if (callback) callback(error ? null : lists)
     })
 }
 

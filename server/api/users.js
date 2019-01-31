@@ -7,20 +7,20 @@ router.post('/new', createUser)
 router.get('/', fetchUsers)
 
 function createUser(request, response) {
-    let result = userService.create(request.body)
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    userService.create(request.body, (result) => {
+        response.json({
+            success: result != null ? true : false,
+            book: result
+        })
     })
 }
 
 function fetchUsers(request, response) {
-    let result = userService.fetchAll()
-
-    response.json({
-        success: result != null ? true : false,
-        book: result
+    userService.fetchAll(result => {
+      response.json({
+          success: result != null ? true : false,
+          books: result
+      })
     })
 }
 

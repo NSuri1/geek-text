@@ -1,20 +1,16 @@
 import Media from './model'
 
-const create = (media) => {
-    Media.create(book).then(createdMedia => {
-        return createdMedia
-    }).catch(error => {
-        console.error(error.message)
-        return null;
+const create = (media, callback) => {
+    Media.create(media, (error, created) => {
+        if (error) console.log(error.message)
+        if (callback) callback(error ? null : created)
     })
 }
 
-const fetchAll = () => {
-    Media.find().then(media => {
-        return media
-    }).catch(error => {
-        console.error(error.message)
-        return null
+const fetchAll = (callback) => {
+    Media.find({}, (error, media) => {
+      if (error) console.log(error.message)
+      if (callback) callback(error ? null : media)
     })
 }
 

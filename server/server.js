@@ -9,6 +9,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use((error, req, res, next) => {
+  if (error instanceof SyntaxError){
+    return res.status(500).send({data : `Invalid data => ${error}`});
+  } else {
+    next();
+  }
+});
+
 app.use(`/api`, api);
 
 app.get('/', (req, res) => {

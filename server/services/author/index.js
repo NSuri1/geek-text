@@ -1,20 +1,16 @@
 import Author from './model'
 
-const create = (author) => {
-    Author.create(book).then(createdAuthor => {
-        return createdAuthor
-    }).catch(error => {
-        console.error(error.message)
-        return null;
+const create = (author, callback) => {
+    Author.create(author, (error, created) => {
+        if (error) console.log(error.message)
+        if (callback) callback(error ? null : created)
     })
 }
 
-const fetchAll = () => {
-    Author.find().then(authors => {
-        return authors
-    }).catch(error => {
-        console.error(error.message)
-        return null
+const fetchAll = (callback) => {
+    Author.find({}, (error, authors) => {
+      if (error) console.log(error.message)
+      if (callback) callback(error ? null : authors)
     })
 }
 

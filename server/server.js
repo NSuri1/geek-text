@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import config from './config.js';
 import db from './services/db.js'
 import api from './api'
+import { Severity, log } from './utils/logger';
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.listen(config.port, () => {
-	console.log(`Geek-Text server now up on http://localhost:${config.port}`);
+	log(`Geek-Text server now up on http://localhost:${config.port}`, Severity.Success);
 	const dbUri = (config.db.username && config.db.password) ?
 									`mongodb://${config.db.username}:${config.db.password}@${config.db.url}/${config.db.name}` :
 									`mongodb://${config.db.url}/${config.db.name}`

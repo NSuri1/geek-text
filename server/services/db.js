@@ -1,15 +1,16 @@
 import mongoose from 'mongoose';
+import { Severity, log } from '../utils/logger';
 
 const onError = error => {
-  console.error(`Mongo connection error: ${error}`);
+  log(`Mongo connection error: ${error}`, Severity.Error);
   process.exit(1);
 }
 
 const connect = uri => {
   mongoose.connection.on('error', onError);
-  return mongoose.connect(uri, {useNewUrlParser: true})
+  return mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true})
     .then(() => {
-      console.log(`Mongo connected to ${mongoose.connection.host}:${mongoose.connection.port}/${mongoose.connection.db.databaseName}`);
+      log(`Mongo successfully connected`, Severity.Success);
     });
 }
 

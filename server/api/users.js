@@ -1,27 +1,23 @@
 import express from 'express'
 import userService from '../services/user'
+import crud from './_crud'
 
 const router = new express.Router()
 
 router.post('/new', createUser)
+router.post('/update/:id', updateUser)
 router.get('/', fetchUsers)
 
 function createUser(request, response) {
-    userService.create(request.body, (result) => {
-        response.json({
-            success: result != null ? true : false,
-            book: result
-        })
-    })
+    crud.create(userService, request, response)
+}
+
+function updateUser(request, response) {
+    crud.update(userService, request, response)
 }
 
 function fetchUsers(request, response) {
-    userService.fetchAll(result => {
-      response.json({
-          success: result != null ? true : false,
-          books: result
-      })
-    })
+    crud.fetch(userService, request, response)
 }
 
 export default { router }

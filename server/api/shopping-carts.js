@@ -1,27 +1,23 @@
 import express from 'express'
 import cartService from '../services/shopping-cart'
+import crud from './_crud'
 
 const router = new express.Router()
 
 router.post('/new', createdCart)
+router.post('/update/:id', updateCart)
 router.get('/', fetchCarts)
 
 function createdCart(request, response) {
-    cartService.create(request.body, (result) => {
-        response.json({
-            success: result != null ? true : false,
-            book: result
-        })
-    })
+    crud.create(cartService, request, response)
+}
+
+function updateCart(request, response) {
+    crud.update(cartService, request, response)
 }
 
 function fetchCarts(request, response) {
-    cartService.fetchAll(result => {
-      response.json({
-          success: result != null ? true : false,
-          books: result
-      })
-    })
+    crud.fetch(cartService, request, response)
 }
 
 export default { router }

@@ -1,27 +1,23 @@
 import express from 'express'
 import listService from '../services/book-list'
+import crud from './_crud'
 
 const router = new express.Router()
 
 router.post('/new', createlist)
+router.post('/update/:id', updateList)
 router.get('/', fetchLists)
 
 function createlist(request, response) {
-    listService.create(request.body, (result) => {
-        response.json({
-            success: result != null ? true : false,
-            book: result
-        })
-    })
+    crud.create(listService, request, response)
+}
+
+function updateList(request, response) {
+    crud.update(listService, request, response)
 }
 
 function fetchLists(request, response) {
-    listService.fetchAll(result => {
-      response.json({
-          success: result != null ? true : false,
-          books: result
-      })
-    })
+    crud.fetch(listService, request, response)
 }
 
 export default { router }

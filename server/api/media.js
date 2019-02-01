@@ -1,27 +1,23 @@
 import express from 'express'
 import mediaService from '../services/media'
+import crud from './_crud'
 
 const router = new express.Router()
 
 router.post('/new', createMedia)
+router.post('/update/:id', updateMedia)
 router.get('/', fetchMedia)
 
 function createMedia(request, response) {
-    mediaService.create(request.body, (result) => {
-        response.json({
-            success: result != null ? true : false,
-            book: result
-        })
-    })
+    crud.create(mediaService, request, response)
+}
+
+function updateMedia(request, response) {
+    crud.update(mediaService, request, response)
 }
 
 function fetchMedia(request, response) {
-    mediaService.fetchAll(result => {
-      response.json({
-          success: result != null ? true : false,
-          books: result
-      })
-    })
+    crud.fetch(mediaService, request, response)
 }
 
 export default { router }

@@ -1,17 +1,25 @@
 import Author from './model'
+import { Severity, log } from '../../utils/logger'
 
 const create = (author, callback) => {
     Author.create(author, (error, created) => {
-        if (error) console.log(error.message)
+        if (error) log(error.message, Severity.Error)
         if (callback) callback(error ? null : created)
+    })
+}
+
+const update = (id, updates, callback) => {
+    Author.findByIdAndUpdate(id, { $set: updates }, { new: true }, (error, updated) => {
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : updated)
     })
 }
 
 const fetchAll = (callback) => {
     Author.find({}, (error, authors) => {
-      if (error) console.log(error.message)
+      if (error) log(error.message, Severity.Error)
       if (callback) callback(error ? null : authors)
     })
 }
 
-export default { create, fetchAll }
+export default { create, update, fetchAll }

@@ -1,7 +1,6 @@
 **/.DS_Store
 
 server/data/db/*
-server/db_dump
 
 # Logs
 logs

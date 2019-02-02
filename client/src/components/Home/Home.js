@@ -6,7 +6,7 @@ import BookListing from '../BookListing';
 class Home extends Component {
   render() {
     return (
-      <div class="home">
+      <div className="home">
         <BookListing></BookListing>
         <BookListing></BookListing>
         <BookListing></BookListing>

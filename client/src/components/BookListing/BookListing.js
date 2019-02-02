@@ -3,7 +3,7 @@ import './BookListing.css';
 
 class BookListing extends Component {
   render() {
-    return <div class="listing-container"></div>;
+    return <div className="listing-container"></div>;
   }
 }
 

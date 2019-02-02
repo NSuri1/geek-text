@@ -18,11 +18,20 @@ function update(service, request, response) {
 
 function fetch(service, request, response) {
     service.fetchAll(result => {
-      response.json({
-          success: result != null ? true : false,
-          results: result
-      })
+        response.json({
+            success: result != null ? true : false,
+            results: result
+        })
     })
 }
 
-export default { create, update, fetch }
+function fetchById(service, request, response) {
+    service.fetchById(request.params.id, result => {
+        response.json({
+            success: result != null ? true : false,
+            results: result
+        })
+    })
+}
+
+export default { create, update, fetch, fetchById }

@@ -17,9 +17,16 @@ const update = (id, updates, callback) => {
 
 const fetchAll = (callback) => {
     ShoppingCart.find({}, (error, carts) => {
-      if (error) log(error.message, Severity.Error)
-      if (callback) callback(error ? null : carts)
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : carts)
     })
 }
 
-export default { create, update, fetchAll }
+const fetchById = (id, callback) => {
+    ShoppingCart.findById(id, (error, shoppingCart) => {
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : shoppingCart)
+    })
+}
+
+export default { create, update, fetchAll, fetchById }

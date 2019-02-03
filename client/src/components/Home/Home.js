@@ -3,13 +3,15 @@ import './Home.css';
 
 import BookListing from '../BookListing';
 
+const genres = ["Literary Fiction", "Science and Technology"];
+
 class Home extends Component {
   render() {
     return (
       <div className="home">
-        <BookListing></BookListing>
-        <BookListing></BookListing>
-        <BookListing></BookListing>
+        {genres.map((genre) =>
+            <BookListing key={genre} genre={genre}></BookListing>
+          )}
       </div>
     );
   }

@@ -17,9 +17,16 @@ const update = (id, updates, callback) => {
 
 const fetchAll = (callback) => {
     CreditCard.find({}, (error, cards) => {
-      if (error) log(error.message, Severity.Error)
-      if (callback) callback(error ? null : cards)
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : cards)
     })
 }
 
-export default { create, update, fetchAll }
+const fetchById = (id, callback) => {
+    CreditCard.findById(id, (error, creditCard) => {
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : creditCard)
+    })
+}
+
+export default { create, update, fetchAll, fetchById }

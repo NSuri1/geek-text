@@ -17,9 +17,16 @@ const update = (id, updates, callback) => {
 
 const fetchAll = (callback) => {
     Address.find({}, (error, addresses) => {
-      if (error) log(error.message, Severity.Error)
-      if (callback) callback(error ? null : addresses)
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : addresses)
     })
 }
 
-export default { create, update, fetchAll }
+const fetchById = (id, callback) => {
+    Address.findById(id, (error, address) => {
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : address)
+    })
+}
+
+export default { create, update, fetchAll, fetchById }

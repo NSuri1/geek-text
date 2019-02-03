@@ -17,9 +17,16 @@ const update = (id, updates, callback) => {
 
 const fetchAll = (callback) => {
     Media.find({}, (error, media) => {
-      if (error) log(error.message, Severity.Error)
-      if (callback) callback(error ? null : media)
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : media)
     })
 }
 
-export default { create, update, fetchAll }
+const fetchById = (id, callback) => {
+    Media.findById(id, (error, media) => {
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : media)
+    })
+}
+
+export default { create, update, fetchAll, fetchById }

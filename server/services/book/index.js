@@ -17,9 +17,16 @@ const update = (id, updates, callback) => {
 
 const fetchAll = (callback) => {
     Book.find({}, (error, books) => {
-      if (error) log(error.message, Severity.Error)
-      if (callback) callback(error ? null : books)
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : books)
     })
 }
 
-export default { create, update, fetchAll }
+const fetchById = (id, callback) => {
+    Book.findById(id, (error, book) => {
+        if (error) log(error.message, Severity.Error)
+        if (callback) callback(error ? null : book)
+    })
+}
+
+export default { create, update, fetchAll, fetchById }

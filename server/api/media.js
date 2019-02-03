@@ -6,6 +6,7 @@ const router = new express.Router()
 
 router.post('/new', createMedia)
 router.post('/update/:id', updateMedia)
+router.get('/:id', fetchMediaById)
 router.get('/', fetchMedia)
 
 function createMedia(request, response) {
@@ -18,6 +19,10 @@ function updateMedia(request, response) {
 
 function fetchMedia(request, response) {
     crud.fetch(mediaService, request, response)
+}
+
+function fetchMediaById(request, response) {
+    crud.fetchById(mediaService, request, response)
 }
 
 export default { router }

@@ -6,8 +6,8 @@ const router = new express.Router()
 
 router.post('/new', createBook)
 router.post('/update/:id', updateBook)
-router.get('/', fetchBooks)
 router.get('/:id', fetchBookById)
+router.get('/', fetchBooks)
 
 function createBook(request, response) {
 

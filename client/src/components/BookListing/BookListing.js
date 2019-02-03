@@ -14,7 +14,6 @@ class BookListing extends Component {
   componentDidMount() {
     api.getBooks({genre: this.props.genre}, (result) => {
       let books = JSON.parse(result);
-      console.log(books)
       this.setState({
         books: books.results || []
       })

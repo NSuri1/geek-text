@@ -15,8 +15,8 @@ const styles = {
   root: {
     flexGrow: 1
   },
-  grow: {
-    flexGrow: 1,
+  heading: {
+    flexGrow: 1
   },
   navBar: {
     backgroundColor: "brown",
@@ -38,8 +38,8 @@ function AppNavBar(props) {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
-              Geek Text
+            <Typography variant="h5" color="inherit" className={classes.heading}>
+              Geek Text Home
             </Typography>
             <Button color="inherit">Login</Button>
           </Toolbar>

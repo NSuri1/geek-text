@@ -19,6 +19,16 @@ class ApiProvider {
       if (callback) callback(body);
     })
   }
+
+  getMedia(options, callback) {
+    var endpoint = `${serverConf.uri}/${serverConf.endpoints.media.fetch}`;
+    endpoint += options.id ? `/${options.id}` : '';
+
+    request(endpoint, (error, response, body) => {
+      if (error) console.log(error);
+      if (callback) callback(body);
+    })
+  }
 }
 
 export let api = new ApiProvider();

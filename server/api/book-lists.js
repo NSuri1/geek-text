@@ -6,6 +6,7 @@ const router = new express.Router()
 
 router.post('/new', createlist)
 router.post('/update/:id', updateList)
+router.get('/:id', fetchListsById)
 router.get('/', fetchLists)
 
 function createlist(request, response) {
@@ -18,6 +19,10 @@ function updateList(request, response) {
 
 function fetchLists(request, response) {
     crud.fetch(listService, request, response)
+}
+
+function fetchListsById(request, response) {
+    crud.fetchById(listService, request, response)
 }
 
 export default { router }

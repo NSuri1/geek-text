@@ -1,0 +1,14 @@
+.book-card {
+  display: inline-block;
+  position: relative;
+  width: 25%;
+  height: 85%;
+  background-color: beige;
+  margin: auto 10px;
+}
+
+.book-card .cover-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}

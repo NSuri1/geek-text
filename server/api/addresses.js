@@ -6,6 +6,7 @@ const router = new express.Router()
 
 router.post('/new', createAddress)
 router.post('/update/:id', updateAddress)
+router.get('/:id', fetchAddressesById)
 router.get('/', fetchAddresses)
 
 function createAddress(request, response) {
@@ -18,6 +19,10 @@ function updateAddress(request, response) {
 
 function fetchAddresses(request, response) {
     crud.fetch(addressService, request, response)
+}
+
+function fetchAddressesById(request, response) {
+    crud.fetchById(addressService, request, response)
 }
 
 export default { router }

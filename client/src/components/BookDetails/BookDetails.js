@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-import axios from 'axios';
-import config from '../../config'
-
-const booksApiUrl =
-    `${config.apiBasePath}${config.endpoints.books}`
+import { api } from '../../api/ApiProvider';
 
 class BookDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            bookId: props.location.state.bookId,
+            bookId: props.location.state ? props.location.state.bookId : null,
             book: null
         } 
     }
@@ -19,20 +15,17 @@ class BookDetails extends Component {
     }
 
     fetchBookInformation() {
-        axios.get(`${booksApiUrl}/${this.state.bookId}`)
-            .then(response => {
-                let results = response.data.results
-                this.setState({
-                    book: results
-                })
-                console.log(this.state)
-            }).catch(error => {
-                console.error(error)
-                setTimeout(() => {
-                    console.log('Trying network request again...')
-                    this.fetchBookInformation()
-                }, 5000)
-            });
+        api.getBookById(this.state.bookId, response => {
+            this.setState({
+                book: JSON.parse(response).results
+            })
+        }, error => {
+            console.error(error)
+            setTimeout(() => {
+                console.log('Trying network request again...')
+                this.fetchBookInformation()
+            }, 5000)
+        })
     }
 
     render() {

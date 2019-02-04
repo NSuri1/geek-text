@@ -11,7 +11,10 @@ class BookDetails extends Component {
         this.state = {
             bookId: props.location.state.bookId,
             book: null
-        }
+        } 
+    }
+
+    componentDidMount() {
         this.fetchBookInformation()
     }
 
@@ -22,6 +25,7 @@ class BookDetails extends Component {
                 this.setState({
                     book: results
                 })
+                console.log(this.state)
             }).catch(error => {
                 console.error(error)
                 setTimeout(() => {

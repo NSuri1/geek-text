@@ -3,7 +3,8 @@
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
@@ -11,9 +12,9 @@
     ],
     "parserOptions": {
         "ecmaFeatures": {
-            "experimentalObjectRestSpread": true,
             "jsx": true
         },
+        "ecmaVersion": 2017,
         "sourceType": "module"
     },
     "plugins": [
@@ -37,5 +38,10 @@
             "always"
         ],
         "no-console": 0
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 }

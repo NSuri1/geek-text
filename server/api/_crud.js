@@ -1,37 +1,39 @@
 function create(service, request, response) {
-    service.create(request.body, (result) => {
-        response.json({
-            success: result != null ? true : false,
-            results: result
-        })
-    })
+	service.create(request.body, (result) => {
+		response.json({
+			success: result != null,
+			results: result,
+		});
+	});
 }
 
 function update(service, request, response) {
-    service.update(request.params.id, request.body, (result) => {
-        response.json({
-            success: result != null ? true : false,
-            results: result
-        })
-    })
+	service.update(request.params.id, request.body, (result) => {
+		response.json({
+			success: result != null,
+			results: result,
+		});
+	});
 }
 
 function fetch(service, request, response) {
-    service.fetchAll(result => {
-        response.json({
-            success: result != null ? true : false,
-            results: result
-        })
-    })
+	service.fetchAll((result) => {
+		response.json({
+			success: result != null,
+			results: result,
+		});
+	});
 }
 
 function fetchById(service, request, response) {
-    service.fetchById(request.params.id, result => {
-        response.json({
-            success: result != null ? true : false,
-            results: result
-        })
-    })
+	service.fetchById(request.params.id, (result) => {
+		response.json({
+			success: result != null,
+			results: result,
+		});
+	});
 }
 
-export default { create, update, fetch, fetchById }
+export default {
+	create, update, fetch, fetchById,
+};

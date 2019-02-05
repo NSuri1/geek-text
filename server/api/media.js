@@ -1,28 +1,28 @@
-import express from 'express'
-import mediaService from '../services/media'
-import crud from './_crud'
+import express from 'express';
+import mediaService from '../services/media';
+import crud from './_crud';
 
-const router = new express.Router()
+const router = new express.Router();
 
-router.post('/new', createMedia)
-router.post('/update/:id', updateMedia)
-router.get('/:id', fetchMediaById)
-router.get('/', fetchMedia)
+router.post('/new', createMedia);
+router.post('/update/:id', updateMedia);
+router.get('/:id', fetchMediaById);
+router.get('/', fetchMedia);
 
 function createMedia(request, response) {
-    crud.create(mediaService, request, response)
+	crud.create(mediaService, request, response);
 }
 
 function updateMedia(request, response) {
-    crud.update(mediaService, request, response)
+	crud.update(mediaService, request, response);
 }
 
 function fetchMedia(request, response) {
-    crud.fetch(mediaService, request, response)
+	crud.fetch(mediaService, request, response);
 }
 
 function fetchMediaById(request, response) {
-    crud.fetchById(mediaService, request, response)
+	crud.fetchById(mediaService, request, response);
 }
 
-export default { router }
+export default {router};

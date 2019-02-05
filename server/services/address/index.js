@@ -1,32 +1,34 @@
-import Address from './model'
-import { Severity, log } from '../../utils/logger'
+import Address from './model';
+import {Severity, log} from '../../utils/logger';
 
 const create = (address, callback) => {
-    Address.create(address, (error, created) => {
-        if (error) log(error.message, Severity.Error)
-        if (callback) callback(error ? null : created)
-    })
-}
+	Address.create(address, (error, created) => {
+		if (error) log(error.message, Severity.Error);
+		if (callback) callback(error ? null : created);
+	});
+};
 
 const update = (id, updates, callback) => {
-    Address.findByIdAndUpdate(id, { $set: updates }, { new: true }, (error, updated) => {
-        if (error) log(error.message, Severity.Error)
-        if (callback) callback(error ? null : updated)
-    })
-}
+	Address.findByIdAndUpdate(id, {$set: updates}, {new: true}, (error, updated) => {
+		if (error) log(error.message, Severity.Error);
+		if (callback) callback(error ? null : updated);
+	});
+};
 
 const fetchAll = (callback) => {
-    Address.find({}, (error, addresses) => {
-        if (error) log(error.message, Severity.Error)
-        if (callback) callback(error ? null : addresses)
-    })
-}
+	Address.find({}, (error, addresses) => {
+		if (error) log(error.message, Severity.Error);
+		if (callback) callback(error ? null : addresses);
+	});
+};
 
 const fetchById = (id, callback) => {
-    Address.findById(id, (error, address) => {
-        if (error) log(error.message, Severity.Error)
-        if (callback) callback(error ? null : address)
-    })
-}
+	Address.findById(id, (error, address) => {
+		if (error) log(error.message, Severity.Error);
+		if (callback) callback(error ? null : address);
+	});
+};
 
-export default { create, update, fetchAll, fetchById }
+export default {
+	create, update, fetchAll, fetchById,
+};

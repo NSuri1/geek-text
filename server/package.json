@@ -4,12 +4,13 @@
   "description": "Geek-Text backend server and API router",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "build": "babel . --out-dir dist --ignore node_modules",
     "start": "nodemon server.js --exec babel-node",
     "populate-mock": "node utils/gtdb_parse_upload.js",
     "database-export": "mongodump --db geek-text -o db_dump",
-    "database-import": "mongorestore --db geek-text db_dump/geek-text/"
+    "database-import": "mongorestore --db geek-text db_dump/geek-text/",
+    "lint": "eslint . --ext js --fix"
   },
   "keywords": [
     "server",
@@ -31,7 +32,25 @@
     "mongoose": "^5.4.7"
   },
   "devDependencies": {
+    "eslint": "^5.13.0",
+    "husky": "^1.3.1",
     "jest": "^23.6.0",
     "nodemon": "^1.18.9"
+  },
+  "jest": {
+    "verbose": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 50,
+        "functions": 50,
+        "lines": 50,
+        "statements": 50
+      }
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm test"
+    }
   }
 }

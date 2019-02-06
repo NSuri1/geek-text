@@ -2,14 +2,14 @@
   position: relative;
   width: 100%;
   height: 500px;
-  border-bottom: 2px solid #eeeeee;
   padding: 10px;
-  margin-bottom: 20px;
+  margin: 0 auto;
   overflow: hidden;
   white-space: nowrap;
 }
 
 .listing-container-inner {
+  position: relative;
   width: 100%;
   height: 100%;
   overflow-x: scroll;
@@ -17,6 +17,18 @@
   padding-bottom: 30px;
 }
 
+.listing-container-blur {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: inline-block;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  box-shadow: 0 0px 8px 22px #0b0e14 inset;
+}
+
 .listing-header {
   padding: 10px;
+  color: white !important;
 }

@@ -24,12 +24,13 @@ class BookListing extends Component {
 	render() {
 		return (
 			<div className="listing-container-outer">
-				<Typography variant="h6" color="inherit" className="listing-header">
+				<Typography variant="h5" color="white" className="listing-header">
 					{this.props.genre.name}
 				</Typography>
 				<div className="listing-container-inner">
 					{this.state.books.map(book => <BookCard key={book._id} book={book} />)}
 				</div>
+				<div className="listing-container-blur"></div>
 			</div>
 		);
 	}

@@ -14,7 +14,7 @@ import BookDetails from '../BookDetails';
 
 const styles = {
 	root: {
-		flexGrow: 1,
+		flexGrow: 1
 	},
 	heading: {
 		flexGrow: 1,
@@ -22,6 +22,7 @@ const styles = {
 	navBar: {
 		backgroundColor: 'brown',
 		color: 'white',
+		position: "fixed"
 	},
 	menuButton: {
 		marginLeft: -12,

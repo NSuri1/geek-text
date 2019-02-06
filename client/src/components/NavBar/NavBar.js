@@ -41,7 +41,7 @@ function AppNavBar(props) {
 							<Menu />
 						</IconButton>
 						<Typography variant="h5" color="inherit" className={classes.heading}>
-							Geek Text Home
+							Geek Text
 						</Typography>
 						<Button color="inherit">Login</Button>
 					</Toolbar>

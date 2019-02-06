@@ -24,7 +24,7 @@ class BookListing extends Component {
 	render() {
 		return (
 			<div className="listing-container-outer">
-				<Typography variant="h5" color="white" className="listing-header">
+				<Typography variant="h5" color="inherit" className="listing-header">
 					{this.props.genre.name}
 				</Typography>
 				<div className="listing-container-inner">
@@ -37,7 +37,7 @@ class BookListing extends Component {
 }
 
 BookListing.propTypes = {
-	genre: PropTypes.string.isRequired
+	genre: PropTypes.object.isRequired
 };
 
 export default BookListing;

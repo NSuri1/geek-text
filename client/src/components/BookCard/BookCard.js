@@ -7,7 +7,8 @@ import { api } from '../../api/ApiProvider';
 class BookCard extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { coverImage: '' };
+		this.state = { coverImage: '', hasMouse: false };
+		this.onCardHover = this.onCardHover.bind(this);
 	}
 
 	componentDidMount() {
@@ -20,9 +21,16 @@ class BookCard extends Component {
 		});
 	}
 
+	onCardHover(event) {
+		this.setState(prevState => ({
+			hasMouse: !prevState.hasMouse
+		}));
+	}
+
 	render() {
+		const cardClass = `book-card ${this.state.hasMouse ? 'hovered' : ''}`
 		return (
-			<div className="book-card">
+			<div className={cardClass} onMouseEnter={this.onCardHover} onMouseLeave={this.onCardHover}>
 				<Link to={{
 					pathname: '/book-details',
 					state: { bookId: this.props.book._id }
@@ -33,6 +41,12 @@ class BookCard extends Component {
 						alt="Book Cover"
 					/>
 				</Link>
+				<div className="book-info">
+					<h5 className="title">{this.props.book.title}</h5>
+					{/*<h6 className="author">{`by ` + this.props.book.authors.join(', ')}</h6>*/}
+					<div className="rating"></div>
+					<h4 className="price">{`$` + this.props.book.price.toFixed(2)}</h4>
+				</div>
 			</div>
 
 		);

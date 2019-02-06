@@ -6,7 +6,7 @@ const schema = new mongoose.Schema({
 	book_id: ObjectId,
 	title: {type: String, required: true},
 	authors: [{type: ObjectId, ref: 'Author'}],
-	genre: {type: String, required: true},
+	genre: {type: ObjectId, ref: 'Genre'},
 	description: {type: String, required: true},
 	isbn13: {type: String, required: true},
 	price: {type: Number, min: 0, required: true},

@@ -43,7 +43,8 @@ function AppNavBar(props) {
 						<Typography variant="h5" color="inherit" className={classes.heading}>
 							Geek Text
 						</Typography>
-						<Button color="inherit">Login</Button>
+						<Button color="inherit">Log In</Button>
+						<Button color="inherit">Shopping Cart</Button>
 					</Toolbar>
 				</AppBar>
 				<Route path="/" exact component={Home} />

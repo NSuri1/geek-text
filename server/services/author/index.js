@@ -15,8 +15,8 @@ const update = (id, updates, callback) => {
 	});
 };
 
-const fetchAll = (callback) => {
-	Author.find({}, (error, authors) => {
+const fetchAll = (query, callback) => {
+	Author.find(query, (error, authors) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : authors);
 	});

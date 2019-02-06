@@ -15,8 +15,8 @@ const update = (id, updates, callback) => {
 	});
 };
 
-const fetchAll = (callback) => {
-	User.find({}, (error, users) => {
+const fetchAll = (query, callback) => {
+	User.find(query, (error, users) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : users);
 	});

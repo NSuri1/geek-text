@@ -20,6 +20,15 @@ class ApiProvider {
 		});
 	}
 
+	getGenres(options, callback) {
+		let endpoint = `${serverConf.uri}/${serverConf.endpoints.genres.fetch}`;
+
+		request(endpoint, (error, response, body) => {
+			if (error) console.log(error);
+			if (callback) callback(body);
+		});
+	}
+
 	getMedia(options, callback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.media.fetch}`;
 		endpoint += options.id ? `/${options.id}` : '';
@@ -32,6 +41,15 @@ class ApiProvider {
 
 	getBookById(id, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/${id}`;
+
+		request(endpoint, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
+	}
+
+	getGenreById(id, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.genres.fetch}/${id}`;
 
 		request(endpoint, (error, response, body) => {
 			if (error && errorCallback) errorCallback(error);

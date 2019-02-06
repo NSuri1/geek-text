@@ -45,6 +45,9 @@ const config = {
 			create: '/addresses/new',
 			update: '/addresses/update',
 		},
+		genres: {
+			fetch: '/genres'
+		}
 	},
 };
 

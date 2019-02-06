@@ -13,7 +13,7 @@ class BookListing extends Component {
 	}
 
 	componentDidMount() {
-		api.getBooks({ genre: this.props.genre }, (result) => {
+		api.getBooks({ genre: this.props.genre._id }, (result) => {
 			const books = JSON.parse(result);
 			this.setState({
 				books: books.results || [],
@@ -25,7 +25,7 @@ class BookListing extends Component {
 		return (
 			<div className="listing-container-outer">
 				<Typography variant="h6" color="inherit" className="listing-header">
-					{this.props.genre}
+					{this.props.genre.name}
 				</Typography>
 				<div className="listing-container-inner">
 					{this.state.books.map(book => <BookCard key={book._id} book={book} />)}

@@ -15,8 +15,8 @@ const update = (id, updates, callback) => {
 	});
 };
 
-const fetchAll = (callback) => {
-	CreditCard.find({}, (error, cards) => {
+const fetchAll = (query, callback) => {
+	CreditCard.find(query, (error, cards) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : cards);
 	});

@@ -17,7 +17,7 @@ function update(service, request, response) {
 }
 
 function fetch(service, request, response) {
-	service.fetchAll((result) => {
+	service.fetchAll(Object.assign({}, request.body, request.query), (result) => {
 		response.json({
 			success: result != null,
 			results: result,

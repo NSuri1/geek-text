@@ -15,8 +15,8 @@ const update = (id, updates, callback) => {
 	});
 };
 
-const fetchAll = (callback) => {
-	BookList.find({}, (error, lists) => {
+const fetchAll = (query, callback) => {
+	BookList.find(query, (error, lists) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : lists);
 	});

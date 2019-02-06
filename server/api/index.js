@@ -8,6 +8,7 @@ import creditCards from './credit-cards';
 import shoppingCarts from './shopping-carts';
 import bookLists from './book-lists';
 import genres from './genres'
+import bookSales from './book-sales';
 
 const router = new express.Router();
 
@@ -20,6 +21,7 @@ router.use('/credit-cards', creditCards.router);
 router.use('/shopping-carts', shoppingCarts.router);
 router.use('/book-lists', bookLists.router);
 router.use('/genres', genres.router);
+router.use('/book-sales', bookSales.router);
 
 router.all('*', (req, res) => {
 	res.status(400).json({

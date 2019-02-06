@@ -36,14 +36,14 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	Book.find(query, (error, books) => {
+	Book.find(query).populate('authors').exec((error, books) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : books);
 	});
 };
 
 const fetchById = (id, callback) => {
-	Book.findById(id, (error, book) => {
+	Book.findById(id).populate('authors').exec((error, book) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : book);
 	});

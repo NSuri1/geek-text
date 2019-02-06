@@ -21,9 +21,9 @@
 
 .book-card .book-info {
   position: absolute;
-  bottom: -150px; left: 0;
+  bottom: -180px; left: 0;
   width: 100%;
-  height: 65%;
+  height: 75%;
   background-color: rgba(0, 0, 0, 0.9);
 }
 
@@ -36,9 +36,21 @@
 }
 
 .book-info .title {
+  font-size: 15px;
   white-space: pre-wrap;
-  margin: 10px;
+  margin: 10px 10px 5px 10px;
   color: white;
+  text-align: right;
+  padding: 7px 0px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.book-info .author {
+  color: rgba(255, 255, 255, 0.6);
+  white-space: pre-wrap;
+  width: 100%;
+  position: relative;
+  margin: 0;
   text-align: right;
 }
 
@@ -49,4 +61,6 @@
   bottom: 15px;
   position: absolute;
   right: 0;
+  background-color: #ad5353;
+  padding: 2px;
 }

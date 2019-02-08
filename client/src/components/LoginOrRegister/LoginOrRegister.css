@@ -1,0 +1,48 @@
+.root-container {
+  padding: 85px 20px 10px 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.tab-controller {
+  visibility: visible;
+  display: flex ;
+  border-radius: 6px;
+  max-width: 24em;
+  min-width: 21em;
+  height: 35px;
+  margin-bottom: 30px;
+  align-items: center;
+  transition: visibility 0.5s ease-out;
+  color: white !important;
+  background: brown;
+}
+
+.controller {
+  flex: 1;
+  text-align: center;
+  height: 100%;
+  line-height: 2;
+  cursor: pointer;
+}
+
+
+.selected-controller {
+  transition: border 0.5s ease-out;
+  border: 2px solid white;
+  background: brown;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 24em;
+  min-width: 21em;
+  border-radius: 6px;
+  padding: 24px;
+  background: brown;
+}

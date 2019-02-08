@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Home from '../Home';
 import BookDetails from '../BookDetails';
+import LoginOrRegister from '../LoginOrRegister';
 
 const styles = {
 	root: {
@@ -43,12 +44,13 @@ function AppNavBar(props) {
 						<Typography variant="h5" color="inherit" className={classes.heading}>
 							Geek Text
 						</Typography>
-						<Button color="inherit">Log In</Button>
+						<Button href="/login" color="inherit">Log In</Button>
 						<Button color="inherit">Shopping Cart</Button>
 					</Toolbar>
 				</AppBar>
 				<Route path="/" exact component={Home} />
 				<Route path="/book-details" component={BookDetails} />
+				<Route path="/login" component={LoginOrRegister} />
 			</div>
 		</Router>
 	);

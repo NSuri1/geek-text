@@ -15,8 +15,8 @@ const update = (id, updates, callback) => {
 	});
 };
 
-const fetchAll = (callback) => {
-	Media.find({}, (error, media) => {
+const fetchAll = (query, callback) => {
+	Media.find(query, (error, media) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : media);
 	});

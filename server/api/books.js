@@ -1,5 +1,6 @@
 import express from 'express';
 import bookService from '../services/book';
+import genresService from '../services/genre';
 import crud from './_crud';
 
 const router = new express.Router();

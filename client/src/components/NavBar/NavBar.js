@@ -14,7 +14,7 @@ import BookDetails from '../BookDetails';
 
 const styles = {
 	root: {
-		flexGrow: 1,
+		flexGrow: 1
 	},
 	heading: {
 		flexGrow: 1,
@@ -22,6 +22,7 @@ const styles = {
 	navBar: {
 		backgroundColor: 'brown',
 		color: 'white',
+		position: "fixed"
 	},
 	menuButton: {
 		marginLeft: -12,
@@ -40,9 +41,10 @@ function AppNavBar(props) {
 							<Menu />
 						</IconButton>
 						<Typography variant="h5" color="inherit" className={classes.heading}>
-							Geek Text Home
+							Geek Text
 						</Typography>
-						<Button color="inherit">Login</Button>
+						<Button color="inherit">Log In</Button>
+						<Button color="inherit">Shopping Cart</Button>
 					</Toolbar>
 				</AppBar>
 				<Route path="/" exact component={Home} />

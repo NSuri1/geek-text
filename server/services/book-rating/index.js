@@ -1,32 +1,29 @@
-import BookList from './model';
+import BookRating from './model';
 import {Severity, log} from '../../utils/logger';
 
 const create = (list, callback) => {
-	BookList.create(list, (error, created) => {
+	BookRating.create(list, (error, created) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : created);
 	});
 };
 
 const update = (id, updates, callback) => {
-	BookList.findByIdAndUpdate(id, {$set: updates}, {new: true}, (error, updated) => {
+	BookRating.findByIdAndUpdate(id, {$set: updates}, {new: true}, (error, updated) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : updated);
 	});
 };
 
 const fetchAll = (query, callback) => {
-	BookList.find(query, (error, lists) => {
+	BookRating.find(query, (error, ratings) => {
 		if (error) log(error.message, Severity.Error);
-		if (callback) callback(error ? null : lists);
+		if (callback) callback(error ? null : ratings);
 	});
 };
 
-const fetchById = (id, callback) => {
-	BookList.findById(id, (error, bookList) => {
-		if (error) log(error.message, Severity.Error);
-		if (callback) callback(error ? null : bookList);
-	});
+const fetchById = (book_id, callback) => {
+	fetchAll({book: id}, callback);
 };
 
 export default {

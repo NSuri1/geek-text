@@ -1,14 +1,66 @@
+* {
+  transition: 300ms all;
+}
+
 .book-card {
-  display: inline-block;
+  float: left;
   position: relative;
-  width: 25%;
+  width: 15%;
   height: 85%;
-  background-color: beige;
+  border-top: 3px solid #0b0e14;
+  background-color: #0b0e14;
   margin: auto 10px;
+  box-shadow: 5px 5px 5px black;
 }
 
 .book-card .cover-image {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.book-card .book-info {
+  position: absolute;
+  bottom: -180px; left: 0;
+  width: 100%;
+  height: 75%;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.book-card.hovered {
+  border-top: 3px solid white;
+}
+
+.book-card.hovered > .book-info {
+  bottom: 0px;
+}
+
+.book-info .title {
+  font-size: 15px;
+  white-space: pre-wrap;
+  margin: 10px 10px 5px 10px;
+  color: white;
+  text-align: right;
+  padding: 7px 0px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.book-info .author {
+  color: rgba(255, 255, 255, 0.6);
+  white-space: pre-wrap;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  text-align: right;
+}
+
+.book-info .price {
+  color: white;
+  text-align: right;
+  margin: 12px;
+  bottom: 15px;
+  position: absolute;
+  right: 0;
+  background-color: #ad5353;
+  padding: 2px;
 }

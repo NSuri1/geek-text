@@ -15,8 +15,8 @@ const update = (id, updates, callback) => {
 	});
 };
 
-const fetchAll = (callback) => {
-	ShoppingCart.find({}, (error, carts) => {
+const fetchAll = (query, callback) => {
+	ShoppingCart.find(query, (error, carts) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : carts);
 	});

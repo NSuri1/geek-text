@@ -21,14 +21,14 @@ class BookCard extends Component {
 		});
 	}
 
-	onCardHover(event) {
+	onCardHover() {
 		this.setState(prevState => ({
 			hasMouse: !prevState.hasMouse
 		}));
 	}
 
 	render() {
-		const cardClass = `book-card ${this.state.hasMouse ? 'hovered' : ''}`
+		const cardClass = `book-card ${this.state.hasMouse ? 'hovered' : ''}`;
 		return (
 			<div className={cardClass} onMouseEnter={this.onCardHover} onMouseLeave={this.onCardHover}>
 				<Link to={{ pathname: '/book-details', state: { bookId: this.props.book._id, book: this.props.book, bookCover: this.state.coverImage } }}>
@@ -39,11 +39,11 @@ class BookCard extends Component {
 				<div className="book-info">
 					<h5 className="title">{this.props.book.title}</h5>
 					<Link to={{ pathname: '/', state: { bookId: this.props.book._id } }}>
-						<h6 className="author">{`by ` + this.props.book.authors.reduce((acc, val) => acc + (acc ? ", " : "") + val.name, "")}
+						<h6 className="author">{'by ' + this.props.book.authors.reduce((acc, val) => acc + (acc ? ', ' : '') + val.name, '')}
 						</h6>
 					</Link>
 					<div className="rating"></div>
-					<h4 className="price">{`$` + this.props.book.price.toFixed(2)}</h4>
+					<h4 className="price">{'$' + this.props.book.price.toFixed(2)}</h4>
 				</div>
 			</div>
 

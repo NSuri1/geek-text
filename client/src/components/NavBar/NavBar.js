@@ -22,7 +22,7 @@ const styles = {
 	navBar: {
 		backgroundColor: 'brown',
 		color: 'white',
-		position: "fixed"
+		position: 'fixed'
 	},
 	menuButton: {
 		marginLeft: -12,

@@ -37,7 +37,9 @@ class BookCard extends Component {
 						<img className="cover-image" src={'book-placeholder.jpg'} alt="Book Cover"/>*/}
 				</Link>
 				<div className="book-info">
-					<h5 className="title">{this.props.book.title}</h5>
+					<Link to={{ pathname: '/book-details', state: { bookId: this.props.book._id, book: this.props.book, bookCover: this.state.coverImage } }}>
+						<h5 className="book-title">{this.props.book.title}</h5>
+					</Link>
 					<Link to={{ pathname: '/', state: { bookId: this.props.book._id } }}>
 						<h6 className="author">{'by ' + this.props.book.authors.reduce((acc, val) => acc + (acc ? ', ' : '') + val.name, '')}
 						</h6>

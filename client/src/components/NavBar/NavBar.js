@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/icons/Menu';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Home from '../Home';
 import BookDetails from '../BookDetails';
@@ -18,6 +19,8 @@ const styles = {
 	},
 	heading: {
 		flexGrow: 1,
+		color: "white",
+		textDecoration: "none"
 	},
 	navBar: {
 		backgroundColor: 'brown',
@@ -40,9 +43,11 @@ function AppNavBar(props) {
 						<IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
 							<Menu />
 						</IconButton>
-						<Typography variant="h5" color="inherit" className={classes.heading}>
-							Geek Text
-						</Typography>
+						<Link to={{ pathname: '/' }} className={classes.heading}>
+							<Typography variant="h5" color="inherit">
+								Geek Text
+							</Typography>
+						</Link>
 						<Button color="inherit">Log In</Button>
 						<Button color="inherit">Shopping Cart</Button>
 					</Toolbar>

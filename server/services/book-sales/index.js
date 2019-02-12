@@ -1,7 +1,7 @@
 import BookSales from './model';
-import {Severity, log} from '../../utils/logger';
+import { Severity, log } from '../../utils/logger';
 
-const create = (user, callback) => {
+const create = (sales, callback) => {
 	BookSales.create(user, (error, created) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : created);
@@ -16,16 +16,16 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	BookSales.find(query, (error, users) => {
+	BookSales.find(query, null, { $sort: { total_sold: -1 }}, (error, sales) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : sales);
 	});
 };
 
-const fetchByBookId = (book_id, callback) => {
+const fetchById = (book_id, callback) => {
 	fetchAll({book: book_id}, callback);
 };
 
 export default {
-	create, update, fetchAll, fetchByBookId,
+	create, update, fetchAll, fetchById
 };

@@ -13,6 +13,23 @@ class BookListing extends Component {
 	}
 
 	componentDidMount() {
+		if (this.props.genre.name === "Top Sellers") {
+			this.loadTopSellers();
+		} else {
+			this.loadGenreBooks();
+		}
+	}
+
+	loadTopSellers() {
+		api.getTopSellers({}, (result) => {
+			var books = JSON.parse(result);
+			this.setState({
+				books: books.results || []
+			});
+		});
+	}
+
+	loadGenreBooks() {
 		api.getBooks({ genre: this.props.genre._id }, (result) => {
 			const books = JSON.parse(result);
 			this.setState({

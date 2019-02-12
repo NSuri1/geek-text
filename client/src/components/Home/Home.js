@@ -16,7 +16,7 @@ class Home extends Component {
 			const genresSortedByCount = genres.results.sort((a, b) => (a.count < b.count));
 			const genresCulled = genresSortedByCount.filter(a => a.count !== 0);
 			this.setState({
-				genres: genresCulled || [],
+				genres: genresCulled || []
 			});
 		});
 	}
@@ -24,6 +24,7 @@ class Home extends Component {
 	render() {
 		return (
 			<div className="home">
+				<BookListing key="top-sellers" genre={{name: "Top Sellers"}} />
 				{this.state.genres.map(genre => <BookListing key={genre._id} genre={genre} />)}
 			</div>
 		);

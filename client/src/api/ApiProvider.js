@@ -56,6 +56,15 @@ class ApiProvider {
 			if (callback) callback(body);
 		});
 	}
+
+	getTopSellers(options, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-sellers`;
+
+		request(endpoint, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
+	}
 }
 
 export const api = new ApiProvider();

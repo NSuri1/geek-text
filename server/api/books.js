@@ -7,6 +7,7 @@ const router = new express.Router();
 
 router.post('/new', createBook);
 router.post('/update/:id', updateBook);
+router.get('/top-sellers', fetchTopSellers);
 router.get('/:id', fetchBookById);
 router.get('/', fetchBooks);
 
@@ -24,6 +25,15 @@ function fetchBooks(request, response) {
 
 function fetchBookById(request, response) {
 	crud.fetchById(bookService, request, response);
+}
+
+function fetchTopSellers(request, response) {
+	bookService.fetchTopSellers((result) => {
+		response.json({
+			success: result != null,
+			results: result,
+		});
+	});
 }
 
 export default {router};

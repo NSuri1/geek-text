@@ -59,6 +59,13 @@ const fetchTopSellers = (callback) => {
 	});
 };
 
+const fetchTopRated = (callback) => {
+	Book.find({}, null, {sort: { rating: -1 }}).limit(100).exec((error, books) => {
+		if (error) log(error.message, Severity.Error);
+		if (callback) callback(error ? null : books);
+	});
+};
+
 export default {
-	create, update, fetchAll, fetchById, fetchTopSellers
+	create, update, fetchAll, fetchById, fetchTopSellers, fetchTopRated
 };

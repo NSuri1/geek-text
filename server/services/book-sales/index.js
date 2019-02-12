@@ -16,7 +16,7 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	BookSales.find(query, null, { $sort: { total_sold: -1 }}, (error, sales) => {
+	BookSales.find(query, null, { sort: { total_sold: -1 }}, (error, sales) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : sales);
 	});

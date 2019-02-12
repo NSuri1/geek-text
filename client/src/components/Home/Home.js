@@ -25,6 +25,7 @@ class Home extends Component {
 		return (
 			<div className="home">
 				<BookListing key="top-sellers" genre={{name: "Top Sellers"}} />
+				<BookListing key="top-rated" genre={{name: "Top Rated"}} />
 				{this.state.genres.map(genre => <BookListing key={genre._id} genre={genre} />)}
 			</div>
 		);

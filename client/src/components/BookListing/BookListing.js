@@ -15,6 +15,8 @@ class BookListing extends Component {
 	componentDidMount() {
 		if (this.props.genre.name === "Top Sellers") {
 			this.loadTopSellers();
+		} else if (this.props.genre.name == "Top Rated") {
+			this.loadTopRated();
 		} else {
 			this.loadGenreBooks();
 		}
@@ -22,6 +24,15 @@ class BookListing extends Component {
 
 	loadTopSellers() {
 		api.getTopSellers({}, (result) => {
+			var books = JSON.parse(result);
+			this.setState({
+				books: books.results || []
+			});
+		});
+	}
+
+	loadTopRated() {
+		api.getTopRated({}, (result) => {
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []

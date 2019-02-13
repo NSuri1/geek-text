@@ -28,6 +28,16 @@ class BookCard extends Component {
 	}
 
 	render() {
+		const roundedRating = Math.floor(this.props.book.rating);
+		const ratingImages = [];
+		for (let i = 0; i < roundedRating; i++) {
+			if (i % 2 == 0) {
+				ratingImages.push(<img className="rating-half-star" src="/star_left.png"/>);
+			} else {
+				ratingImages.push(<img className="rating-half-star" src="/star_right.png"/>);
+			}
+		}
+
 		const cardClass = `book-card ${this.state.hasMouse ? 'hovered' : ''}`;
 		return (
 			<div className={cardClass} onMouseEnter={this.onCardHover} onMouseLeave={this.onCardHover}>
@@ -44,7 +54,9 @@ class BookCard extends Component {
 						<h6 className="author">{'by ' + this.props.book.authors.reduce((acc, val) => acc + (acc ? ', ' : '') + val.name, '')}
 						</h6>
 					</Link>
-					<div className="rating"></div>
+					<div className="rating">
+					{ratingImages}
+					</div>
 					<h4 className="price">{'$' + this.props.book.price.toFixed(2)}</h4>
 				</div>
 			</div>

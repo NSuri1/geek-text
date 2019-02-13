@@ -52,7 +52,7 @@ const fetchById = (id, callback) => {
 
 const fetchTopSellers = (callback) => {
 	bookSalesService.fetchAll({}, sales => {
-		Book.find({'_id': { $in: sales.map(obj => obj.book) }}).exec((error, books) => {
+		Book.find({'_id': { $in: sales.map(obj => obj.book) }}).populate('authors').exec((error, books) => {
 			if (error) log(error.message, Severity.Error);
 			if (callback) callback(error ? null : books);
 		});
@@ -60,7 +60,7 @@ const fetchTopSellers = (callback) => {
 };
 
 const fetchTopRated = (callback) => {
-	Book.find({}, null, {sort: { rating: -1 }}).limit(100).exec((error, books) => {
+	Book.find({}, null, {sort: { rating: -1 }}).limit(100).populate('authors').exec((error, books) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : books);
 	});

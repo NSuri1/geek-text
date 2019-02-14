@@ -17,7 +17,6 @@ class LoginBox extends Component {
             Login
           </div>
           <div className="box">
-  
             <div className="input-group">
               <label htmlFor="username">Username</label>
               <input
@@ -39,9 +38,7 @@ class LoginBox extends Component {
             <button
               type="button"
               className="login-btn"
-              onClick={this
-              .submitLogin
-              .bind(this)}>Login</button>
+              onClick={this.submitLogin.bind(this)}>Login</button>
           </div>
         </div>
       );

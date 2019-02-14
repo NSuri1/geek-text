@@ -12,8 +12,8 @@
     margin-bottom: 17px;
     font-family: Ozxgen, sans-serif;
     font-size: 22px;
-    border-bottom: 2px solid white;
-    color: white !important;
+    border-bottom: 2px solid brown !important;
+    color: white ;
   }
   
   .box {
@@ -28,7 +28,7 @@
     margin-top: 5px;
     margin-bottom: 30px !important;
     font-size: 22px;
-    color : white;
+    color : white ;
   }
   
   .login-label {
@@ -41,7 +41,7 @@
   .login-input {
     height: 15px !important;
     border-radius: 3px;
-    border: 2px solid white;
+    border: 2px brown !important;
     transition: border 0.4s ease-out;
     padding: 13px;
     font-family: Oxygen, sans-serif;
@@ -69,9 +69,9 @@
     font-size: 18px;
     border-radius: 3px;
     font-family: Oxygen, sans-serif;
-    background-color: blue ;
+    background-color: brown !important;
     margin-top: 20px;
-    border: 2px solid blue;
+    border: 2px solid brown !important;
     transition: background-color 0.3s ease-out;
     cursor: pointer;
     color: white !important;

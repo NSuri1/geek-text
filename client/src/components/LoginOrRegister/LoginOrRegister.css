@@ -44,5 +44,5 @@
   min-width: 21em;
   border-radius: 6px;
   padding: 24px;
-  background: brown;
+  border: 2px solid brown;
 }

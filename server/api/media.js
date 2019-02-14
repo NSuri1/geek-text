@@ -25,4 +25,4 @@ function fetchMediaById(request, response) {
 	crud.fetchById(mediaService, request, response);
 }
 
-export default {router};
+export default { router };

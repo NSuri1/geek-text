@@ -62,7 +62,7 @@ class BookDetails extends Component {
 							Ratings & Reviews:
 						</div>
 						<div>
-							3.5/5.0
+							{book.rating / 2}/5.0
 						</div>
 					</div>
 					<div>

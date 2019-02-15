@@ -35,7 +35,11 @@
   bottom: 0px;
 }
 
-.book-info .title {
+.book-info a:first-child {
+  text-decoration: none;
+}
+
+.book-info .book-title {
   font-size: 15px;
   white-space: pre-wrap;
   margin: 10px 10px 5px 10px;
@@ -63,4 +67,15 @@
   right: 0;
   background-color: #ad5353;
   padding: 2px;
+}
+
+.book-info .rating {
+  display: inline-block;
+  position: absolute;
+  bottom: 29px;
+  left: 10px;
+}
+
+.book-info .rating > img {
+  width: 8px; height: 12px;
 }

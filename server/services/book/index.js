@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import genresService from '../genre';
+=======
+import genresService from '../genre'
+import bookSalesService from '../book-sales'
+>>>>>>> master
 import Book from './model';
 import {Severity, log} from '../../utils/logger';
 
@@ -49,6 +54,22 @@ const fetchById = (id, callback) => {
 	});
 };
 
+const fetchTopSellers = (callback) => {
+	bookSalesService.fetchAll({}, sales => {
+		Book.find({'_id': { $in: sales.map(obj => obj.book) }}).populate('authors').exec((error, books) => {
+			if (error) log(error.message, Severity.Error);
+			if (callback) callback(error ? null : books);
+		});
+	});
+};
+
+const fetchTopRated = (callback) => {
+	Book.find({}, null, {sort: { rating: -1 }}).limit(100).populate('authors').exec((error, books) => {
+		if (error) log(error.message, Severity.Error);
+		if (callback) callback(error ? null : books);
+	});
+};
+
 export default {
-	create, update, fetchAll, fetchById,
+	create, update, fetchAll, fetchById, fetchTopSellers, fetchTopRated
 };

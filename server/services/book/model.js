@@ -11,6 +11,7 @@ const schema = new mongoose.Schema({
 	isbn13: {type: String, required: true},
 	price: {type: Number, min: 0, required: true},
 	cover_image: {type: ObjectId, ref: 'Media'},
+	rating: {type: Number, min: 0.0, max: 10.0, default: 0.0},
 	publisher: {type: String, required: true},
 	published_on: {type: Date, required: true},
 });

@@ -47,6 +47,10 @@ const config = {
 		},
 		genres: {
 			fetch: '/genres'
+		},
+		sales: {
+			fetch: '/book-sales',
+			update: '/book-sales/update',
 		}
 	},
 };

@@ -10,47 +10,51 @@ class ApiProvider {
 
 	}
 
-	getBooks(options, callback) {
+	getBooks(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}`;
 		endpoint += options.genre ? `?genre=${options.genre}` : '';
 
-		request(endpoint, (error, response, body) => {
-			if (error) console.log(error);
-			if (callback) callback(body);
-		});
+		this._fetch(endpoint, callback, errorCallback);
 	}
 
-	getGenres(options, callback) {
+	getGenres(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.genres.fetch}`;
 
-		request(endpoint, (error, response, body) => {
-			if (error) console.log(error);
-			if (callback) callback(body);
-		});
+		this._fetch(endpoint, callback, errorCallback);
 	}
 
-	getMedia(options, callback) {
+	getMedia(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.media.fetch}`;
 		endpoint += options.id ? `/${options.id}` : '';
 
-		request(endpoint, (error, response, body) => {
-			if (error) console.log(error);
-			if (callback) callback(body);
-		});
+		this._fetch(endpoint, callback, errorCallback);
 	}
 
 	getBookById(id, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/${id}`;
 
-		request(endpoint, (error, response, body) => {
-			if (error && errorCallback) errorCallback(error);
-			if (callback) callback(body);
-		});
+		this._fetch(endpoint, callback, errorCallback);
 	}
 
 	getGenreById(id, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.genres.fetch}/${id}`;
 
+		this._fetch(endpoint, callback, errorCallback);
+	}
+
+	getTopSellers(options, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-sellers`;
+
+		this._fetch(endpoint, callback, errorCallback);
+	}
+
+	getTopRated(options, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-rated`;
+
+		this._fetch(endpoint, callback, errorCallback);
+	}
+
+	_fetch(endpoint, callback, errorCallback) {
 		request(endpoint, (error, response, body) => {
 			if (error && errorCallback) errorCallback(error);
 			if (callback) callback(body);

@@ -1,5 +1,5 @@
 import BookRating from './model';
-import {Severity, log} from '../../utils/logger';
+import { Severity, log } from '../../utils/logger';
 
 const create = (list, callback) => {
 	BookRating.create(list, (error, created) => {

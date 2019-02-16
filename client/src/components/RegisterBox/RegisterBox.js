@@ -20,8 +20,8 @@ class RegisterBox extends Component {
   }
 
     submitRegister= (e) =>{
-
       console.log(this.state)
+      api.createUser(this.state)
     }
 
   

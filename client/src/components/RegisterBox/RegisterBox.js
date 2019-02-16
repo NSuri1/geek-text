@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './RegisterBox.css';
+import { api } from '../../api/ApiProvider';
+
 
 class RegisterBox extends Component {
 
@@ -7,8 +9,21 @@ class RegisterBox extends Component {
       super(props);
       this.state = {};
     }
-  
-    submitRegister(e) {}
+
+    handleInput = (e) =>{
+      const value = e.target.value
+      const name = e.target.name
+
+      this.setState({
+          [name]: value
+      })
+  }
+
+    submitRegister= (e) =>{
+
+      console.log(this.state)
+    }
+
   
     render() {
       return (
@@ -21,6 +36,7 @@ class RegisterBox extends Component {
             <div className="input-group">
               <label htmlFor="username">Username</label>
               <input
+                onChange={this.handleInput}
                 type="text"
                 name="username"
                 className="login-input"
@@ -30,6 +46,7 @@ class RegisterBox extends Component {
             <div className="input-group">
               <label htmlFor="password">Password</label>
               <input
+                onChange={this.handleInput}
                 type="password"
                 name="password"
                 className="login-input"
@@ -37,19 +54,21 @@ class RegisterBox extends Component {
             </div>
   
             <div className="input-group">
-              <label htmlFor="firstName">First Name</label>
+              <label htmlFor="first_name">First Name</label>
               <input 
+                onChange={this.handleInput}
                 type="text" 
-                name="firstName" 
+                name="first_name" 
                 className="login-input" 
                 placeholder="First Name"/>
             </div>
 
             <div className="input-group">
-              <label htmlFor="lastName">Last Name</label>
+              <label htmlFor="last_name">Last Name</label>
               <input 
+                onChange={this.handleInput}
                 type="text" 
-                name="lastName" 
+                name="last_name" 
                 className="login-input" 
                 placeholder="Last Name"/>
             </div>
@@ -57,6 +76,7 @@ class RegisterBox extends Component {
             <div className="input-group">
               <label htmlFor="email">Email</label>
               <input
+                onChange={this.handleInput}
                 type="text"
                 name="email"
                 className="login-input"
@@ -67,16 +87,18 @@ class RegisterBox extends Component {
             Address
             </div>
               <div className="input-group">
-                <label htmlFor="addressLine1">Line 1</label>
+                <label htmlFor="address_line1">Line 1</label>
                 <input 
+                  onChange={this.handleInput}
                   type="text" 
-                  name="addressLine1" 
+                  name="address_line1" 
                   className="login-input" 
                   placeholder="Street, P.O. box, company name..."/>
               </div>
               <div className="input-group">
-                <label htmlFor="addressLine2">Line 2</label>
+                <label htmlFor="address_line2">Line 2</label>
                 <input 
+                  onChange={this.handleInput}
                   type="text" 
                   name="addressLine2" 
                   className="login-input" 
@@ -84,6 +106,7 @@ class RegisterBox extends Component {
               </div> <div className="input-group">
                 <label htmlFor="city">City</label>
                 <input 
+                  onChange={this.handleInput}
                   type="text" 
                   name="city" 
                   className="login-input" 
@@ -92,6 +115,7 @@ class RegisterBox extends Component {
               <div className="input-group">
                 <label htmlFor="state">State</label>
                 <input 
+                  onChange={this.handleInput}
                   type="text" 
                   name="state" 
                   className="login-input" 
@@ -100,6 +124,7 @@ class RegisterBox extends Component {
               <div className="input-group">
                 <label htmlFor="zip">Zip</label>
                 <input 
+                  onChange={this.handleInput}
                   type="text" 
                   name="zip" 
                   className="login-input" 
@@ -107,7 +132,7 @@ class RegisterBox extends Component {
               </div>
               <div className="input-group">
                 <label htmlFor="country">Country</label>
-                <select name="country" className="dropdown-input">
+                <select onChange={this.handleInput} name="country" className="dropdown-input">
                   <option value="" defaultValue="selected">(please select a country)</option>
                   <option value="AF">Afghanistan</option>
                   <option value="AL">Albania</option>
@@ -355,8 +380,9 @@ class RegisterBox extends Component {
               type="button"
               className="login-btn"
               onClick={this
-              .submitRegister
-              .bind(this)}>Register</button>
+              .submitRegister.bind(this)}>
+                Register
+            </button>
           </div>
         </div>
       );

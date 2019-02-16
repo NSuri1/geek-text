@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import genresService from '../genre';
-=======
 import genresService from '../genre'
 import bookSalesService from '../book-sales'
->>>>>>> master
 import Book from './model';
 import {Severity, log} from '../../utils/logger';
 

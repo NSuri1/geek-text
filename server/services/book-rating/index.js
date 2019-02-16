@@ -23,7 +23,7 @@ const fetchAll = (query, callback) => {
 };
 
 const fetchById = (book_id, callback) => {
-	fetchAll({book: id}, callback);
+	fetchAll({book: book_id}, callback);
 };
 
 export default {

@@ -7,7 +7,7 @@ import addresses from './addresses';
 import creditCards from './credit-cards';
 import shoppingCarts from './shopping-carts';
 import bookLists from './book-lists';
-import genres from './genres'
+import genres from './genres';
 import bookSales from './book-sales';
 import bookRatings from './book-ratings';
 

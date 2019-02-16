@@ -1,0 +1,129 @@
+.inner-container {
+  transition: visibility 0.2s ease-out;
+}
+
+.inner-container.show {
+  visibility: visible;
+}
+
+.header {
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 17px;
+  font-family: Ozxgen, sans-serif;
+  font-size: 22px;
+  border-bottom: 2px solid brown !important;
+  color: white ;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  margin-bottom: 30px !important;
+  font-size: 22px;
+  color : white ;
+}
+
+.login-label {
+  font-family: Oxygen, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  padding-left: 5px;
+}
+
+.login-input {
+  height: 15px !important;
+  border-radius: 3px;
+  border: 2px brown !important;
+  transition: border 0.4s ease-out;
+  padding: 13px;
+  font-family: Oxygen, sans-serif;
+  font-size: 19px;
+  color: #3e3e42;
+}
+
+.dropdown-input {
+  height: 45px !important;
+  border-radius: 3px;
+  border: 2px brown !important;
+  transition: border 0.4s ease-out;
+  padding: 13px;
+  font-family: Oxygen, sans-serif;
+  font-size: 19px;
+  color: #3e3e42;
+  width: 100%;
+}
+
+.login-input:hover {
+  border: 2px solid blue;
+}
+
+.login-input:focus {
+  border: 2px solid black;
+  box-shadow: 0px 0px 20px rgba(15, 15, 15, 0.2);
+}
+
+.login-input::placeholder {
+  font-family: Oxygen, sans-serif;
+  font-size: 16px; 
+}
+
+.login-btn {
+  padding: 2px 30px;
+  border: 0;
+  font-size: 18px;
+  border-radius: 3px;
+  font-family: Oxygen, sans-serif;
+  background-color: brown !important;
+  margin-top: 20px;
+  border: 2px solid brown !important;
+  transition: background-color 0.3s ease-out;
+  cursor: pointer;
+  color: white !important;
+}
+
+.login-btn:hover,
+.login-btn:focus {
+  background-color: blue;
+  color: white;
+}
+
+.danger-error {
+  color: #e74c3c;
+  font-size: 16px;
+}
+
+.password-state {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.pwd {
+  height: 6px;
+  flex: 1;
+  visibility: hidden;
+}
+
+.pwd-weak {
+  background-color: #e74c3c;
+}
+
+.pwd-medium {
+  background-color: #3498db;
+}
+
+.pwd-strong {
+  background-color: #2ecc71;
+}
+
+.show {
+  visibility: visible;
+}

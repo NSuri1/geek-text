@@ -34,21 +34,21 @@ const fetchOneSimilarByName = (name, callback) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : genre);
 	});
-}
+};
 
 const incrementBookCount = (id, callback) => {
 	Genre.findByIdAndUpdate(id, {$inc: {book_count: 1}}, {new: true}, (error, updated) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : updated);
 	});
-}
+};
 
 const decrementBookCount = (id, callback) => {
 	Genre.findByIdAndUpdate(id, {$inc: {book_count: -1}}, {new: true}, (error, updated) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : updated);
 	});
-}
+};
 
 export default {
 	create, update, fetchAll, fetchById, fetchOneSimilarByName,

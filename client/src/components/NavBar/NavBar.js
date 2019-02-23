@@ -20,8 +20,8 @@ const styles = {
 	},
 	heading: {
 		flexGrow: 1,
-		color: "white",
-		textDecoration: "none"
+		color: 'white',
+		textDecoration: 'none'
 	},
 	navBar: {
 		backgroundColor: 'brown',

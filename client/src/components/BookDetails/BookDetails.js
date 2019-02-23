@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ModalImage from 'react-modal-image';
 import { api } from '../../api/ApiProvider';
 import './BookDetails.css';
 
@@ -41,7 +42,12 @@ class BookDetails extends Component {
 		return (
 			<div className="container">
 				<div className="imgContainer">
-					<img className="imageCover" src={this.state.bookCover !== '' ? `data:image/jpeg;base64,${this.state.bookCover}` : 'book-placeholder.jpg'} alt="Book Cover" />
+					<ModalImage
+						small={this.state.bookCover !== '' ? `data:image/jpeg;base64,${this.state.bookCover}` : 'book-placeholder.jpg'}
+						large={this.state.bookCover !== '' ? `data:image/jpeg;base64,${this.state.bookCover}` : 'book-placeholder.jpg'}
+						alt={this.state.book.title}
+					/>
+					{/* <img className="imageCover" src={this.state.bookCover !== '' ? `data:image/jpeg;base64,${this.state.bookCover}` : 'book-placeholder.jpg'} alt="Book Cover" onClick={() => () => this.setState({ open: true })} /> */}
 				</div>
 				<div className="bookInfoSubContainer">
 					<div>

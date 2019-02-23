@@ -13,9 +13,9 @@ class BookListing extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.genre.name === "Top Sellers") {
+		if (this.props.genre.name === 'Top Sellers') {
 			this.loadTopSellers();
-		} else if (this.props.genre.name == "Top Rated") {
+		} else if (this.props.genre.name === 'Top Rated') {
 			this.loadTopRated();
 		} else {
 			this.loadGenreBooks();

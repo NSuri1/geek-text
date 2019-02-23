@@ -31,10 +31,10 @@ class BookCard extends Component {
 		const roundedRating = Math.floor(this.props.book.rating);
 		const ratingImages = [];
 		for (let i = 0; i < roundedRating; i++) {
-			if (i % 2 == 0) {
-				ratingImages.push(<img className="rating-half-star" src="/star_left.png"/>);
+			if (i % 2 === 0) {
+				ratingImages.push(<img className="rating-half-star" src="/star_left.png" alt="Star" />);
 			} else {
-				ratingImages.push(<img className="rating-half-star" src="/star_right.png"/>);
+				ratingImages.push(<img className="rating-half-star" src="/star_right.png" alt="Star" />);
 			}
 		}
 
@@ -55,7 +55,7 @@ class BookCard extends Component {
 						</h6>
 					</Link>
 					<div className="rating">
-					{ratingImages}
+						{ratingImages}
 					</div>
 					<h4 className="price">{'$' + this.props.book.price.toFixed(2)}</h4>
 				</div>

@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import Home from '../Home';
 import BookDetails from '../BookDetails';
 import LoginOrRegister from '../LoginOrRegister';
+import BookBrowser from '../BookBrowser';
 
 const styles = {
 	root: {
@@ -56,6 +57,7 @@ function AppNavBar(props) {
 				<Route path="/" exact component={Home} />
 				<Route path="/book-details" component={BookDetails} />
 				<Route path="/login" component={LoginOrRegister} />
+				<Route path="/browse" component={BookBrowser} />
 			</div>
 		</Router>
 	);

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './BookListing.css';
 
 import BookCard from '../BookCard';
+import { Link } from 'react-router-dom';
 import { api } from '../../api/ApiProvider';
 
 class BookListing extends Component {
@@ -54,6 +55,9 @@ class BookListing extends Component {
 			<div className="listing-container-outer">
 				<Typography variant="h5" color="inherit" className="listing-header">
 					{this.props.genre.name}
+					<Link to={{ pathname: `/browse`, state: { genre: this.props.genre._id } }}>
+						<h6 className="book-title">Show All</h6>
+					</Link>
 				</Typography>
 				<div className="listing-container-inner">
 					{this.state.books.map(book => <BookCard key={book._id} book={book} />)}

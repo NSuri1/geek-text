@@ -55,7 +55,7 @@ class ApiProvider {
 	}
 
 	createUser(user, callback, errorCallback) {
-		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.create}`;
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.register}`;
 
 		fetch(endpoint, {
 			method: 'POST',
@@ -68,12 +68,10 @@ class ApiProvider {
   		.catch(error => console.error('Error:', error));
 	}
 
-	_fetch(endpoint, callback, errorCallback) {
-		request(endpoint, (error, response, body) => {
-			if (error && errorCallback) errorCallback(error);
-			if (callback) callback(body);
-		});
+	createAddress(callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.addresses.create}`
 	}
+
 }
 
 export const api = new ApiProvider();

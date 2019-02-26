@@ -7,7 +7,19 @@ class RegisterBox extends Component {
 
     constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+        username: '',
+        password: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        address_line1: '',
+        addressLine2: '',
+        city: '',
+        state: '',
+        zip: '',
+        country: ''
+      };
     }
 
     handleInput = (e) =>{
@@ -20,8 +32,13 @@ class RegisterBox extends Component {
   }
 
     submitRegister= (e) =>{
+      let addressID = ''
+
       console.log(this.state)
-      api.createUser(this.state)
+
+      api.createAddress()
+      
+      console.log(addressID)
     }
 
   
@@ -37,6 +54,7 @@ class RegisterBox extends Component {
               <label htmlFor="username">Username</label>
               <input
                 onChange={this.handleInput}
+                value={this.state.username}
                 type="text"
                 name="username"
                 className="login-input"

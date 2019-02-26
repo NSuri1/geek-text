@@ -30,5 +30,5 @@ const fetchById = (id, callback) => {
 };
 
 export default {
-	create, update, fetchAll, fetchById,
+	create, update, fetchAll, fetchById, User
 };

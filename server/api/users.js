@@ -1,16 +1,109 @@
 import express from 'express';
 import userService from '../services/user';
+import User from '../services/user/model'
 import crud from './_crud';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import config from '../config'
+
+//input validation
+import validateRegisterInput from '../validation/register';
+import validateLoginInput from '../validation/login';
 
 const router = new express.Router();
 
-router.post('/new', createUser);
+router.post('/register', registerUser);
+router.post('/login', loginUser);
 router.post('/update/:id', updateUser);
 router.get('/:id', fetchUsersById);
 router.get('/', fetchUsers);
 
-function createUser(request, response) {
-	crud.create(userService, request, response);
+function registerUser(req, res) {
+	// Form validation
+	const { errors, isValid } = validateRegisterInput(req.body);
+
+	// Check validation
+	if (!isValid) {
+		return res.status(400).json(errors);
+	}
+
+	// Check if Email or Username already exists
+	User.findOne({ email: req.body.email }).then(user => {
+		if (user) {
+		  return res.status(400).json({ email: "Email already exists" });
+		}
+		else {
+			User.findOne({ username: req.body.username }).then(user => {
+				if (user) {
+					return res.status(400).json({ username: "Username already exists" });
+				}
+				else {
+					// Hash password before saving in database
+					bcrypt.genSalt(10, (err, salt) => {
+						bcrypt.hash(req.body.password, salt, (err, hash) => {
+							if (err) throw err;
+							req.body.password = hash;
+							crud.create(userService, req, res)
+						})
+					});
+				}
+			});
+		}	
+	});
+}
+
+function loginUser(req, res) {
+	// Form validation
+	const { errors, isValid } = validateLoginInput(req.body);
+	
+	// Check validation
+	if (!isValid) {
+		return res.status(400).json(errors);
+	}
+	
+	const username = req.body.username;
+	const password = req.body.password;
+	
+	// Find user by Username
+	User.findOne({ username : username }).then(user => {
+		if (!user) {
+			return res.status(404).json({ usernameNotFound: "Username not found" });
+		}
+		else {
+			// Check password
+			bcrypt.compare(password, user.password).then(isMatch => {
+				if (isMatch) {
+					// User matched
+					// Create JWT Payload
+					const payload = {
+						id: user.id,
+						first_name: user.first_name,
+						last_name: user.last_name,
+						email: user.email,
+					};
+					// Sign token
+					jwt.sign(
+						payload,
+						config.secretOrKey,
+						{
+						expiresIn: 86400 // 1 day in seconds
+						},
+						(err, token) => {
+							res.json({
+								success: true,
+								token: "Bearer " + token
+							});
+						}
+					);
+				} 
+				else {
+					return res
+					.status(400)
+					.json({ passwordIncorrect: "Password incorrect" });
+				}
+			});
+		}
+	});
 }
 
 function updateUser(request, response) {

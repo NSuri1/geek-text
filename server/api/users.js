@@ -1,10 +1,10 @@
 import express from 'express';
 import userService from '../services/user';
-import User from '../services/user/model'
+import User from '../services/user/model';
 import crud from './_crud';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import config from '../config'
+import config from '../config';
 
 //input validation
 import validateRegisterInput from '../validation/register';
@@ -30,12 +30,12 @@ function registerUser(req, res) {
 	// Check if Email or Username already exists
 	User.findOne({ email: req.body.email }).then(user => {
 		if (user) {
-		  return res.status(400).json({ email: "Email already exists" });
+		  return res.status(400).json({ email: 'Email already exists' });
 		}
 		else {
 			User.findOne({ username: req.body.username }).then(user => {
 				if (user) {
-					return res.status(400).json({ username: "Username already exists" });
+					return res.status(400).json({ username: 'Username already exists' });
 				}
 				else {
 					// Hash password before saving in database
@@ -43,8 +43,8 @@ function registerUser(req, res) {
 						bcrypt.hash(req.body.password, salt, (err, hash) => {
 							if (err) throw err;
 							req.body.password = hash;
-							crud.create(userService, req, res)
-						})
+							crud.create(userService, req, res);
+						});
 					});
 				}
 			});
@@ -67,7 +67,7 @@ function loginUser(req, res) {
 	// Find user by Username
 	User.findOne({ username : username }).then(user => {
 		if (!user) {
-			return res.status(404).json({ usernameNotFound: "Username not found" });
+			return res.status(404).json({ usernameNotFound: 'Username not found' });
 		}
 		else {
 			// Check password
@@ -86,20 +86,20 @@ function loginUser(req, res) {
 						payload,
 						config.secretOrKey,
 						{
-						expiresIn: 86400 // 1 day in seconds
+							expiresIn: 86400 // 1 day in seconds
 						},
 						(err, token) => {
 							res.json({
 								success: true,
-								token: "Bearer " + token
+								token: 'Bearer ' + token
 							});
 						}
 					);
 				} 
 				else {
 					return res
-					.status(400)
-					.json({ passwordIncorrect: "Password incorrect" });
+						.status(400)
+						.json({ passwordIncorrect: 'Password incorrect' });
 				}
 			});
 		}

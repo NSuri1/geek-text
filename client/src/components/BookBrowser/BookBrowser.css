@@ -1,1 +1,14 @@
+.book-browser-container {
+  position: relative;
+  height: 100%; width: 100%;
+  padding-top: 65px;
+}
 
+.filters-sidebar {
+  width: 20vw;
+  height: 65%;
+  background-color: #171b23;
+  bottom: 0;
+  position: fixed;
+  box-shadow: 0px 6px 13px #000
+}

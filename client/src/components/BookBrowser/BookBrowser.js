@@ -4,6 +4,8 @@ import './BookBrowser.css';
 import { Link } from 'react-router-dom';
 import { api } from '../../api/ApiProvider';
 
+import BookFilter from '../BookFilter'
+
 class BookBrowser extends Component {
 	constructor(props) {
 		super(props);
@@ -13,7 +15,13 @@ class BookBrowser extends Component {
 
 	render() {
 		return (
-			<div></div>
+			<div className="book-browser-container">
+				<div className="filters-sidebar">
+					{["Title", "Genre", "Author", "Price", "Rating"].map(el => {
+						return <BookFilter category={el}/>
+					})}
+				</div>
+			</div>
 		);
 	}
 }

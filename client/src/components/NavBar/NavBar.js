@@ -17,7 +17,8 @@ import BookBrowser from '../BookBrowser';
 
 const styles = {
 	root: {
-		flexGrow: 1
+		flexGrow: 1,
+		height: "100%"
 	},
 	heading: {
 		flexGrow: 1,

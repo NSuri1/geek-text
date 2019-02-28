@@ -11,4 +11,19 @@
   background-color: #0b0e14;
   padding: 10px;
   width: 100%;
+  position: relative;
+}
+
+.toggle-label > h5 {
+  margin: 0;
+  display: inline-block;
+}
+
+.toggle-label > .category-count {
+  display: inline-block;
+  float: right;
+  font-size: 8pt;
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
 }

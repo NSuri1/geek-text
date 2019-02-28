@@ -2,6 +2,8 @@
   transition: 300ms all;
 }
 
+/* General Book Card Styles */
+
 .book-card {
   float: left;
   position: relative;
@@ -78,4 +80,26 @@
 
 .book-info .rating > img {
   width: 8px; height: 12px;
+}
+
+/* Book Collection Card Styles */
+
+.book-collection-card {
+  width: 140px; height: 175px;
+  margin: 15px;
+}
+
+.book-collection-card .book-info {
+  display: none;
+}
+
+.book-collection-card .book-info .rating > img {
+  width: 5px; height: 9px;
+}
+
+.book-collection-card.hovered {
+  width: 150px; height: 185px;
+  bottom: -3px;
+  margin: 10px;
+  border-top: none;
 }

@@ -38,7 +38,10 @@ class BookCard extends Component {
 			}
 		}
 
-		const cardClass = `book-card ${this.state.hasMouse ? 'hovered' : ''}`;
+		var cardClass = `book-card ${this.state.hasMouse ? 'hovered' : ''}`;
+		if (this.props.collectionCard) {
+			cardClass += ` book-collection-card`;
+		}
 		return (
 			<div className={cardClass} onMouseEnter={this.onCardHover} onMouseLeave={this.onCardHover}>
 				<Link to={{ pathname: '/book-details', state: { bookId: this.props.book._id, book: this.props.book, bookCover: this.state.coverImage } }}>

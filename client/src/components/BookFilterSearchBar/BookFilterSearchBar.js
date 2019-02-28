@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './BookFilter.css';
+import './BookFilterSearchBar.css';
 import { Link } from 'react-router-dom';
 import { api } from '../../api/ApiProvider';
 
-class BookFilter extends Component {
+class BookFilterSearchBar extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -13,18 +13,13 @@ class BookFilter extends Component {
 
 	render() {
 		return (
-			<div className="book-filter">
-				<div className="toggle-label">
-					<h5>{this.props.category}</h5>
-					<h5 className="category-count">200</h5>
-				</div>
-			</div>
+			<input placeholder="Search" type="text" className="book-filter"/>
 		);
 	}
 }
 
-BookFilter.propTypes = {
+BookFilterSearchBar.propTypes = {
 	book: PropTypes.object
 };
 
-export default BookFilter;
+export default BookFilterSearchBar;

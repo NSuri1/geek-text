@@ -1,0 +1,15 @@
+input[type="text"] {
+  background-color: #171b23;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  width: 92%;
+  height: 50px;
+  color: white;
+  font-size: 16pt;
+  padding: 10px;
+}
+
+::placeholder {
+  color: gray;
+}

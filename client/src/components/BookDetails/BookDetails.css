@@ -1,15 +1,24 @@
-
-h1, h3 {
-	font-weight: bolder;
-}
-
 .container {
 	color: white;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	padding-top: 10%;
 	justify-content: center;
 	flex-wrap: wrap;
+}
+
+.bookDetailsContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.authorDetailsContainer {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	padding: 5%;
 }
 
 .bookInfoSubContainer {

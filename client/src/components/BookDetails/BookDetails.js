@@ -98,13 +98,14 @@ class BookDetails extends Component {
 						</div>
 					</div>
 				</div>
+				<div className="divider"></div>
 				<div className="authorDetailsContainer">
 					<div className="heading">More about the author(s):</div>
 					{book.authors.map(author => {
 						let info = author.bio ? author.bio : `We currently do not have any information stored about ${author.name}.`;
 						return (
 							<div key={author.name}>
-								<div>{author.name}</div>
+								<div className="authorBio">- {author.name}</div>
 								<div>{info}</div>
 							</div>
 						);

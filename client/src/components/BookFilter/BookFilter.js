@@ -17,8 +17,8 @@ class BookFilter extends Component {
 			filterFunction(result => {
 				var data = JSON.parse(result);
 				data = data.results.map(obj => obj.name ? obj.name :
-																								 (obj.title ? obj.title : null))
-														.filter(e => e != null);
+					(obj.title ? obj.title : null))
+					.filter(e => e != null);
 				this.setState({
 					filterData: data || []
 				});
@@ -34,7 +34,7 @@ class BookFilter extends Component {
 
 	render() {
 		var contentClass = `toggle-contents ${this.state.toggled ? 'expanded' : ''}`;
-		var contents = this.state.filterData.map(datum => <div key={datum} className="datum">{datum}</div>);
+		var contents = this.state.filterData.map(datum => <div className="datum" key={datum}>{datum}</div>);
 		return (
 			<div className="book-filter">
 				<div className="toggle-label" onClick={this.toggleFilter}>

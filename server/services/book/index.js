@@ -37,7 +37,13 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	Book.find(query).populate('authors').exec((error, books) => {
+	let fields = query["fields"] ? query["fields"].replace(",", " ") : null;
+	delete query["fields"];
+	var q = Book.find(query).select(fields);
+	if (fields == null || fields.includes("author"))
+		q.populate("author");
+
+	q.exec((error, books) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : books);
 	});

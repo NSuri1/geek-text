@@ -16,7 +16,9 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	Genre.find(query, {}, {sort: {name: 1}}, (error, genres) => {
+	let fields = query["fields"] ? query["fields"].replace(",", " ") : null;
+	delete query["fields"];
+	Genre.find(query, fields, {sort: {name: 1}}, (error, genres) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : genres);
 	});

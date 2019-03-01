@@ -16,7 +16,9 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	Media.find(query, (error, media) => {
+	let fields = query["fields"] ? query["fields"].replace(",", " ") : null;
+	delete query["fields"];
+	Media.find(query, fields, (error, media) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : media);
 	});

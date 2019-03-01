@@ -34,9 +34,11 @@ class BookBrowser extends Component {
 			<div className="book-browser-container">
 				<div className="filters-sidebar">
 					<BookFilterSearchBar />
+					<div className="filters">
 					{["Title", "Genre", "Author", "Price", "Rating"].map(el => {
-						return <BookFilter category={el}/>
+						return <BookFilter key={el} category={el}/>
 					})}
+					</div>
 				</div>
 				<div className="book-collection">
 					{this.state.books.map(book => <BookCard key={book._id} book={book} collectionCard={true} />)}

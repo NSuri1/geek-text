@@ -32,9 +32,9 @@ class BookCard extends Component {
 		const ratingImages = [];
 		for (let i = 0; i < roundedRating; i++) {
 			if (i % 2 === 0) {
-				ratingImages.push(<img className="rating-half-star" src="/star_left.png" alt="Star" />);
+				ratingImages.push(<img key={i} className="rating-half-star" src="/star_left.png" alt="Star" />);
 			} else {
-				ratingImages.push(<img className="rating-half-star" src="/star_right.png" alt="Star" />);
+				ratingImages.push(<img key={i} className="rating-half-star" src="/star_right.png" alt="Star" />);
 			}
 		}
 

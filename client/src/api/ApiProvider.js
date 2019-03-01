@@ -7,18 +7,37 @@ class ApiProvider {
 	}
 
 	_initialize() {
+		this._filterGetters = {
+			"Title": this._partial(this.getBooks, { fields: ["title"] }),
+			"Genre": this._partial(this.getGenres, { fields: ["name"] }),
+			"Author": this._partial(this.getAuthors, { fields: ["name"] }),
+			"Price": this.getPricesList,
+			"Rating": this.getRatingsList
+		};
+	}
 
+	filterGetters() {
+		return this._filterGetters;
 	}
 
 	getBooks(options, callback, errorCallback) {
-		let endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}`;
+		let endpoint = `${serverConf.uri}${serverConf.endpoints.books.fetch}`;
 		endpoint += options.genre ? `?genre=${options.genre}` : '';
+		endpoint += options.fields && Array.isArray(options.fields) ? `?fields=${options.fields.join(',')}` : '';
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
 	getGenres(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.genres.fetch}`;
+		endpoint += options.fields && Array.isArray(options.fields) ? `?fields=${options.fields.join(',')}` : '';
+
+		this._fetch(endpoint, callback, errorCallback);
+	}
+
+	getAuthors(options, callback, errorCallback) {
+		let endpoint = `${serverConf.uri}/${serverConf.endpoints.authors.fetch}`;
+		endpoint += options.fields && Array.isArray(options.fields) ? `?fields=${options.fields.join(',')}` : '';
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
@@ -26,6 +45,7 @@ class ApiProvider {
 	getMedia(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.media.fetch}`;
 		endpoint += options.id ? `/${options.id}` : '';
+		endpoint += options.fields && Array.isArray(options.fields) ? `?fields=${options.fields.join(',')}` : '';
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
@@ -54,11 +74,29 @@ class ApiProvider {
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
+	getPricesList(callback, errorCallback) {
+
+	}
+
+	getRatingsList(callback, errorCallback) {
+
+	}
+
+	getBookTitles(callback, errorCallback) {
+
+	}
+
 	_fetch(endpoint, callback, errorCallback) {
 		request(endpoint, (error, response, body) => {
 			if (error && errorCallback) errorCallback(error);
 			if (callback) callback(body);
 		});
+	}
+
+	_partial(func, ...argsBound) {
+		return function(...args) {
+			return func.call(this, ...argsBound, ...args);
+		}
 	}
 }
 

@@ -34,7 +34,7 @@ class BookFilter extends Component {
 
 	render() {
 		var contentClass = `toggle-contents ${this.state.toggled ? 'expanded' : ''}`;
-		var contents = this.state.filterData.map(datum => <div class="datum">{datum}</div>);
+		var contents = this.state.filterData.map(datum => <div key={datum} className="datum">{datum}</div>);
 		return (
 			<div className="book-filter">
 				<div className="toggle-label" onClick={this.toggleFilter}>
@@ -42,7 +42,9 @@ class BookFilter extends Component {
 					<h5 className="category-count">{this.state.filterData.length}</h5>
 				</div>
 				<div className={contentClass}>
-					{contents}
+					<div className="inner">
+						{contents}
+					</div>
 				</div>
 			</div>
 		);

@@ -8,9 +8,11 @@ class Home extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { genres: [] };
+		this.onBrowseSelect = this.onBrowseSelect.bind(this);
 	}
 
 	componentDidMount() {
+		this.props.onHomeSelect();
 		api.getGenres({}, (result) => {
 			const genres = JSON.parse(result);
 			const genresSortedByCount = genres.results.sort((a, b) => (a.count < b.count));
@@ -21,12 +23,16 @@ class Home extends Component {
 		});
 	}
 
+	onBrowseSelect() {
+		this.props.onBrowseSelect();
+	}
+
 	render() {
 		return (
 			<div className="home">
-				<BookListing key="top-sellers" genre={{name: 'Top Sellers'}} />
-				<BookListing key="top-rated" genre={{name: 'Top Rated'}} />
-				{this.state.genres.map(genre => <BookListing key={genre._id} genre={genre} />)}
+				<BookListing key="top-sellers" genre={{name: 'Top Sellers'}} onBrowseSelect={this.onBrowseSelect} />
+				<BookListing key="top-rated" genre={{name: 'Top Rated'}} onBrowseSelect={this.onBrowseSelect} />
+				{this.state.genres.map(genre => <BookListing key={genre._id} genre={genre} onBrowseSelect={this.onBrowseSelect} />)}
 			</div>
 		);
 	}

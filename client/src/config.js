@@ -20,7 +20,7 @@ const config = {
 			create: '/book-lists/new',
 			update: '/book-lists/update',
 		},
-		'credit-cards': {
+		creditCards: {
 			fetch: '/credit-cards',
 			create: '/credit-cards/new',
 			update: '/credit-cards/update',
@@ -37,7 +37,8 @@ const config = {
 		},
 		users: {
 			fetch: '/users',
-			create: '/users/new',
+			register: '/users/register',
+			login: '/users/login',
 			update: '/users/update',
 		},
 		addresses: {

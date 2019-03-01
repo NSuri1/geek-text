@@ -5,8 +5,12 @@ import config from './config.js';
 import db from './services/db.js';
 import api from './api';
 import {Severity, log} from './utils/logger';
+import passport from './passport';
 
 const app = express();
+
+// Passport middleware
+app.use(passport.initialize());
 
 app.use(cors());
 app.use(bodyParser.json());

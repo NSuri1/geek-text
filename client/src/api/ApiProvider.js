@@ -54,22 +54,29 @@ class ApiProvider {
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
-	createUser(user, callback, errorCallback) {
+	createUser(form, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.register}`;
 
-		fetch(endpoint, {
-			method: 'POST',
-			body: JSON.stringify(user),
-			headers: {
-				'Content-Type' : 'application/json'
-			}
-		}).then(res => res.json())
-		.then(response => console.log('Success:', JSON.stringify(response)))
-  		.catch(error => console.error('Error:', error));
+		request.post(endpoint, {form}, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
 	}
 
-	createAddress(callback, errorCallback) {
-		const endpoint = `${serverConf.uri}/${serverConf.endpoints.addresses.create}`
+	logIn(form, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.login}`;
+
+		request.post(endpoint, {form}, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
+	}
+
+	_fetch(endpoint, callback, errorCallback) {
+		request(endpoint, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
 	}
 
 }

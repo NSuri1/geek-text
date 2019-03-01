@@ -3,7 +3,7 @@ import isEmpty from 'is-empty';
 
 module.exports = function validateLoginInput(data) {
     
-	let errors = {};
+	var errors = {};
     
 	// Convert empty fields to an empty string so we can use validator functions
 	data.username = !isEmpty(data.username) ? data.username : '';

@@ -67,7 +67,7 @@ function loginUser(req, res) {
 	// Find user by Username
 	User.findOne({ username : username }).then(user => {
 		if (!user) {
-			return res.status(404).json({ usernameNotFound: 'Username not found' });
+			return res.status(404).json({ username: 'Username not found' });
 		}
 		else {
 			// Check password
@@ -99,7 +99,7 @@ function loginUser(req, res) {
 				else {
 					return res
 						.status(400)
-						.json({ passwordIncorrect: 'Password incorrect' });
+						.json({ password: 'Password incorrect' });
 				}
 			});
 		}

@@ -15,8 +15,13 @@ class BookBrowser extends Component {
 	}
 
 	componentDidMount() {
-		if (!this.props.books)
+		if (this.props.location.state.books) {
+			this.setState({
+				books: this.props.location.state.books
+			});
+		} else {
 			this.loadTopRated();
+		}
 	}
 
 	loadTopRated() {
@@ -35,9 +40,11 @@ class BookBrowser extends Component {
 				<div className="filters-sidebar">
 					<BookFilterSearchBar />
 					<div className="filters">
-					{["Title", "Genre", "Author", "Price", "Rating"].map(el => {
-						return <BookFilter key={el} category={el}/>
-					})}
+						<div className="inner">
+							{["Title", "Genre", "Author", "Price", "Rating"].map(el => {
+								return <BookFilter key={el} category={el}/>
+							})}
+						</div>
 					</div>
 				</div>
 				<div className="book-collection">

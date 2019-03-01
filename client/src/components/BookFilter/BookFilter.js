@@ -42,7 +42,9 @@ class BookFilter extends Component {
 					<h5 className="category-count">{this.state.filterData.length}</h5>
 				</div>
 				<div className={contentClass}>
-					{contents}
+					<div className="inner">
+						{contents}
+					</div>
 				</div>
 			</div>
 		);

@@ -11,6 +11,7 @@ class BookListing extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { books: [] };
+		this.onBrowseSelect = this.onBrowseSelect.bind(this);
 	}
 
 	componentDidMount() {
@@ -50,12 +51,16 @@ class BookListing extends Component {
 		});
 	}
 
+	onBrowseSelect() {
+		this.props.onBrowseSelect();
+	}
+
 	render() {
 		return (
 			<div className="listing-container-outer">
 				<Typography variant="h5" color="inherit" className="listing-header">
 					{this.props.genre.name}
-					<Link to={{ pathname: `/browse`, state: { books: this.state.books } }}>
+					<Link onClick={this.onBrowseSelect} to={{ pathname: `/browse`, state: { books: this.state.books } }}>
 						<h6 className="book-title">Show All</h6>
 					</Link>
 				</Typography>

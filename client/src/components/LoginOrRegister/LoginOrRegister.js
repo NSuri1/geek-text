@@ -7,22 +7,21 @@ import RegisterBox from '../RegisterBox';
 
 class LoginOrRegister extends Component {
 
-	//prepping for login or register forms
 	constructor(props) {
-		super(props);
+	    super(props);
 		this.state = {
 		  isLoginOpen: true,
 		  isRegisterOpen: false
 		};
-	}
+    }
       
-	showLoginBox() {
-		this.setState({isLoginOpen: true, isRegisterOpen: false});
-	}
+    showLoginBox() {
+        this.setState({isLoginOpen: true, isRegisterOpen: false});
+    }
     
-	showRegisterBox() {
-		this.setState({isRegisterOpen: true, isLoginOpen: false});
-	}
+    showRegisterBox() {
+        this.setState({isRegisterOpen: true, isLoginOpen: false});
+    }
 
 	render(){
 		return (

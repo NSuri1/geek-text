@@ -16,7 +16,9 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	User.find(query, (error, users) => {
+	let fields = query["fields"] ? query["fields"].replace(",", " ") : null;
+	delete query["fields"];
+	User.find(query, fields, (error, users) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : users);
 	});

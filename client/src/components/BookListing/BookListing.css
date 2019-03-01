@@ -33,3 +33,14 @@
   padding: 10px;
   color: white !important;
 }
+
+.listing-header > a {
+  float: right;
+  display: inline-block;
+  color: white;
+}
+
+.listing-header > a > h6 {
+  margin: 0 10px;
+  font-size: 12pt;
+}

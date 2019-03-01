@@ -13,15 +13,17 @@ import { Link } from 'react-router-dom';
 import Home from '../Home';
 import BookDetails from '../BookDetails';
 import LoginOrRegister from '../LoginOrRegister';
+import BookBrowser from '../BookBrowser';
 
 const styles = {
 	root: {
-		flexGrow: 1
+		flexGrow: 1,
+		height: "100%"
 	},
 	heading: {
 		flexGrow: 1,
-		color: "white",
-		textDecoration: "none"
+		color: 'white',
+		textDecoration: 'none'
 	},
 	navBar: {
 		backgroundColor: 'brown',
@@ -56,6 +58,7 @@ function AppNavBar(props) {
 				<Route path="/" exact component={Home} />
 				<Route path="/book-details" component={BookDetails} />
 				<Route path="/login" component={LoginOrRegister} />
+				<Route path="/browse" component={BookBrowser} />
 			</div>
 		</Router>
 	);

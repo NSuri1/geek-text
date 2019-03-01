@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import './BookListing.css';
+import { Link } from 'react-router-dom';
+import { api } from '../../api/ApiProvider';
 
 import BookCard from '../BookCard';
-import { api } from '../../api/ApiProvider';
 
 class BookListing extends Component {
 	constructor(props) {
@@ -13,9 +14,9 @@ class BookListing extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.genre.name === "Top Sellers") {
+		if (this.props.genre.name === 'Top Sellers') {
 			this.loadTopSellers();
-		} else if (this.props.genre.name == "Top Rated") {
+		} else if (this.props.genre.name === 'Top Rated') {
 			this.loadTopRated();
 		} else {
 			this.loadGenreBooks();
@@ -54,6 +55,9 @@ class BookListing extends Component {
 			<div className="listing-container-outer">
 				<Typography variant="h5" color="inherit" className="listing-header">
 					{this.props.genre.name}
+					<Link to={{ pathname: `/browse`, state: { books: this.state.books } }}>
+						<h6 className="book-title">Show All</h6>
+					</Link>
 				</Typography>
 				<div className="listing-container-inner">
 					{this.state.books.map(book => <BookCard key={book._id} book={book} />)}

@@ -31,14 +31,17 @@ class BookCard extends Component {
 		const roundedRating = Math.floor(this.props.book.rating);
 		const ratingImages = [];
 		for (let i = 0; i < roundedRating; i++) {
-			if (i % 2 == 0) {
-				ratingImages.push(<img className="rating-half-star" src="/star_left.png"/>);
+			if (i % 2 === 0) {
+				ratingImages.push(<img key={i} className="rating-half-star" src="/star_left.png" alt="Star" />);
 			} else {
-				ratingImages.push(<img className="rating-half-star" src="/star_right.png"/>);
+				ratingImages.push(<img key={i} className="rating-half-star" src="/star_right.png" alt="Star" />);
 			}
 		}
 
-		const cardClass = `book-card ${this.state.hasMouse ? 'hovered' : ''}`;
+		var cardClass = `book-card ${this.state.hasMouse ? 'hovered' : ''}`;
+		if (this.props.collectionCard) {
+			cardClass += ` book-collection-card`;
+		}
 		return (
 			<div className={cardClass} onMouseEnter={this.onCardHover} onMouseLeave={this.onCardHover}>
 				<Link to={{ pathname: '/book-details', state: { bookId: this.props.book._id, book: this.props.book, bookCover: this.state.coverImage } }}>
@@ -55,7 +58,7 @@ class BookCard extends Component {
 						</h6>
 					</Link>
 					<div className="rating">
-					{ratingImages}
+						{ratingImages}
 					</div>
 					<h4 className="price">{'$' + this.props.book.price.toFixed(2)}</h4>
 				</div>

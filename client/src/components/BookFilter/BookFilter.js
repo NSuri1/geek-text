@@ -34,7 +34,6 @@ class BookFilter extends Component {
 
 	render() {
 		var contentClass = `toggle-contents ${this.state.toggled ? 'expanded' : ''}`;
-		console.log(contents)
 		var contents = this.state.filterData.map(datum => <div className="datum" key={datum}>{datum}</div>);
 		return (
 			<div className="book-filter">

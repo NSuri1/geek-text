@@ -51,7 +51,7 @@ class AppNavBar extends Component {
 	}
 
 	onHomeSelect() {
-		if (this.state.title != "Geek Text") {
+		if (this.state.title !== "Geek Text") {
 			this.setState({
 				title: "Geek Text"
 			})

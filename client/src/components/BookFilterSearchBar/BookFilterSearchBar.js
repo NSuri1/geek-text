@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './BookFilterSearchBar.css';
-import { Link } from 'react-router-dom';
-import { api } from '../../api/ApiProvider';
 
 class BookFilterSearchBar extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() { }
 
 	render() {

@@ -12,6 +12,14 @@ class BookBrowser extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { books: [] };
+		this._gettersMap = {
+			"Title": this.loadBooksByTitle.bind(this),
+			"Genre": this.loadBooksByGenre.bind(this),
+			"Author": this.loadBooksByAuthor.bind(this),
+			"Price": this.loadBooksByPrice.bind(this),
+			"Rating": this.loadBooksByRating.bind(this)
+		}
+		this.onFilterSelect = this.onFilterSelect.bind(this)
 	}
 
 	componentDidMount() {
@@ -20,12 +28,17 @@ class BookBrowser extends Component {
 				books: this.props.location.state.books
 			});
 		} else {
-			this.loadTopRated();
+			api.getBooks(result => {
+				let books = JSON.parse(result);
+				this.setState({
+					books: books.results || []
+				});
+			});
 		}
 	}
 
-	loadTopRated() {
-		api.getTopRated({}, (result) => {
+	loadBooksByTitle(filterObj) {
+		api.getBooks({title: filterObj.description}, result => {
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []
@@ -33,8 +46,41 @@ class BookBrowser extends Component {
 		});
 	}
 
+	loadBooksByGenre(filterObj) {
+		api.getBooks({genre: filterObj._id}, result => {
+			var books = JSON.parse(result);
+			this.setState({
+				books: books.results || []
+			});
+		});
+	}
+
+	loadBooksByAuthor(filterObj) {
+		api.getBooks({author: filterObj._id}, result => {
+			var books = JSON.parse(result);
+			this.setState({
+				books: books.results || []
+			});
+		});
+	}
+
+	loadBooksByPrice(filterObj) {
+		api.getBooks({price: filterObj.description}, result => {
+
+		});
+	}
+
+	loadBooksByRating(filterObj) {
+		api.getBooks({rating: filterObj.description}, result => {
+
+		});
+	}
+
+	onFilterSelect(type, filterObj) {
+		this._gettersMap[type](filterObj)
+	}
+
 	render() {
-		var books = this.state.books;
 		return (
 			<div className="book-browser-container">
 				<div className="filters-sidebar">
@@ -42,7 +88,7 @@ class BookBrowser extends Component {
 					<div className="filters">
 						<div className="inner">
 							{["Title", "Genre", "Author", "Price", "Rating"].map(el => {
-								return <BookFilter key={el} category={el}/>
+								return <BookFilter onFilterSelect={this.onFilterSelect} key={el} category={el}/>
 							})}
 						</div>
 					</div>

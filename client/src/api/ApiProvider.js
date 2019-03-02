@@ -22,22 +22,34 @@ class ApiProvider {
 
 	getBooks(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}${serverConf.endpoints.books.fetch}`;
-		endpoint += options.genre ? `?genre=${options.genre}` : '';
-		endpoint += options.fields && Array.isArray(options.fields) ? `?fields=${options.fields.join(',')}` : '';
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.genre ? `genre=${options.genre}` : '';
+			endpoint += options.fields && Array.isArray(options.fields) ? `&fields=${options.fields.join(',')}` : '';
+			endpoint += options.title ? `&title=${options.title}` : '';
+			endpoint += options.genre ? `&genre=${options.genre}` : '';
+			endpoint += options.author ? `&author=${options.author}` : '';
+		}
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
 	getGenres(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.genres.fetch}`;
-		endpoint += options.fields && Array.isArray(options.fields) ? `?fields=${options.fields.join(',')}` : '';
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.fields && Array.isArray(options.fields) ? `fields=${options.fields.join(',')}` : '';
+		}
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
 	getAuthors(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.authors.fetch}`;
-		endpoint += options.fields && Array.isArray(options.fields) ? `?fields=${options.fields.join(',')}` : '';
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.fields && Array.isArray(options.fields) ? `fields=${options.fields.join(',')}` : '';
+		}
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
@@ -45,7 +57,10 @@ class ApiProvider {
 	getMedia(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.media.fetch}`;
 		endpoint += options.id ? `/${options.id}` : '';
-		endpoint += options.fields && Array.isArray(options.fields) ? `?fields=${options.fields.join(',')}` : '';
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.fields && Array.isArray(options.fields) ? `fields=${options.fields.join(',')}` : '';
+		}
 
 		this._fetch(endpoint, callback, errorCallback);
 	}

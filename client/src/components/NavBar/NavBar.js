@@ -14,6 +14,7 @@ import Home from '../Home';
 import BookDetails from '../BookDetails';
 import LoginOrRegister from '../LoginOrRegister';
 import BookBrowser from '../BookBrowser';
+import ShoppingCart from '../ShoppingCart';
 
 const styles = {
 	root: {

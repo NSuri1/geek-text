@@ -2,6 +2,7 @@ import genresService from '../genre';
 import bookSalesService from '../book-sales';
 import Book from './model';
 import {Severity, log} from '../../utils/logger';
+import mongoose from 'mongoose';
 
 const create = (book, callback) => {
 	// If there is a genre in the json body then search for any
@@ -39,9 +40,14 @@ const update = (id, updates, callback) => {
 const fetchAll = (query, callback) => {
 	let fields = query["fields"] ? query["fields"].replace(",", " ") : null;
 	delete query["fields"];
+
+	if (query["author"])
+		query["authors"] = mongoose.Types.ObjectId(query["author"]);
+	delete query["author"]
+
 	var q = Book.find(query).select(fields);
 	if (fields == null || fields.includes("author"))
-		q.populate("author");
+		q.populate("authors");
 
 	q.exec((error, books) => {
 		if (error) log(error.message, Severity.Error);

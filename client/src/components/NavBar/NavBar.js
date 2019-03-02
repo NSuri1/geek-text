@@ -14,6 +14,7 @@ import Home from '../Home';
 import BookDetails from '../BookDetails';
 import LoginOrRegister from '../LoginOrRegister';
 import BookBrowser from '../BookBrowser';
+import ShoppingCart from '../ShoppingCart';
 
 const styles = {
 	root: {
@@ -51,7 +52,7 @@ class AppNavBar extends Component {
 	}
 
 	onHomeSelect() {
-		if (this.state.title != "Geek Text") {
+		if (this.state.title !== "Geek Text") {
 			this.setState({
 				title: "Geek Text"
 			})
@@ -73,13 +74,14 @@ class AppNavBar extends Component {
 								</Typography>
 							</Link>
 							<Button href="/login" color="inherit">Log In</Button>
-							<Button color="inherit">Shopping Cart</Button>
+                            <Button href="/shopping-cart" color="inherit">Shopping Cart</Button>
 						</Toolbar>
 					</AppBar>
 					<Route path="/" exact component={() => <Home onBrowseSelect={this.onBrowseSelect} onHomeSelect={this.onHomeSelect}/>} />
 					<Route path="/book-details" component={BookDetails} />
 					<Route path="/login" component={LoginOrRegister} />
 					<Route path="/browse" component={BookBrowser} />
+                    <Route path="/shopping-cart" component={ShoppingCart} />
 				</div>
 			</Router>
 		);

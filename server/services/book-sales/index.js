@@ -2,7 +2,7 @@ import BookSales from './model';
 import { Severity, log } from '../../utils/logger';
 
 const create = (sales, callback) => {
-	BookSales.create(user, (error, created) => {
+	BookSales.create(sales, (error, created) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : created);
 	});

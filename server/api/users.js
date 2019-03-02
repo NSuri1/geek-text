@@ -30,7 +30,7 @@ function registerUser(req, res) {
 	// Check if Email or Username already exists
 	User.findOne({ email: req.body.email }).then(user => {
 		if (user) {
-		  return res.status(400).json({ email: 'Email already exists' });
+			return res.status(400).json({ email: 'Email already exists' });
 		}
 		else {
 			User.findOne({ username: req.body.username }).then(user => {
@@ -48,22 +48,22 @@ function registerUser(req, res) {
 					});
 				}
 			});
-		}	
+		}
 	});
 }
 
 function loginUser(req, res) {
 	// Form validation
 	const { errors, isValid } = validateLoginInput(req.body);
-	
+
 	// Check validation
 	if (!isValid) {
 		return res.status(400).json(errors);
 	}
-	
+
 	const username = req.body.username;
 	const password = req.body.password;
-	
+
 	// Find user by Username
 	User.findOne({ username : username }).then(user => {
 		if (!user) {
@@ -95,7 +95,7 @@ function loginUser(req, res) {
 							});
 						}
 					);
-				} 
+				}
 				else {
 					return res
 						.status(400)

@@ -26,7 +26,6 @@ const update = (id, updates, callback) => {
 	// Same as for create. Read the comments above.
 	genresService.fetchOneSimilarByName(updates.genre, (genre) => {
 		if (genre) {
-			book.genre = genre._id;
 			genresService.incrementBookCount(genre._id);
 		}
 
@@ -38,16 +37,16 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	let fields = query["fields"] ? query["fields"].replace(",", " ") : null;
-	delete query["fields"];
+	let fields = query['fields'] ? query['fields'].replace(',', ' ') : null;
+	delete query['fields'];
 
-	if (query["author"])
-		query["authors"] = mongoose.Types.ObjectId(query["author"]);
-	delete query["author"]
+	if (query['author'])
+		query['authors'] = mongoose.Types.ObjectId(query['author']);
+	delete query['author'];
 
 	var q = Book.find(query).select(fields);
-	if (fields == null || fields.includes("author"))
-		q.populate("authors");
+	if (fields == null || fields.includes('author'))
+		q.populate('authors');
 
 	q.exec((error, books) => {
 		if (error) log(error.message, Severity.Error);
@@ -64,7 +63,7 @@ const fetchById = (id, callback) => {
 
 const fetchTopSellers = (callback) => {
 	bookSalesService.fetchAll({}, sales => {
-		if (sales == null) callback(null)
+		if (sales == null) callback(null);
 
 		Book.find({'_id': { $in: sales.map(obj => obj.book) }}).populate('authors').exec((error, books) => {
 			if (error) log(error.message, Severity.Error);

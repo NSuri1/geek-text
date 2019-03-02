@@ -98,7 +98,25 @@ class ApiProvider {
 	}
 
 	getBookTitles(callback, errorCallback) {
+		
+	}
 
+	createUser(form, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.register}`;
+
+		request.post(endpoint, {form}, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
+	}
+
+	logIn(form, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.login}`;
+
+		request.post(endpoint, {form}, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
 	}
 
 	_fetch(endpoint, callback, errorCallback) {

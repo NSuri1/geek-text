@@ -31,14 +31,14 @@
   color : white ;
 }
 
-.login-label {
+.register-label {
   font-family: Oxygen, sans-serif;
   font-size: 20px;
   font-weight: 600;
   padding-left: 5px;
 }
 
-.login-input {
+.register-input {
   height: 15px !important;
   border-radius: 3px;
   border: 2px brown !important;
@@ -49,33 +49,22 @@
   color: #3e3e42;
 }
 
-.dropdown-input {
-  height: 45px !important;
-  border-radius: 3px;
-  border: 2px brown !important;
-  transition: border 0.4s ease-out;
-  padding: 13px;
-  font-family: Oxygen, sans-serif;
-  font-size: 19px;
-  color: #3e3e42;
-  width: 100%;
-}
-
-.login-input:hover {
+.register-input:hover {
   border: 2px solid blue;
 }
 
-.login-input:focus {
+.register-input:focus {
   border: 2px solid black;
   box-shadow: 0px 0px 20px rgba(15, 15, 15, 0.2);
 }
 
-.login-input::placeholder {
+.register-input::placeholder {
   font-family: Oxygen, sans-serif;
   font-size: 16px; 
 }
 
-.login-btn {
+.register-btn {
+  width: 100%;
   padding: 2px 30px;
   border: 0;
   font-size: 18px;
@@ -89,10 +78,34 @@
   color: white !important;
 }
 
-.login-btn:hover,
-.login-btn:focus {
+.register-btn:hover,
+.register-btn:focus {
   background-color: blue;
   color: white;
+}
+
+.created-message {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  color: green;
+}
+
+.error-message {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  color: yellow;
+}
+
+.register-input-message {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  font-size: 15px;
+  color: yellow;
 }
 
 .danger-error {

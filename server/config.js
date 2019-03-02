@@ -10,6 +10,8 @@ const config = {
 		url: process.env.MONGODB_URL || 'localhost:27017',
 		name: process.env.MONGODB_TABLE_NAME || 'geek-text',
 	},
+	secretOrKey: 'secret',
+	
 };
 
 export default config;

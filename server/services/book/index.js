@@ -1,5 +1,5 @@
-import genresService from '../genre'
-import bookSalesService from '../book-sales'
+import genresService from '../genre';
+import bookSalesService from '../book-sales';
 import Book from './model';
 import {Severity, log} from '../../utils/logger';
 import mongoose from 'mongoose';

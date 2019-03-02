@@ -46,7 +46,8 @@
   padding: 13px;
   font-family: Oxygen, sans-serif;
   font-size: 19px;
-  color: #3e3e42;
+  background-color: white !important;
+  color: black !important;
 }
 
 .register-input:hover {

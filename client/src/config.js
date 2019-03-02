@@ -31,9 +31,9 @@ const config = {
 			update: '/media/update',
 		},
 		carts: {
-			fetch: '/carts',
-			create: '/carts/new',
-			update: '/carts/update',
+			fetch: 'shopping-carts',
+			create: '/shopping-carts/new',
+			update: '/shopping-carts/update',
 		},
 		users: {
 			fetch: '/users',

@@ -10,9 +10,7 @@ class ApiProvider {
 		this._filterGetters = {
 			"Title": this._partial(this.getBooks, { fields: ["title"] }),
 			"Genre": this._partial(this.getGenres, { fields: ["name"] }),
-			"Author": this._partial(this.getAuthors, { fields: ["name"] }),
-			"Price": this.getPricesList,
-			"Rating": this.getRatingsList
+			"Author": this._partial(this.getAuthors, { fields: ["name"] })
 		};
 	}
 
@@ -24,11 +22,10 @@ class ApiProvider {
 		let endpoint = `${serverConf.uri}${serverConf.endpoints.books.fetch}`;
 		if (Object.keys(options).length > 0) {
 			endpoint += '?';
-			endpoint += options.genre ? `genre=${options.genre}` : '';
 			endpoint += options.fields && Array.isArray(options.fields) ? `&fields=${options.fields.join(',')}` : '';
 			endpoint += options.title ? `&title=${options.title}` : '';
 			endpoint += options.genre ? `&genre=${options.genre}` : '';
-			endpoint += options.author ? `&author=${options.author}` : '';
+			endpoint += options.authors ? `&authors=${options.authors}` : '';
 		}
 
 		this._fetch(endpoint, callback, errorCallback);
@@ -89,16 +86,8 @@ class ApiProvider {
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
-	getPricesList(callback, errorCallback) {
-
-	}
-
-	getRatingsList(callback, errorCallback) {
-
-	}
-
 	getBookTitles(callback, errorCallback) {
-		
+
 	}
 
 	createUser(form, callback, errorCallback) {

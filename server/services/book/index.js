@@ -2,7 +2,6 @@ import genresService from '../genre';
 import bookSalesService from '../book-sales';
 import Book from './model';
 import {Severity, log} from '../../utils/logger';
-import mongoose from 'mongoose';
 
 const create = (book, callback) => {
 	// If there is a genre in the json body then search for any
@@ -40,9 +39,9 @@ const fetchAll = (query, callback) => {
 	let fields = query['fields'] ? query['fields'].replace(',', ' ') : null;
 	delete query['fields'];
 
-	if (query['author'])
-		query['authors'] = mongoose.Types.ObjectId(query['author']);
-	delete query['author'];
+	for (var field in query) {
+		query[field] = { $in: query[field].split(',') };
+	}
 
 	var q = Book.find(query).select(fields);
 	if (fields == null || fields.includes('author'))

@@ -33,6 +33,20 @@ class ApiProvider {
 
 	getGenres(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.genres.fetch}`;
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.fields && Array.isArray(options.fields) ? `fields=${options.fields.join(',')}` : '';
+		}
+
+		this._fetch(endpoint, callback, errorCallback);
+	}
+
+	getAuthors(options, callback, errorCallback) {
+		let endpoint = `${serverConf.uri}/${serverConf.endpoints.authors.fetch}`;
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.fields && Array.isArray(options.fields) ? `fields=${options.fields.join(',')}` : '';
+		}
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
@@ -40,6 +54,10 @@ class ApiProvider {
 	getMedia(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.media.fetch}`;
 		endpoint += options.id ? `/${options.id}` : '';
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.fields && Array.isArray(options.fields) ? `fields=${options.fields.join(',')}` : '';
+		}
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
@@ -68,9 +86,8 @@ class ApiProvider {
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
-	getShoppingCartById(id, callback, errorCallback) {
-		const endpoint = `${serverConf.uri}/${serverConf.endpoints.carts.fetch}/${id}`;
-		this._fetch(endpoint, callback, errorCallback);
+	getBookTitles(callback, errorCallback) {
+
 	}
 
 	createUser(form, callback, errorCallback) {
@@ -82,9 +99,13 @@ class ApiProvider {
 		});
 	}
 
-	updateShoppingCartById(id, callback, errorCallback) {
-		const endpoint = `${serverConf.uri}/${serverConf.endpoints.carts.update}/${id}`;
-		this._fetch(endpoint, callback, errorCallback);
+	logIn(form, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.login}`;
+
+		request.post(endpoint, {form}, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
 	}
 
 	_fetch(endpoint, callback, errorCallback) {

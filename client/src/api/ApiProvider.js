@@ -14,6 +14,10 @@ class ApiProvider {
 		};
 	}
 
+	filterGetters() {
+		return this._filterGetters;
+	}
+
 	getBooks(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}${serverConf.endpoints.books.fetch}`;
 		if (Object.keys(options).length > 0) {

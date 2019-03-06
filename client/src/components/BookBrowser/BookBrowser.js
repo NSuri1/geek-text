@@ -38,7 +38,7 @@ class BookBrowser extends Component {
 	}
 
 	loadBooksByTitle(filterObj) {
-		api.getBooks({title: filterObj.description}, result => {
+		api.getBooks({title: filterObj.map(title => title.description).join(",") }, result => {
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []
@@ -47,7 +47,7 @@ class BookBrowser extends Component {
 	}
 
 	loadBooksByGenre(filterObj) {
-		api.getBooks({genre: filterObj._id}, result => {
+		api.getBooks({genre: filterObj.map(genre => genre._id).join(",") }, result => {
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []
@@ -56,7 +56,7 @@ class BookBrowser extends Component {
 	}
 
 	loadBooksByAuthor(filterObj) {
-		api.getBooks({author: filterObj._id}, result => {
+		api.getBooks({authors: filterObj.map(author => author._id).join(",") }, result => {
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []
@@ -65,13 +65,13 @@ class BookBrowser extends Component {
 	}
 
 	loadBooksByPrice(filterObj) {
-		api.getBooks({price: filterObj.description}, result => {
+		api.getBooks({price: filterObj.map(price => price.description).join(",") }, result => {
 
 		});
 	}
 
 	loadBooksByRating(filterObj) {
-		api.getBooks({rating: filterObj.description}, result => {
+		api.getBooks({rating: filterObj.map(rating => rating.description).join(",") }, result => {
 
 		});
 	}
@@ -87,7 +87,7 @@ class BookBrowser extends Component {
 					<BookFilterSearchBar />
 					<div className="filters">
 						<div className="inner">
-							{["Title", "Genre", "Author", "Price", "Rating"].map(el => {
+							{["Title", "Genre", "Author"].map(el => {
 								return <BookFilter onFilterSelect={this.onFilterSelect} key={el} category={el}/>
 							})}
 						</div>

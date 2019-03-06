@@ -14,8 +14,6 @@ class ApiProvider {
 		};
 	}
 
-	}
-
 	getBooks(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}${serverConf.endpoints.books.fetch}`;
 		if (Object.keys(options).length > 0) {

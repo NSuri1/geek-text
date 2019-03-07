@@ -25,12 +25,43 @@
   padding-right: 17px;
 }
 
-.book-collection {
+.book-collection-container {
   position: absolute;
   left: 0; top: 0; right: 0; bottom: 0;
   margin-left: 250px;
-  padding: 15px;
+  overflow-x: hidden;
+  padding-top: 50px;
+}
+
+.book-collection-container > .top-bar {
+  position: relative;
+  width: 100%;
+  height: 35px;
+}
+
+.top-bar .dropdown-button {
+  float: right;
+  width: 65px;
+  color: white;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  background-color: #171b23;
+  font-size: 10pt;
+}
+
+.top-bar .dropdown-button:hover {
+  cursor: pointer;
+}
+
+.book-collection {
+  position: relative;
+  width: 100%; height: 100%;
+  padding: 0px 15px 15px 15px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-auto-rows: 225px;
+}
+
+.book-sorter {
+  float: right;
 }

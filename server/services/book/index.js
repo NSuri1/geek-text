@@ -47,6 +47,9 @@ const fetchAll = (query, callback) => {
 	if (fields == null || fields.includes('author'))
 		q.populate('authors');
 
+	if (fields == null || fields.includes('genre'))
+		q.populate('genre');
+
 	q.exec((error, books) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : books);

@@ -16,6 +16,10 @@
   position: relative;
 }
 
+.toggle-label:hover {
+  cursor: pointer;
+}
+
 .toggle-label > h5 {
   margin: 0;
 }

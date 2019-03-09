@@ -8,7 +8,7 @@ class BookSorterDropdown extends Component {
 		this.toggleDropdown = this.toggleDropdown.bind(this);
 		this.selectSortOption = this.selectSortOption.bind(this);
 		this.state = { toggled: false,
-									 sortOptions: {"Title": "asc", "Author": "asc", "Genre": "asc",
+									 sortOptions: {"Title": "asc", "Author": "asc",
 									 							 "Price": "asc", "Rating": "asc"},
 									 currentOption: "Title"}
 	}
@@ -47,7 +47,7 @@ class BookSorterDropdown extends Component {
 			  <img alt={this.state.sortOptions[this.state.currentOption] === "asc" ? "Up Arrow" : "Down Arrow"} className="sort-order-image" src={this.state.sortOptions[this.state.currentOption] === "asc" ? "up-arrow.png" : "down-arrow.png"}/>
 
 			  <div className={contentClass}>
-					{["Author", "Title", "Genre", "Price", "Rating"].map(option =>
+					{["Author", "Title", "Price", "Rating"].map(option =>
 						<div key={option} className="sort-option" onClick={(ev) => this.selectSortOption(ev, option)}>
 							<p>{option}</p><p>({this.state.sortOptions[option]})</p>
 						</div>

@@ -47,7 +47,8 @@
 }
 
 .dropdown-content.expanded {
-  height: 165px;
+  height: auto;
+  padding-bottom: 20px;
 }
 
 .dropdown-content .sort-option {

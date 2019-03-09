@@ -89,8 +89,18 @@
   margin: 15px;
 }
 
-.book-collection-card .book-info {
+.book-collection-card .book-info a:nth-child(1),
+.book-collection-card .book-info a:nth-child(2),
+.book-collection-card .book-info .rating {
   display: none;
+}
+
+.book-collection-card .book-info {
+  height: 20%;
+}
+
+.book-collection-card .book-info .price {
+  bottom: -7px;
 }
 
 .book-collection-card .book-info .rating > img {
@@ -102,4 +112,9 @@
   bottom: -3px;
   margin: 10px;
   border-top: none;
+}
+
+.book-card.hovered > .book-info {
+  opacity: 0;
+  bottom: -35px;
 }

@@ -25,7 +25,7 @@ class BookListing extends Component {
 	}
 
 	loadTopSellers() {
-		api.getTopSellers({}, (result) => {
+		api.getTopSellers({ limit: 15 }, (result) => {
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []
@@ -34,7 +34,7 @@ class BookListing extends Component {
 	}
 
 	loadTopRated() {
-		api.getTopRated({}, (result) => {
+		api.getTopRated({ limit: 15 }, (result) => {
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []
@@ -43,7 +43,7 @@ class BookListing extends Component {
 	}
 
 	loadGenreBooks() {
-		api.getBooks({ genre: this.props.genre._id }, (result) => {
+		api.getBooks({ genre: this.props.genre._id, limit: 15 }, (result) => {
 			const books = JSON.parse(result);
 			this.setState({
 				books: books.results || [],

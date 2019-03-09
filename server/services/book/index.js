@@ -39,6 +39,12 @@ const fetchAll = (query, callback) => {
 	let fields = query['fields'] ? query['fields'].replace(',', ' ') : null;
 	delete query['fields'];
 
+	let limit = parseInt(query['limit']) || null;
+	delete query['limit'];
+
+	let skip = parseInt(query['skip']) || null;
+	delete query['skip'];
+
 	for (var field in query) {
 		query[field] = { $in: query[field].split(',') };
 	}
@@ -49,6 +55,9 @@ const fetchAll = (query, callback) => {
 
 	if (fields == null || fields.includes('genre'))
 		q.populate('genre');
+
+	if (limit) q.limit(limit);
+	if (skip) q.skip(skip);
 
 	q.exec((error, books) => {
 		if (error) log(error.message, Severity.Error);
@@ -63,19 +72,40 @@ const fetchById = (id, callback) => {
 	});
 };
 
-const fetchTopSellers = (callback) => {
+const fetchTopSellers = (query, callback) => {
 	bookSalesService.fetchAll({}, sales => {
 		if (sales == null) callback(null);
 
-		Book.find({'_id': { $in: sales.map(obj => obj.book) }}).populate('authors').exec((error, books) => {
+		let limit = parseInt(query['limit']) || null;
+		delete query['limit'];
+
+		let skip = parseInt(query['skip']) || null;
+		delete query['skip'];
+
+		var q = Book.find({'_id': { $in: sales.map(obj => obj.book) }}).populate('authors');
+		if (limit) q.limit(limit);
+		if (skip) q.skip(skip);
+
+		q.exec((error, books) => {
 			if (error) log(error.message, Severity.Error);
 			if (callback) callback(error ? null : books);
 		});
 	});
 };
 
-const fetchTopRated = (callback) => {
-	Book.find({}, null, {sort: { rating: -1 }}).limit(100).populate('authors').exec((error, books) => {
+const fetchTopRated = (query, callback) => {
+
+	let limit = parseInt(query['limit']) || null;
+	delete query['limit'];
+
+	let skip = parseInt(query['skip']) || null;
+	delete query['skip'];
+
+	var q = Book.find({}, null, {sort: { rating: -1 }}).limit(100).populate('authors');
+	if (limit) q.limit(limit);
+	if (skip) q.skip(skip);
+	
+	q.exec((error, books) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : books);
 	});

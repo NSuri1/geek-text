@@ -7,11 +7,12 @@ import BookCard from '../BookCard';
 import BookFilter from '../BookFilter';
 import BookFilterSearchBar from '../BookFilterSearchBar';
 import BookSorterDropdown from '../BookSorterDropdown';
+import Paginator from '../Paginator';
 
 class BookBrowser extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { books: [], sort: { field: "Title", order: 1 } };
+		this.state = { books: [], sort: { field: "Title", order: 1 }, booksPerPage: 10, currentPage: 0 };
 		this._gettersMap = {
 			"Title": this.loadBooksByTitle.bind(this),
 			"Genre": this.loadBooksByGenre.bind(this),
@@ -21,6 +22,7 @@ class BookBrowser extends Component {
 		}
 		this.onFilterSelect = this.onFilterSelect.bind(this)
 		this.onSortSelected = this.onSortSelected.bind(this)
+		this.onPageSelected = this.onPageSelected.bind(this)
 	}
 
 	componentDidMount() {
@@ -39,7 +41,7 @@ class BookBrowser extends Component {
 	}
 
 	loadBooksByTitle(filterObj) {
-		api.getBooks({title: filterObj.map(title => title.description).join(",") }, result => {
+		api.getBooks({title: filterObj.map(title => title.description).join(",")}, result => {
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []
@@ -48,7 +50,7 @@ class BookBrowser extends Component {
 	}
 
 	loadBooksByGenre(filterObj) {
-		api.getBooks({genre: filterObj.map(genre => genre._id).join(",") }, result => {
+		api.getBooks({genre: filterObj.map(genre => genre._id).join(",")}, result => {
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []
@@ -57,7 +59,7 @@ class BookBrowser extends Component {
 	}
 
 	loadBooksByAuthor(filterObj) {
-		api.getBooks({authors: filterObj.map(author => author._id).join(",") }, result => {
+		api.getBooks({authors: filterObj.map(author => author._id).join(",")}, result => {
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []
@@ -65,14 +67,16 @@ class BookBrowser extends Component {
 		});
 	}
 
+	// TODO: Might be useful later, but otherwise remove
 	loadBooksByPrice(filterObj) {
-		api.getBooks({price: filterObj.map(price => price.description).join(",") }, result => {
+		api.getBooks({price: filterObj.map(price => price.description).join(",")}, result => {
 
 		});
 	}
 
+	// TODO: Might be useful later, but otherwise remove
 	loadBooksByRating(filterObj) {
-		api.getBooks({rating: filterObj.map(rating => rating.description).join(",") }, result => {
+		api.getBooks({rating: filterObj.map(rating => rating.description).join(",")}, result => {
 
 		});
 	}
@@ -87,8 +91,14 @@ class BookBrowser extends Component {
 		});
 	}
 
+	onPageSelected(page) {
+		this.setState({
+			currentPage: page
+		})
+	}
+
 	render() {
-		var books = [...this.state.books];
+		var books = this.state.books.slice();
 		books.sort((a, b) => {
 			if (this.state.sort.order === 1) {
 				if (this.state.sort.field === "Genre") {
@@ -108,6 +118,7 @@ class BookBrowser extends Component {
 				}
 			}
 		});
+		books = books.slice(this.state.currentPage * this.state.booksPerPage, this.state.currentPage * this.state.booksPerPage + this.state.booksPerPage);
 
 		return (
 			<div className="book-browser-container">
@@ -126,6 +137,7 @@ class BookBrowser extends Component {
 						{books.map(book => <BookCard key={book._id} book={book} collectionCard={true} />)}
 					</div>
 					<BookSorterDropdown className="book-sorter" onSortSelected={this.onSortSelected}/>
+					<Paginator numPages={Math.floor(this.state.books.length / this.state.booksPerPage) + 1} onPageSelected={this.onPageSelected} resultsPerPage={this.state.booksPerPage}/>
 				</div>
 			</div>
 		);

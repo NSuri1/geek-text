@@ -16,6 +16,7 @@
   overflow-y: hidden;
   box-sizing: content-box;
   padding-bottom: 30px;
+  white-space: nowrap;
 }
 
 .listing-container-blur {

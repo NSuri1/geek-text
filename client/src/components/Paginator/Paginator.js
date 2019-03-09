@@ -6,6 +6,7 @@ class Paginator extends Component {
 	constructor(props) {
 		super(props)
 		this._pages = props.numPages && props.numPages > 0 ? [...Array(props.numPages).keys()] : [0];
+		this._perPageOptions = [10, 20];
 		this.state = { currentPage: 0, currentSection: 0 };
 
 		this.setSelectedPage = this.setSelectedPage.bind(this);
@@ -13,10 +14,12 @@ class Paginator extends Component {
 		this.handlePrevClicked = this.handlePrevClicked.bind(this);
 		this.handleNextClicked = this.handleNextClicked.bind(this);
 		this.handleLastClicked = this.handleLastClicked.bind(this);
+		this.handlePerPageClicked = this.handlePerPageClicked.bind(this);
 	}
 
 	componentWillReceiveProps(props) {
 		this._pages = props.numPages && props.numPages > 0 ? [...Array(props.numPages).keys()] : [0];
+		this._perPage = props.resultsPerPage;
 	}
 
 	setSelectedPage(page) {
@@ -64,8 +67,12 @@ class Paginator extends Component {
 		this.props.onPageSelected(this.props.numPages - 1);
 	}
 
+	handlePerPageClicked(perPage) {
+		this.props.onPerPageClicked(perPage);
+	}
+
 	render() {
-		var pages = this._pages.slice(this.state.currentSection * this.props.resultsPerPage, this.state.currentSection * this.props.resultsPerPage + this.props.resultsPerPage);
+		var pages = this._pages.slice(this.state.currentSection * this._perPage, this.state.currentSection * this._perPage + this._perPage);
 		return (
 			<div className="paginator">
 				<img className="first-button flipped" src="right-arrow-double.png" onClick={this.handleFirstClicked}/>
@@ -73,6 +80,10 @@ class Paginator extends Component {
 				{pages.map(page => <div key={page} className={`page-link${this.state.currentPage == page ? ' selected' : ''}`} onClick={() => this.setSelectedPage(page)}><p>{page + 1}</p></div>)}
 				<img className="next-button" src="right-arrow.png" onClick={this.handleNextClicked}/>
 				<img className="last-button" src="right-arrow-double.png" onClick={this.handleLastClicked}/>
+				<div className="per-page-toggle">
+					<p>Per Page:</p>
+					{this._perPageOptions.map(perPage => <div key={perPage} className={`per-page-option${this._perPage == perPage ? ' selected' : ''}`} onClick={() => this.handlePerPageClicked(perPage)}>{perPage}</div>)}
+				</div>
 			</div>
 		);
 	}

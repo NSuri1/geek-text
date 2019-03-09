@@ -24,16 +24,17 @@ class BookSorterDropdown extends Component {
 	}
 
 	selectSortOption(ev, option) {
-		if (option === this.state.currentOption) {
-			this.setState(prevState => ({
-				sortOptions: Object.assign({}, prevState.sortOptions, {[option]: prevState.sortOptions[option] === "asc" ? "desc" : "asc" })
-			}))
-		} else {
-			this.setState({
-				currentOption: option
-			});
-		}
-		if (this.props.onSortSelected) this.props.onSortSelected(option, this.state.sortOptions[option]);
+		this.setState(prevState => {
+			let newState = prevState;
+			if (option === prevState.currentOption) {
+				newState.sortOptions = Object.assign({}, prevState.sortOptions, {[option]: prevState.sortOptions[option] === "asc" ? "desc" : "asc" })
+			} else {
+				newState.currentOption = option
+			}
+			if (this.props.onSortSelected) this.props.onSortSelected(option, newState.sortOptions[option]);
+			return newState;
+		});
+
 		ev.stopPropagation();
 	}
 

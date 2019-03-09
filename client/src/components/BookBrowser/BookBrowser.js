@@ -102,19 +102,19 @@ class BookBrowser extends Component {
 		books.sort((a, b) => {
 			if (this.state.sort.order === 1) {
 				if (this.state.sort.field === "Genre") {
-					return a.genre.name < b.genre.name
-				} else if (this.state.sort.field === "Author") {
-					return a.authors[0].name < b.authors[0].name
-			 	} else {
-					return a[this.state.sort.field.toLowerCase()] < b[this.state.sort.field.toLowerCase()]
-				}
-			} else {
-				if (this.state.sort.field === "Genre") {
 					return a.genre.name > b.genre.name
 				} else if (this.state.sort.field === "Author") {
 					return a.authors[0].name > b.authors[0].name
 			 	} else {
 					return a[this.state.sort.field.toLowerCase()] > b[this.state.sort.field.toLowerCase()]
+				}
+			} else {
+				if (this.state.sort.field === "Genre") {
+					return a.genre.name < b.genre.name
+				} else if (this.state.sort.field === "Author") {
+					return a.authors[0].name < b.authors[0].name
+			 	} else {
+					return a[this.state.sort.field.toLowerCase()] < b[this.state.sort.field.toLowerCase()]
 				}
 			}
 		});

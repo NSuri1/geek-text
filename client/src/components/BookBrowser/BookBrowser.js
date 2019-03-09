@@ -23,6 +23,7 @@ class BookBrowser extends Component {
 		this.onFilterSelect = this.onFilterSelect.bind(this)
 		this.onSortSelected = this.onSortSelected.bind(this)
 		this.onPageSelected = this.onPageSelected.bind(this)
+		this.onPerPageClicked = this.onPerPageClicked.bind(this)
 	}
 
 	componentDidMount() {
@@ -97,6 +98,12 @@ class BookBrowser extends Component {
 		})
 	}
 
+	onPerPageClicked(perPage) {
+		this.setState({
+			booksPerPage: perPage
+		})
+	}
+
 	render() {
 		var books = this.state.books.slice();
 		books.sort((a, b) => {
@@ -137,7 +144,10 @@ class BookBrowser extends Component {
 						{books.map(book => <BookCard key={book._id} book={book} collectionCard={true} />)}
 					</div>
 					<BookSorterDropdown className="book-sorter" onSortSelected={this.onSortSelected}/>
-					<Paginator numPages={Math.floor(this.state.books.length / this.state.booksPerPage) + 1} onPageSelected={this.onPageSelected} resultsPerPage={this.state.booksPerPage}/>
+					<Paginator numPages={Math.floor(this.state.books.length / this.state.booksPerPage) + 1}
+										 resultsPerPage={this.state.booksPerPage}
+										 onPageSelected={this.onPageSelected}
+										 onPerPageClicked={this.onPerPageClicked}/>
 				</div>
 			</div>
 		);

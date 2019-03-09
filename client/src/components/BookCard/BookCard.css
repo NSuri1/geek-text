@@ -5,7 +5,7 @@
 /* General Book Card Styles */
 
 .book-card {
-  float: left;
+  display: inline-block;
   position: relative;
   width: 15%;
   height: 85%;

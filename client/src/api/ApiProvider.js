@@ -26,6 +26,8 @@ class ApiProvider {
 			endpoint += options.title ? `&title=${options.title}` : '';
 			endpoint += options.genre ? `&genre=${options.genre}` : '';
 			endpoint += options.authors ? `&authors=${options.authors}` : '';
+			endpoint += options.limit ? `&limit=${options.limit}` : '';
+			endpoint += options.skip ? `&skip=${options.skip}` : '';
 		}
 
 		this._fetch(endpoint, callback, errorCallback);
@@ -75,13 +77,19 @@ class ApiProvider {
 	}
 
 	getTopSellers(options, callback, errorCallback) {
-		const endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-sellers`;
+		let endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-sellers`;
+		endpoint += '?';
+		endpoint += options.limit ? `limit=${options.limit}` : '';
+		endpoint += options.skip ? `&skip=${options.skip}` : '';
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
 	getTopRated(options, callback, errorCallback) {
-		const endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-rated`;
+		let endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-rated`;
+		endpoint += '?';
+		endpoint += options.limit ? `limit=${options.limit}` : '';
+		endpoint += options.skip ? `&skip=${options.skip}` : '';
 
 		this._fetch(endpoint, callback, errorCallback);
 	}

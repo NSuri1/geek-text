@@ -28,7 +28,7 @@ function fetchBookById(request, response) {
 }
 
 function fetchTopSellers(request, response) {
-	bookService.fetchTopSellers((result) => {
+	bookService.fetchTopSellers(Object.assign({}, request.body, request.query), (result) => {
 		response.json({
 			success: result != null,
 			results: result,
@@ -37,7 +37,7 @@ function fetchTopSellers(request, response) {
 }
 
 function fetchTopRated(request, response) {
-	bookService.fetchTopRated((result) => {
+	bookService.fetchTopRated(Object.assign({}, request.body, request.query), (result) => {
 		response.json({
 			success: result != null,
 			results: result,

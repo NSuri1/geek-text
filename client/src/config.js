@@ -52,6 +52,9 @@ const config = {
 		sales: {
 			fetch: '/book-sales',
 			update: '/book-sales/update',
+		},
+		ratings: {
+			fetch: '/book-ratings'
 		}
 	},
 };

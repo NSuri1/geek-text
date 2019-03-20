@@ -98,10 +98,16 @@ class ApiProvider {
 
 	}
 
+	getBookRatings(bookId, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.ratings.fetch}/${bookId}`;
+
+		this._fetch(endpoint, callback, errorCallback);
+	}
+
 	createUser(form, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.register}`;
 
-		request.post(endpoint, {form}, (error, response, body) => {
+		request.post(endpoint, { form }, (error, response, body) => {
 			if (error && errorCallback) errorCallback(error);
 			if (callback) callback(body);
 		});
@@ -110,7 +116,7 @@ class ApiProvider {
 	logIn(form, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.login}`;
 
-		request.post(endpoint, {form}, (error, response, body) => {
+		request.post(endpoint, { form }, (error, response, body) => {
 			if (error && errorCallback) errorCallback(error);
 			if (callback) callback(body);
 		});
@@ -124,9 +130,9 @@ class ApiProvider {
 	}
 
 	_partial(func, ...argsBound) {
-		return function(...args) {
+		return function (...args) {
 			return func.call(this, ...argsBound, ...args);
-		}
+		};
 	}
 }
 

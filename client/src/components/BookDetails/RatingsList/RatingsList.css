@@ -1,9 +1,9 @@
-.authorDetailsContainer {
-	width: 25%;
-	min-width: 300px;
+.ratingsListContainer {
+	max-width: 60%;
 	display: flex;
 	flex-direction: column;
-	flex-wrap: wrap;
+	align-items: flex-start;
+	margin-left: 20px;
 }
 
 .heading {
@@ -13,8 +13,7 @@
 	margin-bottom: 5px;
 }
 
-.authorBio {
+.review {
 	margin-top: 10px;
 	margin-bottom: 3px;
-	font-weight: bold;
 }

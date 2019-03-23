@@ -13,3 +13,10 @@
 	justify-content: center;
 	flex-wrap: wrap;
 }
+
+.ratingsAndAuthorContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}

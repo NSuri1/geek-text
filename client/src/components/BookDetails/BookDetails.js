@@ -6,6 +6,7 @@ import Divider from './Divider';
 import BookImage from './BookImage';
 import BookInfo from './BookInfo';
 import './BookDetails.css';
+import RatingsList from './RatingsList/RatingsList';
 
 class BookDetails extends Component {
 	constructor(props) {
@@ -42,7 +43,7 @@ class BookDetails extends Component {
 
 	fetchRatingInformation() {
 		api.getBookRatings(this.state.bookId, (response) => {
-			console.log(response);
+			console.log(response)
 			this.setState({
 				ratings: JSON.parse(response).results,
 			});
@@ -64,7 +65,10 @@ class BookDetails extends Component {
 					<BookInfo book={book} />
 				</div>
 				<Divider />
-				<AuthorInfo authors={book.authors} />
+				<div className="ratingsAndAuthorContainer">
+					<RatingsList reviews={this.state.ratings} />
+					<AuthorInfo authors={book.authors} />
+				</div>
 			</div >
 		);
 	}

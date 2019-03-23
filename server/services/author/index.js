@@ -16,8 +16,8 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	let fields = query["fields"] ? query["fields"].replace(",", " ") : null;
-	delete query["fields"];
+	let fields = query['fields'] ? query['fields'].replace(',', ' ') : null;
+	delete query['fields'];
 	var q = Author.find(query).select(fields);
 
 	q.exec((error, authors) => {

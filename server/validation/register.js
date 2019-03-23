@@ -3,10 +3,10 @@ import isEmpty from 'is-empty';
 
 module.exports = function validateRegisterInput(data) {
   
-	var errors = {};var passwordValid = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})");
-	const upperCase = new RegExp("(?=.*[A-Z])");
-	const number = new RegExp("(?=.*[0-9])");
-	const special = new RegExp("(?=.*[!@#\$%\^&\*])")
+	var errors = {};var passwordValid = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})');
+	const upperCase = new RegExp('(?=.*[A-Z])');
+	const number = new RegExp('(?=.*[0-9])');
+	const special = new RegExp('(?=.*[!@#\$%\^&\*])');
 
 	
 
@@ -30,25 +30,25 @@ module.exports = function validateRegisterInput(data) {
 	else {
 		if(data.password.length < 6) {
 			if(!errors.password) {
-				errors.password = []
+				errors.password = [];
 			}	
 			errors.password.push('Must be at least 6 characters long');		
 		}
 		if(!upperCase.test(data.password)) {
 			if(!errors.password) {
-				errors.password = []
+				errors.password = [];
 			}
 			errors.password.push('Must contain at least 1 uppercase letter');
 		}
 		if(!number.test(data.password)) {
 			if(!errors.password) {
-				errors.password = []
+				errors.password = [];
 			}
 			errors.password.push('Must contain at least 1 number');
 		}
 		if(!special.test(data.password)) {
 			if(!errors.password) {
-				errors.password = []
+				errors.password = [];
 			}
 			errors.password.push('Must contain at least one special character');
 		}

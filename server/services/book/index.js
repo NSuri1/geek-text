@@ -37,11 +37,11 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	let fields = query["fields"] ? query["fields"].replace(",", " ") : null;
-	delete query["fields"];
+	let fields = query['fields'] ? query['fields'].replace(',', ' ') : null;
+	delete query['fields'];
 	var q = Book.find(query).select(fields);
-	if (fields == null || fields.includes("author"))
-		q.populate("author");
+	if (fields == null || fields.includes('author'))
+		q.populate('author');
 
 	q.exec((error, books) => {
 		if (error) log(error.message, Severity.Error);
@@ -58,7 +58,7 @@ const fetchById = (id, callback) => {
 
 const fetchTopSellers = (callback) => {
 	bookSalesService.fetchAll({}, sales => {
-		if (sales == null) callback(null)
+		if (sales == null) callback(null);
 
 		Book.find({'_id': { $in: sales.map(obj => obj.book) }}).populate('authors').exec((error, books) => {
 			if (error) log(error.message, Severity.Error);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './BookInfo.css';
 
 class BookInfo extends Component {
@@ -29,12 +30,30 @@ class BookInfo extends Component {
 						{book.title}
 					</div>
 				</div>
-				{this.buildKeyValueDiv('Author(s)', book.authors.reduce((acc, val) => acc + (acc ? ', ' : '') + val.name, ''))}
+				<div className="heading">
+					Author(s):
+				</div>
+				<div>
+					{book.authors.map((author, index) => {
+						let viewString;
+						if (index < book.authors.length - 1) {
+							viewString = `${author.name}, `;
+						} else {
+							viewString = author.name;
+						}
+						return (
+							<Link to={{ pathname: '/author-books', state: { author } }} style={{ color: 'white' }} key={author.name}>
+								{viewString}
+							</Link>
+						);
+
+					})}
+				</div>
 				{this.buildKeyValueDiv('Ratings', `${book.rating / 2}/5.0`)}
 				{this.buildKeyValueDiv('Description', book.description)}
 				{this.buildKeyValueDiv('Publishing Info', `Published ${new Date(book.published_on).toLocaleDateString()} by ${book.publisher}`)}
 				{this.buildKeyValueDiv('Other Info', `ISBN: ${book.isbn13}`)}
-			</div>
+			</div >
 		);
 	}
 }

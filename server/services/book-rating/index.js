@@ -9,7 +9,7 @@ const create = (list, callback) => {
 };
 
 const update = (id, updates, callback) => {
-	BookRating.findByIdAndUpdate(id, {$set: updates}, {new: true}, (error, updated) => {
+	BookRating.findByIdAndUpdate(id, { $set: updates }, { new: true }, (error, updated) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : updated);
 	});
@@ -23,7 +23,7 @@ const fetchAll = (query, callback) => {
 };
 
 const fetchById = (book_id, callback) => {
-	fetchAll({book: book_id}, callback);
+	fetchAll({ book: book_id }, callback);
 };
 
 export default {

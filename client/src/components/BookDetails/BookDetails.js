@@ -43,7 +43,6 @@ class BookDetails extends Component {
 
 	fetchRatingInformation() {
 		api.getBookRatings(this.state.bookId, (response) => {
-			console.log(response)
 			this.setState({
 				ratings: JSON.parse(response).results,
 			});

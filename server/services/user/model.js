@@ -8,10 +8,11 @@ const schema = new mongoose.Schema({
 	password: {type: String, minlength: 6, required: true},
 	first_name: {type: String, required: true},
 	last_name: {type: String, required: true},
+	nickname: {type: String},
 	email: {type: String, unique: true, required: true},
-	address: {type: ObjectId, ref: 'UserAddress'},
-	shipping_addresses: [{type: ObjectId, ref: 'UserAddress'}],
-	credit_cards: [{type: ObjectId, ref: 'UserCreditCard'}]
+	address: {type: ObjectId, ref: 'Address'},
+	shipping_addresses: [{type: ObjectId, ref: 'Address'}],
+	credit_cards: [{type: ObjectId, ref: 'CreditCard'}]
 });
 
 export default mongoose.model('User', schema);

@@ -2,6 +2,14 @@ import Validator from 'validator';
 import isEmpty from 'is-empty';
 
 module.exports = function validateRegisterInput(data) {
+<<<<<<< HEAD
+=======
+  
+	var errors = {};var passwordValid = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})');
+	const upperCase = new RegExp('(?=.*[A-Z])');
+	const number = new RegExp('(?=.*[0-9])');
+	const special = new RegExp('(?=.*[!@#\$%\^&\*])');
+>>>>>>> profile-management
 
 	var errors = {};
 	//var passwordValid = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})');
@@ -32,8 +40,13 @@ module.exports = function validateRegisterInput(data) {
 		if(data.password.length < 6) {
 			if(!errors.password) {
 				errors.password = [];
+<<<<<<< HEAD
 			}
 			errors.password.push('Must be at least 6 characters long');
+=======
+			}	
+			errors.password.push('Must be at least 6 characters long');		
+>>>>>>> profile-management
 		}
 		if(!upperCase.test(data.password)) {
 			if(!errors.password) {

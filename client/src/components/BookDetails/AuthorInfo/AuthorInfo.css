@@ -1,0 +1,19 @@
+.authorDetailsContainer {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	padding: 0% 10% 5% 10%;
+}
+
+.heading {
+	font-size: 1.25em;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.authorBio {
+	margin-top: 10px;
+	margin-bottom: 3px;
+	font-weight: bold;
+}

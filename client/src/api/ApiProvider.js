@@ -7,18 +7,48 @@ class ApiProvider {
 	}
 
 	_initialize() {
+		this._filterGetters = {
+			"Title": this._partial(this.getBooks, { fields: ["title"] }),
+			"Genre": this._partial(this.getGenres, { fields: ["name"] }),
+			"Author": this._partial(this.getAuthors, { fields: ["name"] })
+		};
+	}
 
+	filterGetters() {
+		return this._filterGetters;
 	}
 
 	getBooks(options, callback, errorCallback) {
-		let endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}`;
-		endpoint += options.genre ? `?genre=${options.genre}` : '';
+		let endpoint = `${serverConf.uri}${serverConf.endpoints.books.fetch}`;
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.fields && Array.isArray(options.fields) ? `&fields=${options.fields.join(',')}` : '';
+			endpoint += options.title ? `&title=${options.title}` : '';
+			endpoint += options.genre ? `&genre=${options.genre}` : '';
+			endpoint += options.authors ? `&authors=${options.authors}` : '';
+			endpoint += options.limit ? `&limit=${options.limit}` : '';
+			endpoint += options.skip ? `&skip=${options.skip}` : '';
+		}
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
 	getGenres(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.genres.fetch}`;
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.fields && Array.isArray(options.fields) ? `fields=${options.fields.join(',')}` : '';
+		}
+
+		this._fetch(endpoint, callback, errorCallback);
+	}
+
+	getAuthors(options, callback, errorCallback) {
+		let endpoint = `${serverConf.uri}/${serverConf.endpoints.authors.fetch}`;
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.fields && Array.isArray(options.fields) ? `fields=${options.fields.join(',')}` : '';
+		}
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
@@ -26,6 +56,10 @@ class ApiProvider {
 	getMedia(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}/${serverConf.endpoints.media.fetch}`;
 		endpoint += options.id ? `/${options.id}` : '';
+		if (Object.keys(options).length > 0) {
+			endpoint += '?';
+			endpoint += options.fields && Array.isArray(options.fields) ? `fields=${options.fields.join(',')}` : '';
+		}
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
@@ -43,25 +77,49 @@ class ApiProvider {
 	}
 
 	getTopSellers(options, callback, errorCallback) {
-		const endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-sellers`;
+		let endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-sellers`;
+		endpoint += '?';
+		endpoint += options.limit ? `limit=${options.limit}` : '';
+		endpoint += options.skip ? `&skip=${options.skip}` : '';
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
 	getTopRated(options, callback, errorCallback) {
-		const endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-rated`;
+		let endpoint = `${serverConf.uri}/${serverConf.endpoints.books.fetch}/top-rated`;
+		endpoint += '?';
+		endpoint += options.limit ? `limit=${options.limit}` : '';
+		endpoint += options.skip ? `&skip=${options.skip}` : '';
 
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
-	getShoppingCartById(id, callback, errorCallback) {
-		const endpoint = `${serverConf.uri}/${serverConf.endpoints.carts.fetch}/${id}`;
+	getBookTitles(callback, errorCallback) {
+
+	}
+
+	getBookRatings(bookId, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.ratings.fetch}/${bookId}`;
+
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
-	updateShoppingCartById(id, callback, errorCallback) {
-		const endpoint = `${serverConf.uri}/${serverConf.endpoints.carts.update}/${id}`;
-		this._fetch(endpoint, callback, errorCallback);
+	createUser(form, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.register}`;
+
+		request.post(endpoint, { form }, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
+	}
+
+	logIn(form, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.users.login}`;
+
+		request.post(endpoint, { form }, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
 	}
 
 	_fetch(endpoint, callback, errorCallback) {
@@ -69,6 +127,12 @@ class ApiProvider {
 			if (error && errorCallback) errorCallback(error);
 			if (callback) callback(body);
 		});
+	}
+
+	_partial(func, ...argsBound) {
+		return function (...args) {
+			return func.call(this, ...argsBound, ...args);
+		};
 	}
 }
 

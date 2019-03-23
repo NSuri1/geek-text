@@ -1,6 +1,5 @@
 import express from 'express';
 import bookService from '../services/book';
-import genresService from '../services/genre';
 import crud from './_crud';
 
 const router = new express.Router();
@@ -29,7 +28,7 @@ function fetchBookById(request, response) {
 }
 
 function fetchTopSellers(request, response) {
-	bookService.fetchTopSellers((result) => {
+	bookService.fetchTopSellers(Object.assign({}, request.body, request.query), (result) => {
 		response.json({
 			success: result != null,
 			results: result,
@@ -38,7 +37,7 @@ function fetchTopSellers(request, response) {
 }
 
 function fetchTopRated(request, response) {
-	bookService.fetchTopRated((result) => {
+	bookService.fetchTopRated(Object.assign({}, request.body, request.query), (result) => {
 		response.json({
 			success: result != null,
 			results: result,

@@ -6,9 +6,10 @@ import { api } from '../../api/ApiProvider';
 class BookFilter extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { filterData: [], toggled: false }
+		this.state = { filterData: [], toggled: false };
+		this._selectedFilters = [];
 		this.toggleFilter = this.toggleFilter.bind(this);
-		this.handleFilterSelect = this.handleFilterSelect.bind(this);
+		this.toggleFilterSelect = this.toggleFilterSelect.bind(this);
 	}
 
 	componentDidMount() {
@@ -16,13 +17,14 @@ class BookFilter extends Component {
 			let filterFunction = api.filterGetters()[this.props.category].bind(api);
 			filterFunction(result => {
 				var data = JSON.parse(result);
-				data = data.results.map(obj => ({_id: obj._id, description: obj.name ? obj.name :
-																																  (obj.title ? obj.title : null)})
-															 )
-													 .filter(e => e != null);
-				this.setState({
-					filterData: data || []
-				});
+				if (data.results) {
+					data = data.results.map(obj => ({_id: obj._id || "0", description: obj.name ? obj.name :
+																																	  (obj.title ? obj.title : null)})
+																 ).filter(e => e != null);
+					this.setState({
+						filterData: data || []
+					});
+				}
 			});
 		}
 	}
@@ -33,14 +35,26 @@ class BookFilter extends Component {
 		}));
 	}
 
-	handleFilterSelect(type, filterObj) {
+	toggleFilterSelect(type, filterObj) {
+		if (!this._selectedFilters.includes(filterObj)) {
+			this._selectedFilters.push(filterObj);
+		} else {
+			let filterObjIndex = this._selectedFilters.indexOf(filterObj);
+			this._selectedFilters.splice(filterObjIndex, 1);
+		}
+
 		if (this.props.onFilterSelect)
-			this.props.onFilterSelect(type, filterObj);
+			this.props.onFilterSelect(type, this._selectedFilters);
 	}
 
 	render() {
 		var contentClass = `toggle-contents ${this.state.toggled ? 'expanded' : ''}`;
-		var contents = this.state.filterData.map(datum => <div onClick={() => this.handleFilterSelect(this.props.category, datum)} className="datum" key={datum.description}>{datum.description}</div>);
+
+		var contents = this.state.filterData.map(datum => {
+			var filterClass = `datum ${this._selectedFilters.includes(datum) ? 'selected' : ''}`;
+			return <div onClick={() => this.toggleFilterSelect(this.props.category, datum)} className={filterClass} key={datum.description}>{datum.description}</div>
+		});
+
 		return (
 			<div className="book-filter">
 				<div className="toggle-label" onClick={this.toggleFilter}>

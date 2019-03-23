@@ -2,7 +2,7 @@ import Genre from './model';
 import {Severity, log} from '../../utils/logger';
 
 const create = (genre, callback) => {
-	Genre.create(user, (error, created) => {
+	Genre.create(genre, (error, created) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : created);
 	});
@@ -16,8 +16,8 @@ const update = (id, updates, callback) => {
 };
 
 const fetchAll = (query, callback) => {
-	let fields = query["fields"] ? query["fields"].replace(",", " ") : null;
-	delete query["fields"];
+	let fields = query['fields'] ? query['fields'].replace(',', ' ') : null;
+	delete query['fields'];
 	Genre.find(query, fields, {sort: {name: 1}}, (error, genres) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : genres);

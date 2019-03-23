@@ -22,7 +22,7 @@ class BookInfo extends Component {
 	}
 
 	render() {
-		const { book } = this.props;
+		const { book, genre } = this.props;
 		return (
 			<div className="bookInfoSubContainer">
 				<div>
@@ -50,6 +50,7 @@ class BookInfo extends Component {
 					})}
 				</div>
 				{this.buildKeyValueDiv('Ratings', `${book.rating / 2}/5.0`)}
+				{this.buildKeyValueDiv('Genre', genre ? genre.name : 'Unknown')}
 				{this.buildKeyValueDiv('Description', book.description)}
 				{this.buildKeyValueDiv('Publishing Info', `Published ${new Date(book.published_on).toLocaleDateString()} by ${book.publisher}`)}
 				{this.buildKeyValueDiv('Other Info', `ISBN: ${book.isbn13}`)}
@@ -60,6 +61,7 @@ class BookInfo extends Component {
 
 BookInfo.propTypes = {
 	book: PropTypes.object,
+	genre: PropTypes.object,
 };
 
 export default BookInfo;

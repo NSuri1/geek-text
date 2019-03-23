@@ -41,13 +41,13 @@ class AuthorBooks extends Component {
 		console.log(this.state);
 		if (!author) {
 			return (
-				<div className="container">
+				<div className="authorBooksContainer">
 					We are sorry, an error occurred, please try again.
 				</div>
 			);
 		}
 		return (
-			<div className="container">
+			<div className="authorBooksContainer">
 				<div className="heading">
 					These are all the books written by {author.name}:
 				</div>

@@ -15,7 +15,7 @@ class BookDetails extends Component {
 		this.state = {
 			bookId: state ? state.bookId : null,
 			book: state ? state.book : null,
-			bookCover: state ? state.bookCover : null
+			bookCover: state ? state.bookCover : null,
 		};
 	}
 
@@ -25,6 +25,7 @@ class BookDetails extends Component {
 			this.fetchBookInformation();
 		}
 		this.fetchRatingInformation();
+		this.fetchGenreInformation();
 	}
 
 	fetchBookInformation() {
@@ -55,13 +56,27 @@ class BookDetails extends Component {
 		});
 	}
 
+	fetchGenreInformation() {
+		api.getGenreById(this.state.book.genre, (response) => {
+			this.setState({
+				genre: JSON.parse(response).results,
+			});
+		}, (error) => {
+			console.error(error);
+			setTimeout(() => {
+				console.log('Trying network request again...');
+				this.fetchGenreInformation();
+			}, 5000);
+		});
+	}
+
 	render() {
 		const { book } = this.state;
 		return (
 			<div className="container">
 				<div className="bookDetailsContainer">
 					<BookImage bookTitle={book.title} bookCover={this.state.bookCover} />
-					<BookInfo book={book} />
+					<BookInfo book={book} genre={this.state.genre} />
 				</div>
 				<Divider />
 				<div className="ratingsAndAuthorContainer">

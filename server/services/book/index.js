@@ -38,7 +38,6 @@ const update = (id, updates, callback) => {
 const fetchAll = (query, callback) => {
 	let fields = query['fields'] ? query['fields'].replace(',', ' ') : null;
 	delete query['fields'];
-<<<<<<< HEAD
 
 	let limit = parseInt(query['limit']) || null;
 	delete query['limit'];
@@ -59,11 +58,6 @@ const fetchAll = (query, callback) => {
 
 	if (limit) q.limit(limit);
 	if (skip) q.skip(skip);
-=======
-	var q = Book.find(query).select(fields);
-	if (fields == null || fields.includes('author'))
-		q.populate('author');
->>>>>>> profile-management
 
 	q.exec((error, books) => {
 		if (error) log(error.message, Severity.Error);

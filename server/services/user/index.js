@@ -9,6 +9,7 @@ const create = (user, callback) => {
 };
 
 const update = (id, updates, callback) => {
+	console.log(updates);
 	User.findByIdAndUpdate(id, {$set: updates}, {new: true}, (error, updated) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : updated);

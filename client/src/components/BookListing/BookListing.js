@@ -26,6 +26,7 @@ class BookListing extends Component {
 
 	loadTopSellers() {
 		api.getTopSellers({ limit: 15 }, (result) => {
+			console.log(result)
 			var books = JSON.parse(result);
 			this.setState({
 				books: books.results || []

@@ -14,11 +14,8 @@ import Home from '../Home';
 import BookDetails from '../BookDetails';
 import LoginOrRegister from '../LoginOrRegister';
 import BookBrowser from '../BookBrowser';
-<<<<<<< HEAD
-import ShoppingCart from '../ShoppingCart';
-=======
 import Account from '../Account';
->>>>>>> profile-management
+import ShoppingCart from '../ShoppingCart';
 
 const styles = {
 	root: {
@@ -85,11 +82,8 @@ class AppNavBar extends Component {
 					<Route path="/book-details" component={BookDetails} />
 					<Route path="/login" component={LoginOrRegister} />
 					<Route path="/browse" component={BookBrowser} />
-<<<<<<< HEAD
                     <Route path="/shopping-cart" component={ShoppingCart} />
-=======
 					<Route path="/account" component={() => <Account userID={"5c882c808a97765366b28b0e"}/>}/>
->>>>>>> profile-management
 				</div>
 			</Router>
 		);

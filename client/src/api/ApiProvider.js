@@ -177,8 +177,12 @@ class ApiProvider {
 				if(data.success) {
 					this.getUserById(userId, (result) => {
 						let user = JSON.parse(result);
-						user.results.shipping_addresses.push({$oid: data.results._id})
-						this.updateUser(userId, {shipping_addresses: user.results.shipping_addresses}, (reply) => {
+						user.results.shipping_addresses.push(data.results._id)
+						let addresses = [{}]
+						for(let i = 0; i < user.results.shipping_addresses.length; i++) {
+							addresses.push({$oid: user.results.shipping_addresses[i]})
+						}
+						this.updateUser(userId, {shipping_addresses: addresses}, (reply) => {
 							callback(reply)
 						})
 					})

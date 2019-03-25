@@ -35,6 +35,8 @@ class ApiProvider {
 
 	getGenres(options, callback, errorCallback) {
 		let endpoint = `${serverConf.uri}${serverConf.endpoints.genres.fetch}`;
+		console.log(serverConf.uri)
+		console.log(endpoint)
 		if (Object.keys(options).length > 0) {
 			endpoint += '?';
 			endpoint += options.fields && Array.isArray(options.fields) ? `fields=${options.fields.join(',')}` : '';

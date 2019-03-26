@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "babel . --out-dir dist --ignore node_modules",
-    "start": "nodemon server.js --exec babel-node",
+    "build": "rm -rf dist/ && babel . --out-dir dist --ignore node_modules",
+    "dev": "nodemon server.js --exec babel-node",
+    "start": "node dist/server.js",
     "populate-mock": "node utils/gtdb_parse_upload.js",
     "database-export": "mongodump --db geek-text -o db_dump",
     "database-import": "mongorestore --db geek-text db_dump/geek-text/",

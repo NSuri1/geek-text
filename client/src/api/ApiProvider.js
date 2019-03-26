@@ -157,12 +157,8 @@ class ApiProvider {
 				if (error && errorCallback) errorCallback(error);
 				let data = JSON.parse(body);
 				if(data.success) {
-					this.getUserById(userId, (result) => {
-						let user = JSON.parse(result);
-						user.results.shipping_addresses.push({$oid: data.results._id})
-						this.updateUser(userId, {shipping_addresses: user.results.shipping_addresses}, (reply) => {
-							callback(reply)
-						})
+					this.updateUser(userId, {shipping_addresses: data.results._id}, (reply) => {
+						callback(reply)
 					})
 				}
 			});
@@ -171,8 +167,10 @@ class ApiProvider {
 			request.post(endpoint, {form}, (error, response, body) => {
 				if (error && errorCallback) errorCallback(error);
 				let data = JSON.parse(body);
+				console.log(data)
 				if(data.success) {
-					this.updateUser(userId, {address: data.results._id}, (reply) => {
+					console.log(data.results._id)
+					this.updateUser(userId, {address: data.results._id} , (reply) => {
 							callback(reply)
 					})
 				}

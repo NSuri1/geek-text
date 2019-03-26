@@ -9,10 +9,19 @@ const create = (user, callback) => {
 };
 
 const update = (id, updates, callback) => {
+	console.log(updates)
+	if(updates.shipping_addresses || updates.credit_cards) {
+		User.findByIdAndUpdate(id, {$push: updates}, {new: true}, (error, updated) => {
+			if (error) log(error.message, Severity.Error);
+			if (callback) callback(error ? null : updated);
+		});	
+	}
+	else {
 	User.findByIdAndUpdate(id, {$set: updates}, {new: true}, (error, updated) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : updated);
 	});
+}
 };
 
 const fetchAll = (query, callback) => {

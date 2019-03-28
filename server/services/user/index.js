@@ -12,15 +12,15 @@ const create = (user, callback) => {
 //along with the key and values to be pushed or pulled from the db array, an extra action key must be set to add or remove
 const update = (id, updates, callback) => {
 	if(updates.shipping_addresses || updates.credit_cards) {
-		if(updates.action == "add") {
-			delete updates.action
+		if(updates.action == 'add') {
+			delete updates.action;
 			User.findByIdAndUpdate(id, {$push: updates}, {new: true}, (error, updated) => {
 				if (error) log(error.message, Severity.Error);
 				if (callback) callback(error ? null : updated);
 			});	
 		}
-	 	else if(updates.action == "remove") {
-			delete updates.action
+	 	else if(updates.action == 'remove') {
+			delete updates.action;
 			User.findByIdAndUpdate(id, {$pull: updates}, {new: true}, (error, updated) => {
 				if (error) log(error.message, Severity.Error);
 				if (callback) callback(error ? null : updated);
@@ -28,8 +28,8 @@ const update = (id, updates, callback) => {
 		}
 	}
 	else {
-		if(updates.action == "remove") {
-			delete updates.action
+		if(updates.action == 'remove') {
+			delete updates.action;
 			User.findByIdAndUpdate(id, {$unset: updates}, {new: true}, (error, updated) => {
 				if (error) log(error.message, Severity.Error);
 				if (callback) callback(error ? null : updated);

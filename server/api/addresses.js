@@ -6,7 +6,7 @@ const router = new express.Router();
 
 router.post('/new', createAddress);
 router.post('/update/:id', updateAddress);
-router.post('/remove/:id', removeAddress)
+router.post('/remove/:id', removeAddress);
 router.get('/:id', fetchAddressesById);
 router.get('/', fetchAddresses);
 

@@ -20,7 +20,7 @@ const removeById = (id, callback) => {
 		if (error) log(error.message, Severity.Error);
 		if (callback) callback(error ? null : updated);
 	});
-}
+};
 
 const fetchAll = (query, callback) => {
 	Address.find(query, (error, addresses) => {

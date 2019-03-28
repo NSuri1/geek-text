@@ -54,7 +54,10 @@ class AddressesDialog extends Component{
     }
 
     deleteAddress() {
-
+        api.deleteAddressById(this.props.userId, this.props.address._id, this.props.type, (result) => {
+            let data = JSON.parse(result);
+            console.log(data)
+        })
     }
 
     addAddress() {

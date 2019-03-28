@@ -8,20 +8,40 @@ const create = (user, callback) => {
 	});
 };
 
+//if updates have to do with shipping addresses or credit cards, then the updates must be done with the MongoDB array operators.
+//along with the key and values to be pushed or pulled from the db array, an extra action key must be set to add or remove
 const update = (id, updates, callback) => {
-	console.log(updates)
 	if(updates.shipping_addresses || updates.credit_cards) {
-		User.findByIdAndUpdate(id, {$push: updates}, {new: true}, (error, updated) => {
-			if (error) log(error.message, Severity.Error);
-			if (callback) callback(error ? null : updated);
-		});	
+		if(updates.action == "add") {
+			delete updates.action
+			User.findByIdAndUpdate(id, {$push: updates}, {new: true}, (error, updated) => {
+				if (error) log(error.message, Severity.Error);
+				if (callback) callback(error ? null : updated);
+			});	
+		}
+	 	else if(updates.action == "remove") {
+			delete updates.action
+			User.findByIdAndUpdate(id, {$pull: updates}, {new: true}, (error, updated) => {
+				if (error) log(error.message, Severity.Error);
+				if (callback) callback(error ? null : updated);
+			});
+		}
 	}
 	else {
-	User.findByIdAndUpdate(id, {$set: updates}, {new: true}, (error, updated) => {
-		if (error) log(error.message, Severity.Error);
-		if (callback) callback(error ? null : updated);
-	});
-}
+		if(updates.action == "remove") {
+			delete updates.action
+			User.findByIdAndUpdate(id, {$unset: updates}, {new: true}, (error, updated) => {
+				if (error) log(error.message, Severity.Error);
+				if (callback) callback(error ? null : updated);
+			});
+		}
+		else {
+			User.findByIdAndUpdate(id, {$set: updates}, {new: true}, (error, updated) => {
+				if (error) log(error.message, Severity.Error);
+				if (callback) callback(error ? null : updated);
+			});
+		}	
+	}
 };
 
 const fetchAll = (query, callback) => {

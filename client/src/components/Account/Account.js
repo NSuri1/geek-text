@@ -196,9 +196,11 @@ class Account extends Component {
                     </Grid>
                     <br></br>
                     <Grid item xs={12}>
-                        <Typography variant="subtitle1" color="inherit" gutterBottom><b>Home Address: </b>{user.address ? user.address.address_line1+" " : ""}
-                        {user.address ? user.address.address_line2+" , " : ""} {user.address ? user.address.city+" , " : ""} {user.address ? user.address.state+" , " : ""}
-                        {user.address ? user.address.zip+" ," : ""} {user.address ? user.address.country : ""}</Typography>
+                        {!user.address && <Typography variant="subtitle1" color="inherit" gutterBottom><b>Home Address: </b></Typography>}
+                        {user.address &&
+                        <Typography variant="subtitle1" color="inherit" gutterBottom><b>Home Address: </b>{user.address.address_line1 ? user.address.address_line1+" " : ""}
+                        {user.address.address_line2 ? user.address.address_line2+" , " : ""} {user.address.city ? user.address.city+" , " : ""} {user.address.state ? user.address.state+" , " : ""}
+                        {user.address.zip ? user.address.zip+" ," : ""} {user.address.country ? user.address.country : ""}</Typography>}
                     </Grid>
                     <br></br>
                     <Grid item xs={12}>

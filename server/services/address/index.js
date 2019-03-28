@@ -15,6 +15,13 @@ const update = (id, updates, callback) => {
 	});
 };
 
+const removeById = (id, callback) => {
+	Address.deleteOne({_id : id}, (error, updated) => {
+		if (error) log(error.message, Severity.Error);
+		if (callback) callback(error ? null : updated);
+	});
+}
+
 const fetchAll = (query, callback) => {
 	Address.find(query, (error, addresses) => {
 		if (error) log(error.message, Severity.Error);
@@ -30,5 +37,5 @@ const fetchById = (id, callback) => {
 };
 
 export default {
-	create, update, fetchAll, fetchById,
+	create, update, removeById, fetchAll, fetchById,
 };

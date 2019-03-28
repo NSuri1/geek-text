@@ -16,6 +16,15 @@ function update(service, request, response) {
 	});
 }
 
+function removeById(service, request, response) {
+	service.removeById(request.params.id, (result) => {
+		response.json({
+			success: result != null,
+			results: result,
+		});
+	});
+}
+
 function fetch(service, request, response) {
 	service.fetchAll(Object.assign({}, request.body, request.query), (result) => {
 		response.json({
@@ -35,5 +44,5 @@ function fetchById(service, request, response) {
 }
 
 export default {
-	create, update, fetch, fetchById,
+	create, update, removeById, fetch, fetchById,
 };

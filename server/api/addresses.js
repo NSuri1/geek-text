@@ -6,6 +6,7 @@ const router = new express.Router();
 
 router.post('/new', createAddress);
 router.post('/update/:id', updateAddress);
+router.post('/remove/:id', removeAddress)
 router.get('/:id', fetchAddressesById);
 router.get('/', fetchAddresses);
 
@@ -15,6 +16,10 @@ function createAddress(request, response) {
 
 function updateAddress(request, response) {
 	crud.update(addressService, request, response);
+}
+
+function removeAddress(request, response) {
+	crud.removeById(addressService, request, response);
 }
 
 function fetchAddresses(request, response) {

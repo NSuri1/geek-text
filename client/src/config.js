@@ -45,6 +45,7 @@ const config = {
 			fetch: '/addresses',
 			create: '/addresses/new',
 			update: '/addresses/update',
+			remove: '/addresses/remove'
 		},
 		genres: {
 			fetch: '/genres'

@@ -6,6 +6,7 @@ const router = new express.Router();
 
 router.post('/new', createCreditCard);
 router.post('/update/:id', updateCreditCard);
+router.post('/remove/:id', removeCard);
 router.get('/:id', fetchCreditCardsById);
 router.get('/', fetchCreditCards);
 
@@ -15,6 +16,10 @@ function createCreditCard(request, response) {
 
 function updateCreditCard(request, response) {
 	crud.update(creditCardService, request, response);
+}
+
+function removeCard(request, response) {
+	crud.removeById(creditCardService, request, response);
 }
 
 function fetchCreditCards(request, response) {

@@ -8,8 +8,9 @@ import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/c
 import CredentialsDialog from './Dialogs/CredentialsDialog';
 import PersonalDialog from './Dialogs/PersonalDialog';
 import CardsDialog from './Dialogs/CardsDialog';
-import ShippingAddress from './ShippingAddress';
 import AddressesDialog from './Dialogs/AddressesDialog';
+import ShippingAddress from './ShippingAddress';
+import CreditCards from './CreditCards';
 
 const tableStyle = {
     head: {
@@ -44,9 +45,6 @@ class Account extends Component {
         this.toggleCardsDialog = this.toggleCardsDialog.bind(this);
         this.toggleAddressesDialog = this.toggleAddressesDialog.bind(this);
         this.toggleUpdate = this.toggleUpdate.bind(this);
-        this.editCard = this.editCard.bind(this);
-        this.addCard = this.addCard.bind(this);
-        this.deleteCard = this.deleteCard.bind(this);
     }
 
     componentDidMount() {
@@ -83,18 +81,6 @@ class Account extends Component {
         this.setState(prevState => ({
           updated: !prevState.updated
         }));
-    }
-
-   editCard() {
-
-    }
-
-    addCard() {
-
-    }
-
-    deleteCard() {
-
     }
 
     loadUserInfo() {
@@ -225,28 +211,22 @@ class Account extends Component {
                                     <TableCell style={tableStyle.head}>Card Number</TableCell>
                                     <TableCell style={tableStyle.head} align="right">Name On Card</TableCell>
                                     <TableCell style={tableStyle.head} align="right">Exp. Date</TableCell>
+                                    <TableCell style={tableStyle.head} align="right">CCV</TableCell>
                                     <TableCell style={tableStyle.head}></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {user.credit_cards.map(card => (
-                                    <TableRow key={card._id}>
-                                        <TableCell style={tableStyle.body}>{card.card_number}</TableCell>
-                                        <TableCell style={tableStyle.body} align="right">{card.name_on_card}</TableCell>
-                                        <TableCell style={tableStyle.body} align="right">{card.expiration_date}</TableCell>
-                                        <TableCell style={tableStyle.body} align="center"><button onClick={this.toggleCardsDialog} style={{backgroundColor: "brown", color: "white"}}>Edit</button></TableCell>
-                                    </TableRow>
-                                ))}
+                                {user.credit_cards.map(card => (<CreditCards key={card._id} userId={user._id} tableStyle={tableStyle} card={card} />))}
                             </TableBody>
                         </Table>
                     </Grid>
                     <br></br>
                     <Grid item xs={12}>
-                        <Button style={{backgroundColor: "brown", color: "white"}}>ADD</Button>
+                        <Button onClick={this.toggleCardsDialog} style={{backgroundColor: "brown", color: "white"}}>ADD</Button>
                     </Grid>
                 </Grid>
 
-                <CardsDialog open={cardsDialog} close={this.toggleCardsDialog}/>
+                {cardsDialog && <CardsDialog userId={user._id} open={cardsDialog} close={this.toggleCardsDialog} add={true}/>}
 
                 <br></br>
                 <br></br>

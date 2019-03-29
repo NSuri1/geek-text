@@ -24,6 +24,7 @@ const config = {
 			fetch: '/credit-cards',
 			create: '/credit-cards/new',
 			update: '/credit-cards/update',
+			remove: '/credit-cards/remove'
 		},
 		media: {
 			fetch: '/media',

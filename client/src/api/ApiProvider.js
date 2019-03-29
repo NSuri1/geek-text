@@ -149,7 +149,7 @@ class ApiProvider {
 		});
 	}
 
-	//the extra key "action" must be included in the update field for shipping addresses so the server knows it is adding to the db array
+	//the extra key "action" must be included in the update field with shipping_addresses so the server knows it is adding to the db array
 	createAddress(userId, type ,form, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.addresses.create}`;
 
@@ -157,12 +157,12 @@ class ApiProvider {
 			if(error && errorCallback) errorCallback(error);
 			let data = JSON.parse(body);
 			if(data.success) {
-				if(type == "shipping") {
+				if(type === "shipping") {
 					this.updateUser(userId, {action: "add", shipping_addresses: data.results._id}, (reply) => {
 						if(callback) callback(reply)
 					})	
 				}
-				else if (type == "home") {
+				else if (type === "home") {
 					this.updateUser(userId, {address: data.results._id} , (reply) => {
 						if(callback) callback(reply)
 					})
@@ -171,6 +171,7 @@ class ApiProvider {
 		});
 	}
 
+	//the extra key "action" must be included in the update field with credit_cards so the server knows it is adding to the db array
 	createCard(userId, form, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.creditCards.create}`;
 
@@ -178,18 +179,15 @@ class ApiProvider {
 			if(error && errorCallback) errorCallback(error);
 			let data = JSON.parse(body);
 			if(data.success) {
-				this.getUserById(userId, (result) => {
-					let user = JSON.parse(result);
-					user.results.credit_cards.push({$oid: data.results._id})
-					this.updateUser(userId, {credit_cards: user.results.credit_cards}, (reply) => {
-						if(callback) callback(reply)
-					})
-				})
+				this.updateUser(userId, {action: "add", credit_cards: data.results._id}, (reply) => {
+					if(callback) callback(reply)
+				})	
 			}
+			
 		});
 	}
 
-	//the extra key "action" must be included in the update field for shipping addresses so the server knows it is removing from the db array
+	//the extra key "action" must be included in the update field with shipping_addresses so the server knows it is removing from the db array
 	deleteAddressById(userId, addressId, type, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.addresses.remove}/${addressId}`;
 
@@ -197,21 +195,33 @@ class ApiProvider {
 			if (error && errorCallback) errorCallback(error);
 			let data = JSON.parse(body);
 			if(data.success) {
-				if(type == "shipping") {
+				if(type === "shipping") {
 					this.updateUser(userId, {action: "remove", shipping_addresses: addressId}, (reply) => {
 						if(callback) callback(reply)
 					});
 				}
-				else if(type == "home"){
+				else if(type === "home"){
 					this.updateUser(userId, {action: "remove", address: ""}, (reply) => {
 						if(callback) callback(reply)
 					});	
 				}
 			}	
 		});
+	}
 
+	//the extra key "action" must be included in the update field with credit_cards so the server knows it is removing from the db array
+	deleteCardById(userId, cardId, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.creditCards.remove}/${cardId}`;
 
-		//this removes address. now i have to remove the address id from the users data.
+		request.post(endpoint, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			let data = JSON.parse(body);
+			if(data.success) {
+				this.updateUser(userId, {action: "remove", credit_cards: cardId}, (reply) => {
+					if(callback) callback(reply)
+				});
+			}	
+		});
 	}
 
 	_fetch(endpoint, callback, errorCallback) {

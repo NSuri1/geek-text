@@ -89,7 +89,7 @@ class AddressesDialog extends Component{
             <Dialog
             open={open}
             >
-                <DialogTitle id="form-dialog-title">Edit Address</DialogTitle>
+                <DialogTitle id="form-dialog-title">{!add ? "Edit Address" : "Add Address"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>    
                     {!add && "To edit any of the following fields, make your changes and click submit. To remove this address, click the delete button."}

@@ -9,8 +9,8 @@ import CredentialsDialog from './Dialogs/CredentialsDialog';
 import PersonalDialog from './Dialogs/PersonalDialog';
 import CardsDialog from './Dialogs/CardsDialog';
 import AddressesDialog from './Dialogs/AddressesDialog';
-import ShippingAddress from './ShippingAddress';
-import CreditCards from './CreditCards';
+import ShippingAddress from './TableRows/ShippingAddress';
+import CreditCards from './TableRows/CreditCards';
 
 const tableStyle = {
     head: {
@@ -101,6 +101,19 @@ class Account extends Component {
                         shipping_addresses: []
                     }
                 });
+                let cardData = ""
+                data.results.credit_cards.map(card => {
+                        api.getCardById(card, (result) => {
+                            cardData = JSON.parse(result);
+                            console.log(cardData)
+                            this.setState({
+                                user: {
+                                    ...this.state.user,
+                                    credit_cards: [...this.state.user.credit_cards, cardData.results],
+                                }
+                            });                       
+                        });
+                }); 
                 let shippingData = ""
                 data.results.shipping_addresses.map(address => {
                     api.getAddressById(address, (result) => {
@@ -114,20 +127,6 @@ class Account extends Component {
                         });
                     });
                 });            
-                let cardData = ""
-                data.results.credit_cards.map(card => {
-                        api.getCardById(card, (result) => {
-                            cardData = JSON.parse(result);
-                            console.log(cardData)
-                            this.setState({
-                                user: {
-                                    ...this.state.user,
-                                    credit_cards: [...this.state.user.credit_cards, cardData.results],
-                                }
-                            });                       
-                        });
-                });  
-                
             });
         });
     }
@@ -211,7 +210,7 @@ class Account extends Component {
                                     <TableCell style={tableStyle.head}>Card Number</TableCell>
                                     <TableCell style={tableStyle.head} align="right">Name On Card</TableCell>
                                     <TableCell style={tableStyle.head} align="right">Exp. Date</TableCell>
-                                    <TableCell style={tableStyle.head} align="right">CCV</TableCell>
+                                    <TableCell style={tableStyle.head} align="right">CCV / CVV</TableCell>
                                     <TableCell style={tableStyle.head}></TableCell>
                                 </TableRow>
                             </TableHead>

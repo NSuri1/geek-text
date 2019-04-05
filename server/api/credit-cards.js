@@ -2,6 +2,9 @@ import express from 'express';
 import creditCardService from '../services/credit-card';
 import crud from './_crud';
 
+//input validation
+import validateCreateInput from '../validation/CreateCard';
+
 const router = new express.Router();
 
 router.post('/new', createCreditCard);
@@ -11,6 +14,14 @@ router.get('/:id', fetchCreditCardsById);
 router.get('/', fetchCreditCards);
 
 function createCreditCard(request, response) {
+	// Form validation
+	const { errors, isValid} = validateCreateInput(request.body);
+
+	// Check validation
+	if(!isValid) {
+		return response.status(400).json(errors);
+	}
+
 	crud.create(creditCardService, request, response);
 }
 

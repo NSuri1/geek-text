@@ -1,9 +1,11 @@
 import Validator from 'validator';
 import isEmpty from 'is-empty';
+import { callbackify } from 'util';
 
 module.exports = function validateRegisterInput(data) {
   
-	var errors = {};var passwordValid = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})');
+	let errors = {};
+	let passwordValid = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})');
 	const upperCase = new RegExp('(?=.*[A-Z])');
 	const number = new RegExp('(?=.*[0-9])');
 	const special = new RegExp('(?=.*[!@#\$%\^&\*])');
@@ -72,6 +74,7 @@ module.exports = function validateRegisterInput(data) {
 	else if (!Validator.isEmail(data.email)) {
 		errors.email = 'Invalid Email';
 	}
+	
     
 	return {
 		errors,

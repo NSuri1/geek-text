@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddressesDialog from './Dialogs/AddressesDialog';
+import AddressesDialog from '../Dialogs/AddressesDialog';
 import { TableRow, TableCell } from '@material-ui/core';
 
 class ShippingAddress extends Component{

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CardsDialog from './Dialogs/CardsDialog';
+import CardsDialog from '../Dialogs/CardsDialog';
 import { TableRow, TableCell } from '@material-ui/core';
 
 class CreditCards extends Component{

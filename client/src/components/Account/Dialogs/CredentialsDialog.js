@@ -67,23 +67,23 @@ class CredentialsDialog extends Component{
                     <br></br>
                     Username:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="username"
-                    placeholder={user.username}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="username"
+                        placeholder={user.username}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     Password:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="password"
-                    placeholder="*********"
-                    onChange={this.handleInput}
-                    type="password"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="password"
+                        placeholder="*********"
+                        onChange={this.handleInput}
+                        type="password"
+                        fullWidth
                     />
                 </DialogContent>
                 <DialogActions>

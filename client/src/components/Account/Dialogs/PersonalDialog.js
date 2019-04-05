@@ -86,43 +86,43 @@ class PersonalDialog extends Component{
                     <br></br>
                     First Name: 
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="first_name"
-                    placeholder={user.first_name}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="first_name"
+                        placeholder={user.first_name}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     Last Name:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="last_name"
-                    placeholder={user.last_name}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="last_name"
+                        placeholder={user.last_name}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     Nickname:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="nickname"
-                    placeholder={user.nickname ? user.nickname : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="nickname"
+                        placeholder={user.nickname ? user.nickname : ""}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     Email Address:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="email"
-                    placeholder={user.email}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="email"
+                        placeholder={user.email}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     <Button variant="outlined" onClick={this.toggleAddressesDialog} style={{width: "100%"}}>
                         <Icon>home</Icon> &nbsp;

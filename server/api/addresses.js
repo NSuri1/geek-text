@@ -2,6 +2,9 @@ import express from 'express';
 import addressService from '../services/address';
 import crud from './_crud';
 
+//input validation
+import validateCreateInput from '../validation/CreateAddress';
+
 const router = new express.Router();
 
 router.post('/new', createAddress);
@@ -10,7 +13,15 @@ router.post('/remove/:id', removeAddress);
 router.get('/:id', fetchAddressesById);
 router.get('/', fetchAddresses);
 
-function createAddress(request, response) {
+async function createAddress(request, response) {
+	// Form validation
+	const { errors, isValid} = validateCreateInput(request.body);
+
+	// Check validation
+	if(!isValid) {
+		return response.status(400).json(errors);
+	}
+
 	crud.create(addressService, request, response);
 }
 

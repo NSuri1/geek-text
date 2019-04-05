@@ -168,6 +168,9 @@ class ApiProvider {
 					})
 				}
 			}
+			else {
+				if (callback) callback(body);
+			}
 		});
 	}
 
@@ -182,6 +185,9 @@ class ApiProvider {
 				this.updateUser(userId, {action: "add", credit_cards: data.results._id}, (reply) => {
 					if(callback) callback(reply)
 				})	
+			}
+			else {
+				if (callback) callback(body);
 			}
 			
 		});
@@ -206,6 +212,9 @@ class ApiProvider {
 					});	
 				}
 			}	
+			else {
+				if (callback) callback(body);
+			}
 		});
 	}
 
@@ -220,6 +229,9 @@ class ApiProvider {
 				this.updateUser(userId, {action: "remove", credit_cards: cardId}, (reply) => {
 					if(callback) callback(reply)
 				});
+			}
+			else {
+				if (callback) callback(body);
 			}	
 		});
 	}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import InputMask from 'react-input-mask';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -33,8 +34,6 @@ class CardsDialog extends Component{
         if(form.name_on_card === "") {delete form.name_on_card};
         if(form.expiration_date === "") {delete form.expiration_date};
         if(form.ccv === "") {delete form.ccv};
-
-        console.log(form)
 
         api.updateCard(this.props.card._id, form, (result) => {
              let data = JSON.parse(result);
@@ -74,7 +73,7 @@ class CardsDialog extends Component{
         })
 
         console.log(this.state)
-    }
+    } 
 
     render() {
 
@@ -92,45 +91,58 @@ class CardsDialog extends Component{
                     </DialogContentText>
                     <br></br>
                     Card Number: 
-                    <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="card_number"
-                    placeholder={card ? card.card_number : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
-                    />
+                    <InputMask
+                        mask="9999 9999 9999 9999 9999"
+                        maskChar=" "
+                        onChange={this.handleInput}
+                    >
+                        {() => <TextField
+                        style={{marginBottom : "15px"}}
+                        placeholder={card ? card.card_number : ""}
+                        name="card_number"
+                        margin="dense"
+                        fullWidth
+                        />}
+                    </InputMask>
                     Name on Card:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="name_on_card"
-                    placeholder={card ? card.name_on_card : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="name_on_card"
+                        placeholder={card ? card.name_on_card : ""}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     Expiration Date:
-                    <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="expiration_date"
-                    placeholder={card ? card.expiration_date : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
-                    />
-                    CCV:
-                    <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="ccv"
-                    placeholder={card ? card.ccv : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
-                    />
+                    <InputMask
+                        mask="99/9999"
+                        maskChar=" "
+                        onChange={this.handleInput}
+                        
+                    >
+                        {() => <TextField
+                        style={{marginBottom : "15px"}}
+                        placeholder={card ? card.expiration_date : ""}
+                        name="expiration_date"
+                        margin="dense"
+                        fullWidth
+                        />}
+                    </InputMask>
+                    CCV / CVV:
+                    <InputMask
+                        mask="9999"
+                        maskChar=" "
+                        onChange={this.handleInput}
+                    >
+                        {() => <TextField
+                        style={{marginBottom : "15px"}}
+                        placeholder={card ? card.ccv : ""}
+                        name="ccv"
+                        margin="dense"
+                        fullWidth
+                        />}
+                    </InputMask>
                 </DialogContent>
                 <DialogActions>
                     {!add && <Button onClick={this.editCard}  variant="contained" color="primary">Submit</Button>}

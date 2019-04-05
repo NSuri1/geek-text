@@ -9,6 +9,7 @@ import config from '../config';
 //input validation
 import validateRegisterInput from '../validation/register';
 import validateLoginInput from '../validation/login';
+import validateUpdateInput from '../validation/updateInfo';
 
 const router = new express.Router();
 
@@ -103,8 +104,19 @@ function loginUser(req, res) {
 	});
 }
 
-function updateUser(request, response) {
+async function updateUser(request, response) {
+	// Form validation
+	const { errors, isValid, data} = await validateUpdateInput(request.body);
+
+	request.body = data
+
+	// Check validation
+	if(!isValid) {
+		return response.status(400).json(errors);
+	}
+	
 	crud.update(userService, request, response);
+	
 }
 
 function fetchUsers(request, response) {

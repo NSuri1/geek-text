@@ -88,8 +88,8 @@ class BookDetails extends Component {
 				</div>
 				<Divider />
 				<div className="ratingsAndAuthorContainer">
-					<RatingsList reviews={this.state.ratings} />
 					<AuthorInfo authors={book.authors} />
+					<RatingsList reviews={this.state.ratings} />
 				</div>
 			</div >
 		);

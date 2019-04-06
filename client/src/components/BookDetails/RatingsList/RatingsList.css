@@ -1,5 +1,6 @@
 .ratingsListContainer {
-	max-width: 60%;
+	padding: 0% 10% 5% 10%;
+	min-width: 300px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;

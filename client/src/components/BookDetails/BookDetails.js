@@ -44,8 +44,16 @@ class BookDetails extends Component {
 
 	fetchRatingInformation() {
 		api.getBookRatings(this.state.bookId, (response) => {
-			this.setState({
-				ratings: JSON.parse(response).results,
+			let ratings = JSON.parse(response).results;
+			ratings.map(rating => {
+				let userId = rating.user;
+				api.getUserById(userId, username => {
+					rating.username = JSON.parse(username).results.username;
+					// Todo: Fix this... use async/await. Don't call set state so many times
+					this.setState({ ratings });
+				}, error => {
+					console.error(error);
+				});
 			});
 		}, (error) => {
 			console.error(error);

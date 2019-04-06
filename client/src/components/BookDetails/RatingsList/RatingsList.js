@@ -25,9 +25,12 @@ class RatingsList extends Component {
 			<div className="ratingsListContainer">
 				<div className="heading">Book Ratings and Reviews:</div>
 				{this.props.reviews && this.props.reviews.map(review => {
+					console.log(review.username)
 					return (
 						<div className="review" key={review._id}>
-							{review.comment}
+							<div>{review.username}</div>
+							<div>{review.comment}</div>
+
 						</div>
 					);
 				})}

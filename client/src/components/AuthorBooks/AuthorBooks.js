@@ -19,7 +19,27 @@ class AuthorBooks extends Component {
 		if (this.state.author) {
 			console.log('Making network request for books written by author');
 			this.state.author.books.map(bookId => this.fetchBookInformation(bookId));
+		} else {
+			this.setState(
+				{ authorId: this.props.match.params.authorId },
+				() => this.fetchAuthorInformation()
+			);
 		}
+	}
+
+	fetchAuthorInformation() {
+		api.getAuthorById(this.state.authorId, (response) => {
+			this.setState(
+				{ author: JSON.parse(response).results },
+				() => this.state.author.books.map(bookId => this.fetchBookInformation(bookId))
+			);
+		}, (error) => {
+			console.error(error);
+			setTimeout(() => {
+				console.log('Trying network request again...');
+				this.fetchAuthorInformation();
+			}, 5000);
+		});
 	}
 
 	fetchBookInformation(bookId) {
@@ -38,11 +58,10 @@ class AuthorBooks extends Component {
 
 	render() {
 		let { author, books } = this.state;
-		console.log(this.state);
 		if (!author) {
 			return (
 				<div className="authorBooksContainer">
-					We are sorry, an error occurred, please try again.
+					Loading...
 				</div>
 			);
 		}
@@ -60,7 +79,8 @@ class AuthorBooks extends Component {
 }
 
 AuthorBooks.propTypes = {
-	location: PropTypes.object
+	location: PropTypes.object,
+	match: PropTypes.object
 };
 
 export default AuthorBooks;

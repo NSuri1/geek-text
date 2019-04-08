@@ -64,6 +64,12 @@ class ApiProvider {
 		this._fetch(endpoint, callback, errorCallback);
 	}
 
+	getAuthorById(id, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}${serverConf.endpoints.authors.fetch}/${id}`;
+
+		this._fetch(endpoint, callback, errorCallback);
+	}
+
 	getBookById(id, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}${serverConf.endpoints.books.fetch}/${id}`;
 

@@ -42,7 +42,7 @@ class BookInfo extends Component {
 							viewString = author.name;
 						}
 						return (
-							<Link to={{ pathname: '/author-books', state: { author } }} style={{ color: 'white' }} key={author.name}>
+							<Link to={{ pathname: `/author-books/${author._id}`, state: { author } }} style={{ color: 'white' }} key={author.name}>
 								{viewString}
 							</Link>
 						);

@@ -21,17 +21,28 @@ class BookDetails extends Component {
 
 	componentDidMount() {
 		if (!this.state.book) {
+			this.setState(
+				{ bookId: this.props.match.params.bookId },
+				() => this.fetchBookInformation()
+			);
 			console.log('Making network request for book info');
-			this.fetchBookInformation();
+		} else {
+			this.fetchRatingInformation();
+			this.fetchGenreInformation();
 		}
-		this.fetchRatingInformation();
-		this.fetchGenreInformation();
+
 	}
 
 	fetchBookInformation() {
 		api.getBookById(this.state.bookId, (response) => {
 			this.setState({
 				book: JSON.parse(response).results,
+			}, () => {
+				console.log(this.state.book);
+				// The lines below don't have to be here once we use async/await
+				this.fetchBookCover();
+				this.fetchRatingInformation();
+				this.fetchGenreInformation();
 			});
 		}, (error) => {
 			console.error(error);
@@ -40,6 +51,16 @@ class BookDetails extends Component {
 				this.fetchBookInformation();
 			}, 5000);
 		});
+	}
+
+	fetchBookCover() {
+		api.getMedia({ id: this.state.book.cover_image }, (result) => {
+			let media = JSON.parse(result);
+			media = media.results;
+			this.setState({
+				bookCover: media.base64 || []
+			});
+		}, error => console.error(error));
 	}
 
 	fetchRatingInformation() {
@@ -80,6 +101,11 @@ class BookDetails extends Component {
 
 	render() {
 		const { book } = this.state;
+		if (!book) {
+			return (
+				<div className="container">Loading...</div>
+			);
+		}
 		return (
 			<div className="container">
 				<div className="bookDetailsContainer">
@@ -97,7 +123,8 @@ class BookDetails extends Component {
 }
 
 BookDetails.propTypes = {
-	location: PropTypes.object
+	location: PropTypes.object,
+	match: PropTypes.object,
 };
 
 export default BookDetails;

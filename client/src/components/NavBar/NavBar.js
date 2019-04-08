@@ -80,12 +80,12 @@ class AppNavBar extends Component {
 						</Toolbar>
 					</AppBar>
 					<Route path="/" exact component={() => <Home onBrowseSelect={this.onBrowseSelect} onHomeSelect={this.onHomeSelect} />} />
-					<Route path="/book-details" component={BookDetails} />
+					<Route path="/book-details/:bookId" component={BookDetails} />
 					<Route path="/login" component={LoginOrRegister} />
 					<Route path="/browse" component={BookBrowser} />
 					<Route path="/shopping-cart" component={ShoppingCart} />
 					<Route path="/account" component={() => <Account userID={"5c882c808a97765366b28b0e"} />} />
-					<Route path="/author-books" component={AuthorBooks} />
+					<Route path="/author-books/:authorId" component={AuthorBooks} />
 				</div>
 			</Router>
 		);

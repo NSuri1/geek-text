@@ -16,7 +16,7 @@ class AuthorInfo extends Component {
 					let info = author.bio ? author.bio : `We currently do not have any information stored about ${author.name}.`;
 					return (
 						<div key={author.name}>
-							<Link to={{ pathname: '/author-books', state: { author } }} style={{ color: 'white' }}>
+							<Link to={{ pathname: `/author-books/${author._id}`, state: { author } }} style={{ color: 'white' }}>
 								<div className="authorBio">- {author.name}</div>
 							</Link>
 							<div>{info}</div>

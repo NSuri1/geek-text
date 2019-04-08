@@ -44,13 +44,13 @@ class BookCard extends Component {
 		}
 		return (
 			<div className={cardClass} onMouseEnter={this.onCardHover} onMouseLeave={this.onCardHover}>
-				<Link to={{ pathname: '/book-details', state: { bookId: this.props.book._id, book: this.props.book, bookCover: this.state.coverImage } }}>
+				<Link to={{ pathname: `/book-details/${this.props.book._id}`, state: { bookId: this.props.book._id, book: this.props.book, bookCover: this.state.coverImage } }}>
 					<img className="cover-image" src={this.state.coverImage !== '' ? 'data:image/jpeg;base64,' + this.state.coverImage : 'book-placeholder.jpg'} alt="Book Cover" />
 					{/*Use this to test the placeholder image, or delete if desired
 						<img className="cover-image" src={'book-placeholder.jpg'} alt="Book Cover"/>*/}
 				</Link>
 				<div className="book-info">
-					<Link to={{ pathname: '/book-details', state: { bookId: this.props.book._id, book: this.props.book, bookCover: this.state.coverImage } }}>
+					<Link to={{ pathname: `/book-details/${this.props.book._id}`, state: { bookId: this.props.book._id, book: this.props.book, bookCover: this.state.coverImage } }}>
 						<h5 className="book-title">{this.props.book.title}</h5>
 					</Link>
 					<Link to={{ pathname: '/', state: { bookId: this.props.book._id } }}>

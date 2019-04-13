@@ -19,10 +19,10 @@ module.exports = function validateCreateInput(data) {
 		errors.card_number = 'Card number is required';
 	} 
 	else {
-		data.card_number = data.card_number.replace(/ /g,'')
+		data.card_number = data.card_number.replace(/ /g,'');
 		
 		if (!Validator.isCreditCard(data.card_number)) {
-			errors.card_number = 'Invalid credit card'
+			errors.card_number = 'Invalid credit card';
 		}
 
 	}
@@ -40,23 +40,23 @@ module.exports = function validateCreateInput(data) {
 	else {
 
 		if(data.expiration_date.length < 7 || /\s/.test(data.expiration_date)) {
-			errors.expiration_date = "Invalid expiration date. must be of format xx/xxxx"
+			errors.expiration_date = 'Invalid expiration date. must be of format xx/xxxx';
 		}
 		else {
 
-			let date = data.expiration_date.split('/') 
-			let month = Validator.toInt(date[0])
-			let year = Validator.toInt(date[1])
+			let date = data.expiration_date.split('/'); 
+			let month = Validator.toInt(date[0]);
+			let year = Validator.toInt(date[1]);
 
 			let currentDate = new Date();
-			let inputDate = new Date(year, (month - 1))
+			let inputDate = new Date(year, (month - 1));
 
 			if(month < 1 || month > 12) {
-				errors.expiration_date = "Invalid month. Must be bewteen 01 and 12"
+				errors.expiration_date = 'Invalid month. Must be bewteen 01 and 12';
 			}
 
 			if(inputDate < currentDate) {
-				errors.expiration_date = "Expired card"
+				errors.expiration_date = 'Expired card';
 			}
 
 		}
@@ -70,11 +70,11 @@ module.exports = function validateCreateInput(data) {
 	else {
 
 		if(data.ccv.length < 3 ) {
-			errors.ccv = "CCV / CVV cannot be less than 3 digits"
+			errors.ccv = 'CCV / CVV cannot be less than 3 digits';
 		}
 
 		if(/\s/.test(data.ccv)) {
-			errors.ccv = "Invalid ccv"
+			errors.ccv = 'Invalid ccv';
 		}
 
 	}

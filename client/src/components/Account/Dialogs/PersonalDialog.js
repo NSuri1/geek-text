@@ -20,6 +20,7 @@ class PersonalDialog extends Component{
             nickname: "",
             email: "",
             addressesDialog: false,
+            server: {}
         }
         
         this.editUser = this.editUser.bind(this);
@@ -29,8 +30,9 @@ class PersonalDialog extends Component{
     
     editUser() {
         let form = this.state
-
+        delete form.server 
         delete form.addressesDialog
+
         if(form.first_name === "" && form.last_name === "" && form.nickname === "" && form.email === "") {return}
         if(form.first_name === "") {delete form.first_name};;
         if(form.last_name === "") {delete form.last_name};;
@@ -47,6 +49,7 @@ class PersonalDialog extends Component{
                 nickname: "",
                 email: "",
                 addressesDialog: false,
+                server: data
             })
 
             if(data.success === true) {
@@ -84,6 +87,14 @@ class PersonalDialog extends Component{
               }));
         }
     }
+
+    inputError = (error) => {
+        return (
+          <div style={{color: "red"}}>
+              {error}
+            </div>
+        )
+    };
 
 
     render() {
@@ -140,6 +151,8 @@ class PersonalDialog extends Component{
                         type="text"
                         fullWidth
                     />
+                    {this.state.server.hasOwnProperty("email") && this.inputError(this.state.server.email)}
+                    <br></br>
                     <Button variant="outlined" onClick={this.toggleAddressesDialog} style={{width: "100%"}}>
                         <Icon>home</Icon> &nbsp;
                         {user.address ? "Edit Home Address" : "Add Home Address"}

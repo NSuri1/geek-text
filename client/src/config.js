@@ -1,9 +1,5 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 const config = {
-	uri: `http://${process.env.SERVER_HOST || 'localhost'}:${process.env.SERVER_PORT || 5000}/api`,
+	uri: `http://${process.env.REACT_APP_SERVER_HOST || 'localhost'}:${process.env.REACT_APP_SERVER_PORT || 5000}/api`,
 	endpoints: {
 		books: {
 			fetch: '/books',
@@ -32,7 +28,7 @@ const config = {
 			update: '/media/update',
 		},
 		carts: {
-			fetch: 'shopping-carts',
+			fetch: '/shopping-carts',
 			create: '/shopping-carts/new',
 			update: '/shopping-carts/update',
 		},

@@ -71,12 +71,8 @@ module.exports = function validateRegisterInput(data) {
 	else if (!Validator.isEmail(data.email)) {
 		errors.email = 'Invalid Email';
 	}
-<<<<<<< HEAD
-
-=======
 	
     
->>>>>>> profile-management
 	return {
 		errors,
 		isValid: isEmpty(errors)

@@ -16,11 +16,12 @@ import LoginOrRegister from '../LoginOrRegister';
 import BookBrowser from '../BookBrowser';
 import Account from '../Account';
 import ShoppingCart from '../ShoppingCart';
+import AuthorBooks from '../AuthorBooks';
 
 const styles = {
 	root: {
 		flexGrow: 1,
-		height: "100%"
+		height: '100%'
 	},
 	heading: {
 		flexGrow: 1,
@@ -77,15 +78,15 @@ class AppNavBar extends Component {
 
 	onBrowseSelect() {
 		this.setState({
-			title: "Browse"
-		})
+			title: 'Browse'
+		});
 	}
 
 	onHomeSelect() {
-		if (this.state.title !== "Geek Text") {
+		if (this.state.title !== 'Geek Text') {
 			this.setState({
-				title: "Geek Text"
-			})
+				title: 'Geek Text'
+			});
 		}
 	}
 
@@ -103,18 +104,20 @@ class AppNavBar extends Component {
 									{this.state.title}
 								</Typography>
 							</Link>
+
 							{this.state.loggedIn && <Button href="/account" color="inherit">Account</Button>}
 							{this.state.loggedIn && <Button href="/shopping-cart" color="inherit">Shopping Cart</Button>}
 							{this.state.loggedIn && <Link to={{ pathname: '/' }} style={{textDecoration: 'none', color: 'white'}}><Button onClick={this.logOut} color="inherit">Log Out</Button></Link>}
 							{!this.state.loggedIn && <Button href="/login"  color="inherit">Log In</Button>}
 						</Toolbar>
 					</AppBar>
-					<Route path="/" exact component={() => <Home onBrowseSelect={this.onBrowseSelect} onHomeSelect={this.onHomeSelect}/>} />
-					<Route path="/book-details" component={BookDetails} />
+					<Route path="/" exact component={() => <Home onBrowseSelect={this.onBrowseSelect} onHomeSelect={this.onHomeSelect} />} />
+					<Route path="/book-details/:bookId" component={BookDetails} />
 					<Route path="/login" component={ () => <LoginOrRegister update={this.forceUpdate}/>} />
 					<Route path="/browse" component={BookBrowser} />
-                    <Route path="/shopping-cart" component={ShoppingCart} />
+					<Route path="/shopping-cart" component={ShoppingCart} />
 					<Route path="/account" component={Account}/>
+					<Route path="/author-books/:authorId" component={AuthorBooks} />
 				</div>
 			</Router>	
 		);

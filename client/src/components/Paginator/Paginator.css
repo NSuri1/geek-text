@@ -16,7 +16,7 @@
 .paginator img {
   position: relative;
   width: 20px; height: 20px;
-  display: table-cell;
+  display: inline-block;
   vertical-align: middle;
 }
 

@@ -15,22 +15,34 @@ class BookDetails extends Component {
 		this.state = {
 			bookId: state ? state.bookId : null,
 			book: state ? state.book : null,
-			bookCover: state ? state.bookCover : null
+			bookCover: state ? state.bookCover : null,
 		};
 	}
 
 	componentDidMount() {
 		if (!this.state.book) {
+			this.setState(
+				{ bookId: this.props.match.params.bookId },
+				() => this.fetchBookInformation()
+			);
 			console.log('Making network request for book info');
-			this.fetchBookInformation();
+		} else {
+			this.fetchRatingInformation();
+			this.fetchGenreInformation();
 		}
-		this.fetchRatingInformation();
+
 	}
 
 	fetchBookInformation() {
 		api.getBookById(this.state.bookId, (response) => {
 			this.setState({
 				book: JSON.parse(response).results,
+			}, () => {
+				console.log(this.state.book);
+				// The lines below don't have to be here once we use async/await
+				this.fetchBookCover();
+				this.fetchRatingInformation();
+				this.fetchGenreInformation();
 			});
 		}, (error) => {
 			console.error(error);
@@ -41,11 +53,28 @@ class BookDetails extends Component {
 		});
 	}
 
+	fetchBookCover() {
+		api.getMedia({ id: this.state.book.cover_image }, (result) => {
+			let media = JSON.parse(result);
+			media = media.results;
+			this.setState({
+				bookCover: media.base64 || []
+			});
+		}, error => console.error(error));
+	}
+
 	fetchRatingInformation() {
 		api.getBookRatings(this.state.bookId, (response) => {
-			console.log(response)
-			this.setState({
-				ratings: JSON.parse(response).results,
+			let ratings = JSON.parse(response).results;
+			ratings.map(rating => {
+				let userId = rating.user;
+				api.getUserById(userId, username => {
+					rating.username = JSON.parse(username).results.username;
+					// Todo: Fix this... use async/await. Don't call set state so many times
+					this.setState({ ratings });
+				}, error => {
+					console.error(error);
+				});
 			});
 		}, (error) => {
 			console.error(error);
@@ -56,18 +85,37 @@ class BookDetails extends Component {
 		});
 	}
 
+	fetchGenreInformation() {
+		api.getGenreById(this.state.book.genre, (response) => {
+			this.setState({
+				genre: JSON.parse(response).results,
+			});
+		}, (error) => {
+			console.error(error);
+			setTimeout(() => {
+				console.log('Trying network request again...');
+				this.fetchGenreInformation();
+			}, 5000);
+		});
+	}
+
 	render() {
 		const { book } = this.state;
+		if (!book) {
+			return (
+				<div className="container">Loading...</div>
+			);
+		}
 		return (
 			<div className="container">
 				<div className="bookDetailsContainer">
 					<BookImage bookTitle={book.title} bookCover={this.state.bookCover} />
-					<BookInfo book={book} />
+					<BookInfo book={book} genre={this.state.genre} />
 				</div>
 				<Divider />
 				<div className="ratingsAndAuthorContainer">
-					<RatingsList reviews={this.state.ratings} />
 					<AuthorInfo authors={book.authors} />
+					<RatingsList reviews={this.state.ratings} />
 				</div>
 			</div >
 		);
@@ -75,7 +123,8 @@ class BookDetails extends Component {
 }
 
 BookDetails.propTypes = {
-	location: PropTypes.object
+	location: PropTypes.object,
+	match: PropTypes.object,
 };
 
 export default BookDetails;

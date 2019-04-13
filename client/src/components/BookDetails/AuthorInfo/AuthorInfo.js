@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './AuthorInfo.css';
 
 class AuthorInfo extends Component {
@@ -15,7 +16,9 @@ class AuthorInfo extends Component {
 					let info = author.bio ? author.bio : `We currently do not have any information stored about ${author.name}.`;
 					return (
 						<div key={author.name}>
-							<div className="authorBio">- {author.name}</div>
+							<Link to={{ pathname: `/author-books/${author._id}`, state: { author } }} style={{ color: 'white' }}>
+								<div className="authorBio">- {author.name}</div>
+							</Link>
 							<div>{info}</div>
 						</div>
 					);

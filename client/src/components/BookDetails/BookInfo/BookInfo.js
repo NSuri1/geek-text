@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 import "./BookInfo.css";
 import { api } from "../../../api/ApiProvider";
 import decode from "jwt-decode";
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
 
 
 class BookInfo extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      toLogin: false,
+      toShoppingCartPage: false
+    }
   }
 
   buildKeyValueDiv(heading, value) {
@@ -46,6 +50,7 @@ class BookInfo extends Component {
       });
     } catch (err) {
       console.log("Error, user is not logged in");
+      this.setState({ toLogin: true });
       // Move user to login page
     }
   };
@@ -141,6 +146,7 @@ class BookInfo extends Component {
         formattedUpdates,
         result => {
           console.log(result);
+          this.setState({ toShoppingCartPage: true });
         }
       );
     });
@@ -148,6 +154,13 @@ class BookInfo extends Component {
 
   render() {
     const { book, genre } = this.props;
+
+    if (this.state.toLogin) {
+      return <Redirect to='/login' />
+    }
+    if (this.state.toShoppingCartPage) {
+      return <Redirect to='/shopping-cart' />
+    }
     return (
       <div className="bookInfoSubContainer">
         <div>

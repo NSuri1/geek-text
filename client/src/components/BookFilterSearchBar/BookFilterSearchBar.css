@@ -1,16 +1,16 @@
-input[type="text"] {
+.book-filter {
   background-color: #171b23;
   outline: none;
   box-shadow: none;
   border: none;
   width: 92%;
-  height: 50px;
+  height: auto;
   color: white;
   font-size: 16pt;
   padding: 10px;
   margin: 0 !important;
 }
 
-::placeholder {
+.book-filter::placeholder {
   color: gray;
 }

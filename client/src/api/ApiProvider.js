@@ -174,21 +174,21 @@ class ApiProvider {
 	}
 
 	//the extra key "action" must be included in the update field with shipping_addresses so the server knows it is adding to the db array
-	createAddress(userId, type ,form, callback, errorCallback) {
+	createAddress(userId, type, form, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.addresses.create}`;
 
-		request.post(endpoint, {form}, (error, response, body) => {
-			if(error && errorCallback) errorCallback(error);
+		request.post(endpoint, { form }, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
 			let data = JSON.parse(body);
-			if(data.success) {
-				if(type === "shipping") {
-					this.updateUser(userId, {action: "add", shipping_addresses: data.results._id}, (reply) => {
-						if(callback) callback(reply)
-					})	
+			if (data.success) {
+				if (type === "shipping") {
+					this.updateUser(userId, { action: "add", shipping_addresses: data.results._id }, (reply) => {
+						if (callback) callback(reply)
+					})
 				}
 				else if (type === "home") {
-					this.updateUser(userId, {address: data.results._id} , (reply) => {
-						if(callback) callback(reply)
+					this.updateUser(userId, { address: data.results._id }, (reply) => {
+						if (callback) callback(reply)
 					})
 				}
 			}
@@ -202,18 +202,18 @@ class ApiProvider {
 	createCard(userId, form, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}${serverConf.endpoints.creditCards.create}`;
 
-		request.post(endpoint, {form}, (error, response, body) => {
-			if(error && errorCallback) errorCallback(error);
+		request.post(endpoint, { form }, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
 			let data = JSON.parse(body);
-			if(data.success) {
-				this.updateUser(userId, {action: "add", credit_cards: data.results._id}, (reply) => {
-					if(callback) callback(reply)
-				})	
+			if (data.success) {
+				this.updateUser(userId, { action: "add", credit_cards: data.results._id }, (reply) => {
+					if (callback) callback(reply)
+				})
 			}
 			else {
 				if (callback) callback(body);
 			}
-			
+
 		});
 	}
 
@@ -224,18 +224,18 @@ class ApiProvider {
 		request.post(endpoint, (error, response, body) => {
 			if (error && errorCallback) errorCallback(error);
 			let data = JSON.parse(body);
-			if(data.success) {
-				if(type === "shipping") {
-					this.updateUser(userId, {action: "remove", shipping_addresses: addressId}, (reply) => {
-						if(callback) callback(reply)
+			if (data.success) {
+				if (type === "shipping") {
+					this.updateUser(userId, { action: "remove", shipping_addresses: addressId }, (reply) => {
+						if (callback) callback(reply)
 					});
 				}
-				else if(type === "home"){
-					this.updateUser(userId, {action: "remove", address: ""}, (reply) => {
-						if(callback) callback(reply)
-					});	
+				else if (type === "home") {
+					this.updateUser(userId, { action: "remove", address: "" }, (reply) => {
+						if (callback) callback(reply)
+					});
 				}
-			}	
+			}
 			else {
 				if (callback) callback(body);
 			}
@@ -249,14 +249,14 @@ class ApiProvider {
 		request.post(endpoint, (error, response, body) => {
 			if (error && errorCallback) errorCallback(error);
 			let data = JSON.parse(body);
-			if(data.success) {
-				this.updateUser(userId, {action: "remove", credit_cards: cardId}, (reply) => {
-					if(callback) callback(reply)
+			if (data.success) {
+				this.updateUser(userId, { action: "remove", credit_cards: cardId }, (reply) => {
+					if (callback) callback(reply)
 				});
 			}
 			else {
 				if (callback) callback(body);
-			}	
+			}
 		});
 	}
 
@@ -272,6 +272,30 @@ class ApiProvider {
 			return func.call(this, ...argsBound, ...args);
 		};
 	}
+
+	createShoppingCart(callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.carts.create}`;
+
+		request.post(endpoint, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
+	}
+
+	getShoppingCartById(id, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.carts.fetch}/${id}`;
+		this._fetch(endpoint, callback, errorCallback);
+	}
+
+	updateCart(id, form, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}${serverConf.endpoints.carts.update}/${id}`;
+
+		request.post(endpoint, { form }, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			if (callback) callback(body);
+		});
+	}
+
 }
 
 export const api = new ApiProvider();

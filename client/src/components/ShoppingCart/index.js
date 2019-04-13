@@ -1,4 +1,1 @@
-export {
-    default
-}
-from './ShoppingCart'
+export { default } from './ShoppingCart';

@@ -1,5 +1,153 @@
 .book-text {
-    color: white;
-    font-size: 10px;
-    padding-top: 20px;
+	color: white;
+	font-size: 10px;
+}
+
+.book-title-text {
+	color: white;
+	font-size: 24px;
+	line-height: 1.16667;
+	font-weight: 600;
+	letter-spacing: .009em;
+	margin: 0;
+	width: fit-content;
+}
+
+.book-title-text:hover {
+	color: #a52a2a;
+}
+
+.photo-container {
+	margin-right: 20px;
+}
+
+.book-attributes-container {}
+
+.book-container {
+	display: inline-flex;
+}
+
+@media screen and (max-width:900px) {
+	.book-container {
+		display: inline-grid;
+	}
+	.photo-container {
+		margin: 0;
+		text-align: center;
+	}
+	.first-row {
+		display: inline-grid !important;
+	}
+	.book-attributes-container {
+		text-align: center;
+	}
+	.column-1 {
+		width: 100% !imp ortant;
+	}
+	.column-3 {
+		width: 100% !important;
+		display: grid !important;
+	}
+	.price-times-quantity-text {
+		text-align: center;
+	}
+	.button-container>* {
+		width: 100% !important;
+		margin-top: 10px;
+	}
+	.book-title-div {
+		width: 100% !important;
+	}
+	.book-title-div>* {
+		width: 100% !important;
+	}
+	.book-title-text {
+		width: 100% !important;
+	}
+	.quantity-div {
+		width: 100% !important;
+	}
+	.title-text {
+		text-align: center;
+	}
+	.free-text {
+		text-align: center;
+	}
+	.totals-container {
+		width: 100%;
+		margin: 0;
+	}
+}
+
+.quantity-selector {
+	font-size: 24px;
+	line-height: 1.16667;
+	font-weight: 600;
+	letter-spacing: .009em;
+	font-family: SF Pro Display, SF Pro Icons, AOS Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+	color: #111;
+	height: 1.41176rem;
+	margin-bottom: 0;
+	padding: 0;
+	border: 0;
+	display: inline-block;
+}
+
+.first-row {
+	display: flex;
+}
+
+.book-title-div {
+	width: 58.333%;
+}
+
+.quantity-div {
+	width: 18%;
+}
+
+.column-3 {
+	width: 23%;
+	display: block;
+}
+
+.column-3>* {
+	text-align: right;
+}
+
+.price-times-quantity-text {
+	color: white;
+	margin: 0;
+}
+
+.button-container {
+	float: right;
+}
+
+.action-button {
+	width: fit-content;
+	color: white;
+	flex: 1 1 auto;
+	margin-right: 10px;
+	padding: 5px;
+	margin-top: 5px;
+	border: 1.5px solid #f7f7f7;
+	text-align: center;
+	text-transform: uppercase;
+	position: relative;
+	overflow: hidden;
+	transition: .3s;
+}
+
+.action-button:hover {
+	color: #a52a2a;
+	border-color: #a52a2a;
+}
+
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid white;
+	margin: 1em 0;
+	padding: 0;
 }

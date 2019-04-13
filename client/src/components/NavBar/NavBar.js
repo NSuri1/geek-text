@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/icons/Menu';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import Home from '../Home';
@@ -42,7 +42,36 @@ class AppNavBar extends Component {
 		super(props);
 		this.onBrowseSelect = this.onBrowseSelect.bind(this);
 		this.onHomeSelect = this.onHomeSelect.bind(this);
-		this.state = { title: "Geek Text" }
+		this.checkLogIn = this.checkLogIn.bind(this);
+		this.logOut = this.logOut.bind(this);
+		this.forceUpdate = this.forceUpdate.bind(this);
+		this.state = { title: "Geek Text", loggedIn: false};
+	}
+
+	componentDidMount() {
+		this.checkLogIn()
+	}
+
+
+	componentWillUpdate() {
+		this.checkLogIn()
+	}
+
+	checkLogIn() {
+		if(!this.state.loggedIn && localStorage.getItem('token')) {
+			this.setState({
+				loggedIn: true
+			})
+		}
+	}
+
+	logOut() {
+		localStorage.removeItem('token')
+
+		this.setState({
+			loggedIn: false
+		})
+
 	}
 
 	onBrowseSelect() {
@@ -52,7 +81,7 @@ class AppNavBar extends Component {
 	}
 
 	onHomeSelect() {
-		if (this.state.title != "Geek Text") {
+		if (this.state.title !== "Geek Text") {
 			this.setState({
 				title: "Geek Text"
 			})
@@ -73,17 +102,19 @@ class AppNavBar extends Component {
 									{this.state.title}
 								</Typography>
 							</Link>
-							<Button href="/login" color="inherit">Log In</Button>
-							<Button color="inherit">Shopping Cart</Button>
+							{this.state.loggedIn && <Button href="/account" color="inherit">Account</Button>}
+							{this.state.loggedIn && <Button color="inherit">Shopping Cart</Button>}
+							{this.state.loggedIn && <Link to={{ pathname: '/' }} style={{textDecoration: 'none', color: 'white'}}><Button onClick={this.logOut} color="inherit">Log Out</Button></Link>}
+							{!this.state.loggedIn && <Button href="/login"  color="inherit">Log In</Button>}
 						</Toolbar>
 					</AppBar>
 					<Route path="/" exact component={() => <Home onBrowseSelect={this.onBrowseSelect} onHomeSelect={this.onHomeSelect}/>} />
 					<Route path="/book-details" component={BookDetails} />
-					<Route path="/login" component={LoginOrRegister} />
+					<Route path="/login" component={ () => <LoginOrRegister update={this.forceUpdate}/>} />
 					<Route path="/browse" component={BookBrowser} />
-					<Route path="/account" component={() => <Account userID={"5c882c808a97765366b28b0e"}/>}/>
+					<Route path="/account" component={Account}/>
 				</div>
-			</Router>
+			</Router>	
 		);
 	}
 }

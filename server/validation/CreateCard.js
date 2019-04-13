@@ -8,7 +8,7 @@ module.exports = function validateCreateInput(data) {
 	let errors = {};
 
 	// Convert empty fields to an empty string so we can use validator functions
-	data.card_number = !isEmpty(data.card_number) ? data.card_number : '';
+	data.card_number = !isEmpty(data.card_number) ? data.card_number.trim() : '';
 	data.name_on_card = !isEmpty(data.name_on_card) ? data.name_on_card : '';
 	data.expiration_date = !isEmpty(data.expiration_date) ? data.expiration_date.trim() : '';
 	data.ccv = !isEmpty(data.ccv) ? data.ccv.trim() : '';
@@ -19,7 +19,8 @@ module.exports = function validateCreateInput(data) {
 		errors.card_number = 'Card number is required';
 	} 
 	else {
-
+		data.card_number = data.card_number.replace(/ /g,'')
+		
 		if (!Validator.isCreditCard(data.card_number)) {
 			errors.card_number = 'Invalid credit card'
 		}
@@ -68,8 +69,12 @@ module.exports = function validateCreateInput(data) {
 	}
 	else {
 
-		if(data.ccv.length < 3) {
+		if(data.ccv.length < 3 ) {
 			errors.ccv = "CCV / CVV cannot be less than 3 digits"
+		}
+
+		if(/\s/.test(data.ccv)) {
+			errors.ccv = "Invalid ccv"
 		}
 
 	}

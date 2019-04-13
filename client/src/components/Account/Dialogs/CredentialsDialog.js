@@ -30,13 +30,19 @@ class CredentialsDialog extends Component{
 
         api.updateUser(this.props.user._id, form, (result) => {
             let data = JSON.parse(result);
-            console.log(data)
-        })
+            console.log(data) 
+            
+            this.setState({
+                username: "",
+                password: ""
+            })
 
-        this.setState({
-            username: "",
-            password: ""
-          })
+            if(data.success === true) {
+                this.props.update()
+                this.props.close()
+            }
+        })
+          
     }
 
     handleInput = (e) =>{

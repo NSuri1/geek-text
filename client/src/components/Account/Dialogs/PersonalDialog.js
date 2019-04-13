@@ -40,15 +40,22 @@ class PersonalDialog extends Component{
         api.updateUser(this.props.user._id, form, (result) => {
             let data = JSON.parse(result);
             console.log(data)
+
+            this.setState({
+                first_name: "",
+                last_name: "",
+                nickname: "",
+                email: "",
+                addressesDialog: false,
+            })
+
+            if(data.success === true) {
+                this.props.update()
+                this.props.close()
+            }
         })
 
-        this.setState({
-            first_name: "",
-            last_name: "",
-            nickname: "",
-            email: "",
-            addressesDialog: false,
-          })
+        
     }
 
 
@@ -64,9 +71,18 @@ class PersonalDialog extends Component{
     }
 
     toggleAddressesDialog() {
-        this.setState(prevState => ({
-          addressesDialog: !prevState.addressesDialog
-        }));
+        if(this.state.addressesDialog === true) {
+            this.setState(prevState => ({
+                addressesDialog: !prevState.addressesDialog
+              }));
+
+              this.props.close()
+        }
+        else {
+            this.setState(prevState => ({
+                addressesDialog: !prevState.addressesDialog
+              }));
+        }
     }
 
 
@@ -133,7 +149,7 @@ class PersonalDialog extends Component{
                     <Button onClick={this.editUser}  variant="contained" color="primary">Submit</Button>
                     <Button onClick={close} variant="contained" color="primary">Cancel</Button>
                 </DialogActions>
-                {this.state.addressesDialog && <AddressesDialog userId={user._id} address={user.address} open={this.state.addressesDialog} close={this.toggleAddressesDialog} add={user.address ? false : true} type={"home"}/>}
+                {this.state.addressesDialog && <AddressesDialog userId={user._id} address={user.address} open={this.state.addressesDialog} close={this.toggleAddressesDialog} add={user.address ? false : true} type={"home"} update={this.props.update}/>}
             </Dialog>
         )
     }

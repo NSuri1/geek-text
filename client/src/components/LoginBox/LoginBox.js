@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './LoginBox.css';
 import { api } from '../../api/ApiProvider';
 
@@ -14,6 +15,10 @@ class LoginBox extends Component {
     };
   }
 
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
   handleInput = (e) =>{
     const value = e.target.value
     const name = e.target.name
@@ -23,29 +28,28 @@ class LoginBox extends Component {
     })
   }
 
-  submitLogin = (e) =>{
+  submitLogin = async (e) =>{
     e.preventDefault()
 
     api.logIn(this.state, (result) => {
       let response = JSON.parse(result);
       console.log(result)
+
       this.setState(
         {
           submitted: true, 
           server: response
-        })
-    });  
-  }
-
-  LogInMessage = () => {
-    if(this.state.server.success) {
-      return (
-        <div className="loggedIn-message">
-          Successfully Logged In!
-        </div>
+        }
       )
-    }
-  };
+
+      if(response.success) {
+
+        localStorage.setItem('token', response.token)
+        this.props.update()
+        this.context.router.history.push("/") 
+      }
+    });
+  }
 
   inputError = (error) => {
     return (
@@ -94,8 +98,6 @@ class LoginBox extends Component {
               type="submit">
                 Login
             </button>
-
-            {this.state.submitted && this.LogInMessage()}
 
           </form>
       </div>

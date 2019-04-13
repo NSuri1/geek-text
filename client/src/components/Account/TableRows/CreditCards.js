@@ -22,7 +22,7 @@ class CreditCards extends Component{
     
     render() {
 
-        const {userId, tableStyle, card} = this.props
+        const {userId, tableStyle, card, update} = this.props
 
         return(
             <TableRow >
@@ -31,7 +31,7 @@ class CreditCards extends Component{
                 <TableCell style={tableStyle.body} align="right">{card.expiration_date}</TableCell>
                 <TableCell style={tableStyle.body} align="right">{card.ccv}</TableCell>
                 <TableCell style={tableStyle.body} align="center"><button onClick={this.toggleCardsDialog} style={{backgroundColor: "brown", color: "white"}}>Edit</button></TableCell>
-                {this.state.cardsDialog && <CardsDialog userId={userId} card={card} open={this.state.cardsDialog} close={this.toggleCardsDialog} add={false} />}
+                {this.state.cardsDialog && <CardsDialog userId={userId} card={card} open={this.state.cardsDialog} close={this.toggleCardsDialog} add={false} update={update}/>}
             </TableRow>
         )
     }

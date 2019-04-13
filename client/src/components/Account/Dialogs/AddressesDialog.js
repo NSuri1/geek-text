@@ -43,6 +43,20 @@ class AddressesDialog extends Component{
         api.updateAddress(this.props.address._id, form, (result) => {
             let data = JSON.parse(result);
             console.log(data)
+
+            this.setState({
+                address_line1: "",
+                address_line2: "",
+                city: "",
+                state: "",
+                zip: "",
+                country: ""
+            })
+
+            if(data.success === true) {
+                this.props.update()
+                this.props.close()
+            }
         })
 
         this.setState({
@@ -52,7 +66,7 @@ class AddressesDialog extends Component{
             state: "",
             zip: "",
             country: ""
-          })
+        })
     }
 
     deleteAddress() {

@@ -38,20 +38,30 @@ class CardsDialog extends Component{
         api.updateCard(this.props.card._id, form, (result) => {
              let data = JSON.parse(result);
              console.log(data)
-        })
+             
+             this.setState({
+                card_number: "",
+                name_on_card: "",
+                expiration_date: "",
+                ccv: ""
+            })
 
-        this.setState({
-            card_number: "",
-            name_on_card: "",
-            expiration_date: "",
-            ccv: ""
-          })
+            if(data.success === true) {
+                this.props.update()
+                this.props.close()
+            }
+        })
     }
 
     deleteCard() {
         api.deleteCardById(this.props.userId, this.props.card._id, (result) => {
              let data = JSON.parse(result);
              console.log(data)
+
+             if(data.success === true) {
+                this.props.update()
+                this.props.close()
+            }
         })
     }
 
@@ -61,6 +71,11 @@ class CardsDialog extends Component{
         api.createCard(this.props.userId, form, (result) => {
              let data = JSON.parse(result);
              console.log(data)
+
+             if(data.success === true) {
+                this.props.update()
+                this.props.close()
+            }
         })
     }
 

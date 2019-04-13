@@ -24,6 +24,7 @@ const config = {
 			fetch: '/credit-cards',
 			create: '/credit-cards/new',
 			update: '/credit-cards/update',
+			remove: '/credit-cards/remove'
 		},
 		media: {
 			fetch: '/media',
@@ -45,6 +46,7 @@ const config = {
 			fetch: '/addresses',
 			create: '/addresses/new',
 			update: '/addresses/update',
+			remove: '/addresses/remove'
 		},
 		genres: {
 			fetch: '/genres'

@@ -1,9 +1,10 @@
 import Validator from 'validator';
 import isEmpty from 'is-empty';
+import { callbackify } from 'util';
 
 module.exports = function validateRegisterInput(data) {
   
-	var errors = {};
+	let errors = {};
 	const upperCase = new RegExp('(?=.*[A-Z])');
 	const number = new RegExp('(?=.*[0-9])');
 	const special = new RegExp('(?=.*[!@#\$%\^&\*])');
@@ -70,7 +71,12 @@ module.exports = function validateRegisterInput(data) {
 	else if (!Validator.isEmail(data.email)) {
 		errors.email = 'Invalid Email';
 	}
+<<<<<<< HEAD
 
+=======
+	
+    
+>>>>>>> profile-management
 	return {
 		errors,
 		isValid: isEmpty(errors)

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { api } from '../../../api/ApiProvider'
+import { api } from '../../../api/ApiProvider';
+import menu from './FormMenuOpts';
 
 class AddressesDialog extends Component{
 
@@ -41,6 +43,20 @@ class AddressesDialog extends Component{
         api.updateAddress(this.props.address._id, form, (result) => {
             let data = JSON.parse(result);
             console.log(data)
+
+            this.setState({
+                address_line1: "",
+                address_line2: "",
+                city: "",
+                state: "",
+                zip: "",
+                country: ""
+            })
+
+            if(data.success === true) {
+                this.props.update()
+                this.props.close()
+            }
         })
 
         this.setState({
@@ -50,11 +66,14 @@ class AddressesDialog extends Component{
             state: "",
             zip: "",
             country: ""
-          })
+        })
     }
 
     deleteAddress() {
-
+        api.deleteAddressById(this.props.userId, this.props.address._id, this.props.type, (result) => {
+            let data = JSON.parse(result);
+            console.log(data)
+        })
     }
 
     addAddress() {
@@ -86,7 +105,7 @@ class AddressesDialog extends Component{
             <Dialog
             open={open}
             >
-                <DialogTitle id="form-dialog-title">Edit Address</DialogTitle>
+                <DialogTitle id="form-dialog-title">{!add ? "Edit Address" : "Add Address"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>    
                     {!add && "To edit any of the following fields, make your changes and click submit. To remove this address, click the delete button."}
@@ -95,56 +114,56 @@ class AddressesDialog extends Component{
                     <br></br>
                     Address Line 1: 
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="address_line1"
-                    placeholder={address ? address.address_line1 : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="address_line1"
+                        placeholder={address ? address.address_line1 : ""}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     Address Line 2:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="address_line2"
-                    placeholder={address ? address.address_line2 : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="address_line2"
+                        placeholder={address ? address.address_line2 : ""}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     City:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="city"
-                    placeholder={address ? address.city : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="city"
+                        placeholder={address ? address.city : ""}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     State:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="state"
-                    placeholder={address ? address.state : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="state"
+                        placeholder={address ? address.state : ""}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     Zip:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="zip"
-                    placeholder={address ? address.zip : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="zip"
+                        placeholder={address ? address.zip : ""}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     Country:
-                    <TextField 
+                    {/* <TextField 
                     style={{marginBottom : "15px"}}
                     margin="dense"
                     name="country"
@@ -152,7 +171,20 @@ class AddressesDialog extends Component{
                     onChange={this.handleInput}
                     type="email"
                     fullWidth
-                    />
+                    /> */}
+                    <Select
+                        native
+                        onChange={this.handleInput}
+                        name="country"
+                        displayEmpty
+                        style={{marginBottom : "15px"}}
+                        fullWidth
+                    >
+                        <option value="">{address ? address.country : ""}</option>
+                        {menu.countries.map(option => (
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                        ))}
+                    </Select>
                 </DialogContent>
                 <DialogActions>
                     {!add && <Button onClick={this.editAddress}  variant="contained" color="primary">Submit</Button>}

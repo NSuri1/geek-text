@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddressesDialog from './Dialogs/AddressesDialog';
+import AddressesDialog from '../Dialogs/AddressesDialog';
 import { TableRow, TableCell } from '@material-ui/core';
 
 class ShippingAddress extends Component{
@@ -22,7 +22,7 @@ class ShippingAddress extends Component{
     
     render() {
 
-        const {userId, tableStyle, address} = this.props
+        const {userId, tableStyle, address, update} = this.props
 
         return(
             <TableRow>
@@ -32,7 +32,7 @@ class ShippingAddress extends Component{
                 <TableCell style={tableStyle.body} align="right">{address.zip}</TableCell>
                 <TableCell style={tableStyle.body} align="right">{address.country}</TableCell> 
                 <TableCell style={tableStyle.body} align="center"><button onClick={this.toggleAddressesDialog} style={{backgroundColor: "brown", color: "white"}}>Edit</button></TableCell>
-                {this.state.addressesDialog && <AddressesDialog userId={userId} address={address} open={this.state.addressesDialog} close={this.toggleAddressesDialog} add={false}/>}
+                {this.state.addressesDialog && <AddressesDialog userId={userId} address={address} open={this.state.addressesDialog} close={this.toggleAddressesDialog} add={false} type={"shipping"} update={update}/>}
             </TableRow>
         )
     }

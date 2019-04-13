@@ -45,7 +45,7 @@ class LoginOrRegister extends Component {
 					</div>
 				</div>            
 				<div className="form-container">
-					{this.state.isLoginOpen && <LoginBox/>}
+					{this.state.isLoginOpen && <LoginBox update={this.props.update}/>}
 					{this.state.isRegisterOpen && <RegisterBox/>}
 				</div>                
 			</div>

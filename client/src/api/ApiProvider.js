@@ -167,56 +167,90 @@ class ApiProvider {
 		});
 	}
 
+	//the extra key "action" must be included in the update field with shipping_addresses so the server knows it is adding to the db array
 	createAddress(userId, type ,form, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.addresses.create}`;
 
-		if(type == "shipping") {
-			request.post(endpoint, {form}, (error, response, body) => {
-				if (error && errorCallback) errorCallback(error);
-				let data = JSON.parse(body);
-				if(data.success) {
-					this.getUserById(userId, (result) => {
-						let user = JSON.parse(result);
-						user.results.shipping_addresses.push(data.results._id)
-						let addresses = [{}]
-						for(let i = 0; i < user.results.shipping_addresses.length; i++) {
-							addresses.push({$oid: user.results.shipping_addresses[i]})
-						}
-						this.updateUser(userId, {shipping_addresses: addresses}, (reply) => {
-							callback(reply)
-						})
+		request.post(endpoint, {form}, (error, response, body) => {
+			if(error && errorCallback) errorCallback(error);
+			let data = JSON.parse(body);
+			if(data.success) {
+				if(type === "shipping") {
+					this.updateUser(userId, {action: "add", shipping_addresses: data.results._id}, (reply) => {
+						if(callback) callback(reply)
+					})	
+				}
+				else if (type === "home") {
+					this.updateUser(userId, {address: data.results._id} , (reply) => {
+						if(callback) callback(reply)
 					})
 				}
-			});
-		}	
-		if(type == "home") {
-			request.post(endpoint, {form}, (error, response, body) => {
-				if (error && errorCallback) errorCallback(error);
-				let data = JSON.parse(body);
-				if(data.success) {
-					this.updateUser(userId, {address: data.results._id}, (reply) => {
-							callback(reply)
-					})
-				}
-			});	
-		}
+			}
+			else {
+				if (callback) callback(body);
+			}
+		});
 	}
 
+	//the extra key "action" must be included in the update field with credit_cards so the server knows it is adding to the db array
 	createCard(userId, form, callback, errorCallback) {
 		const endpoint = `${serverConf.uri}/${serverConf.endpoints.creditCards.create}`;
 
 		request.post(endpoint, {form}, (error, response, body) => {
+			if(error && errorCallback) errorCallback(error);
+			let data = JSON.parse(body);
+			if(data.success) {
+				this.updateUser(userId, {action: "add", credit_cards: data.results._id}, (reply) => {
+					if(callback) callback(reply)
+				})	
+			}
+			else {
+				if (callback) callback(body);
+			}
+			
+		});
+	}
+
+	//the extra key "action" must be included in the update field with shipping_addresses so the server knows it is removing from the db array
+	deleteAddressById(userId, addressId, type, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.addresses.remove}/${addressId}`;
+
+		request.post(endpoint, (error, response, body) => {
 			if (error && errorCallback) errorCallback(error);
 			let data = JSON.parse(body);
 			if(data.success) {
-				this.getUserById(userId, (result) => {
-					let user = JSON.parse(result);
-					user.results.credit_cards.push({$oid: data.results._id})
-					this.updateUser(userId, {credit_cards: user.results.credit_cards}, (reply) => {
-						callback(reply)
-					})
-				})
+				if(type === "shipping") {
+					this.updateUser(userId, {action: "remove", shipping_addresses: addressId}, (reply) => {
+						if(callback) callback(reply)
+					});
+				}
+				else if(type === "home"){
+					this.updateUser(userId, {action: "remove", address: ""}, (reply) => {
+						if(callback) callback(reply)
+					});	
+				}
+			}	
+			else {
+				if (callback) callback(body);
 			}
+		});
+	}
+
+	//the extra key "action" must be included in the update field with credit_cards so the server knows it is removing from the db array
+	deleteCardById(userId, cardId, callback, errorCallback) {
+		const endpoint = `${serverConf.uri}/${serverConf.endpoints.creditCards.remove}/${cardId}`;
+
+		request.post(endpoint, (error, response, body) => {
+			if (error && errorCallback) errorCallback(error);
+			let data = JSON.parse(body);
+			if(data.success) {
+				this.updateUser(userId, {action: "remove", credit_cards: cardId}, (reply) => {
+					if(callback) callback(reply)
+				});
+			}
+			else {
+				if (callback) callback(body);
+			}	
 		});
 	}
 

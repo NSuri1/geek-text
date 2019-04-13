@@ -30,13 +30,19 @@ class CredentialsDialog extends Component{
 
         api.updateUser(this.props.user._id, form, (result) => {
             let data = JSON.parse(result);
-            console.log(data)
-        })
+            console.log(data) 
+            
+            this.setState({
+                username: "",
+                password: ""
+            })
 
-        this.setState({
-            username: "",
-            password: ""
-          })
+            if(data.success === true) {
+                this.props.update()
+                this.props.close()
+            }
+        })
+          
     }
 
     handleInput = (e) =>{
@@ -67,23 +73,23 @@ class CredentialsDialog extends Component{
                     <br></br>
                     Username:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="username"
-                    placeholder={user.username}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="username"
+                        placeholder={user.username}
+                        onChange={this.handleInput}
+                        type="email"
+                        fullWidth
                     />
                     Password:
                     <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="password"
-                    placeholder="*********"
-                    onChange={this.handleInput}
-                    type="password"
-                    fullWidth
+                        style={{marginBottom : "15px"}}
+                        margin="dense"
+                        name="password"
+                        placeholder="*********"
+                        onChange={this.handleInput}
+                        type="password"
+                        fullWidth
                     />
                 </DialogContent>
                 <DialogActions>

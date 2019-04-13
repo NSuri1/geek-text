@@ -6,43 +6,52 @@ import { api } from '../../api/ApiProvider';
 class RegisterBox extends Component {
 
   constructor(props) {
-      super(props);
-      this.state = {
-        username: '',
-        password: '',
-        first_name: '',
-        last_name: '',
-        email: '',
-        submitted: false,
-        server: {}
-      };
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      submitted: false,
+      server: {},
+      shopping_cart_id: ''
+    };
   }
-  
-  handleInput = (e) =>{
+
+  handleInput = (e) => {
     const value = e.target.value
     const name = e.target.name
 
     this.setState({
-      [name]: value 
+      [name]: value
     })
   }
 
-  submitRegister = (e) =>{
+  submitRegister = (e) => {
     e.preventDefault()
 
-    api.createUser(this.state, (result) => {
+    api.createShoppingCart((result) => {
       let response = JSON.parse(result);
-      console.log(result)
-      this.setState(
-        {
-          submitted: true, 
-          server: response
-        })
-    });  
+      console.log(response.results._id)
+      this.setState({
+        shopping_cart_id: response.results._id
+      })
+
+      api.createUser(this.state, (result) => {
+        let response = JSON.parse(result);
+        console.log(result)
+        this.setState(
+          {
+            submitted: true,
+            server: response
+          })
+      });
+    });
   }
 
   registerMessage = () => {
-    if(this.state.server.success) {
+    if (this.state.server.success) {
       return (
         <div className="created-message">
           Account Succesfully Created!
@@ -52,14 +61,14 @@ class RegisterBox extends Component {
   };
 
   passwordValidation = (password) => {
-    return (password.map((error, i) => <Fragment key={i} >{this.inputError(error)}</Fragment>))  
-    
+    return (password.map((error, i) => <Fragment key={i} >{this.inputError(error)}</Fragment>))
+
   };
 
   inputError = (error) => {
     return (
       <div className="register-input-message">
-          {error}
+        {error}
       </div>
     )
   };
@@ -83,8 +92,8 @@ class RegisterBox extends Component {
                 type="text"
                 name="username"
                 className="register-input"
-                placeholder="Username"/>
-               {this.state.server.hasOwnProperty("username") && this.inputError(this.state.server.username)} 
+                placeholder="Username" />
+              {this.state.server.hasOwnProperty("username") && this.inputError(this.state.server.username)}
             </div>
 
             <div className="input-group">
@@ -95,8 +104,8 @@ class RegisterBox extends Component {
                 type="password"
                 name="password"
                 className="register-input"
-                placeholder="Password"/>
-              {this.state.server.hasOwnProperty("password") && this.passwordValidation(this.state.server.password)} 
+                placeholder="Password" />
+              {this.state.server.hasOwnProperty("password") && this.passwordValidation(this.state.server.password)}
             </div>
 
             <div className="input-group">
@@ -107,8 +116,8 @@ class RegisterBox extends Component {
                 type="text"
                 name="first_name"
                 className="register-input"
-                placeholder="First Name"/>
-              {this.state.server.hasOwnProperty("first_name") && this.inputError(this.state.server.first_name)}  
+                placeholder="First Name" />
+              {this.state.server.hasOwnProperty("first_name") && this.inputError(this.state.server.first_name)}
             </div>
 
             <div className="input-group">
@@ -119,8 +128,8 @@ class RegisterBox extends Component {
                 type="text"
                 name="last_name"
                 className="register-input"
-                placeholder="Last Name"/>
-              {this.state.server.hasOwnProperty("last_name") && this.inputError(this.state.server.last_name)}  
+                placeholder="Last Name" />
+              {this.state.server.hasOwnProperty("last_name") && this.inputError(this.state.server.last_name)}
             </div>
 
             <div className="input-group">
@@ -131,15 +140,15 @@ class RegisterBox extends Component {
                 type="text"
                 name="email"
                 className="register-input"
-                placeholder="Email"/>
-              {this.state.server.hasOwnProperty("email") && this.inputError(this.state.server.email)}  
+                placeholder="Email" />
+              {this.state.server.hasOwnProperty("email") && this.inputError(this.state.server.email)}
             </div>
 
-      
+
             <button
               className="register-btn"
               type="submit">
-                Register
+              Register
             </button>
 
             {this.state.submitted && this.registerMessage()}

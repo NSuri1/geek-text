@@ -1,133 +1,286 @@
-import React, {
-    Component
-} from 'react';
-import Typography from '@material-ui/core/Typography';
-import PropTypes from 'prop-types';
-import './ShoppingCart.css'
-import CartContainer from './CartContainer/CartContainer.js'
-import {
-    api
-} from '../../api/ApiProvider';
+import React, { Component } from "react";
+import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
+import "./ShoppingCart.css";
+import CartContainer from "./CartContainer/CartContainer.js";
+import { api } from "../../api/ApiProvider";
+import decode from "jwt-decode";
 
 class ShoppingCart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      books: [],
+      subtotal: 0
+    };
+  }
 
+  componentDidMount() {
+    this.fetchBooksFromCart();
+  }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            books: [],
-            subtotal: 0
-        };
-    }
+  fetchBooksFromCart() {
+    // This is testing a sample cart created through POST
+    let user = decode(localStorage.getItem("token"));
 
-    componentDidMount() {
-        this.fetchBooksFromCart()
-    }
-
-    fetchBooksFromCart() {
-
-        // This is testing a sample cart created through POST
-        api.getShoppingCartById("5c78a63f3abd2b0364575ea0", (response) => {
-            this.parseIntoBooks(response)
-        }, (error) => {
-            console.error(error);
-            setTimeout(() => {
-                console.log('Trying network request again...');
-                this.fetchBookInformation();
-            }, 5000);
-        });
-
-    }
-
-    parseIntoBooks(response) {
-        response = JSON.parse(response).results
-
-        var cartTotal = 0
-        var bookArray = []
-        var someJson
-
-        for (var i = 0; i < response.books.length; i++) {
-            someJson = {
-                "book_id": response.books[i].book_id,
-                "quantity": response.books[i].quantity,
-                "saved_for_later": response.books[i].saved_for_later,
-                "price": response.books[i].price
-            }
-            this.state.books.push(someJson)
-            cartTotal += response.books[i].quantity * response.books[i].price
+    api.getUserById(user.id, result => {
+      let data = JSON.parse(result);
+      console.log("here");
+      api.getShoppingCartById(
+        data.results.shopping_cart_id,
+        response => {
+          this.parseIntoBooks(response);
+        },
+        error => {
+          console.error(error);
+          setTimeout(() => {
+            console.log("Trying network request again...");
+            this.fetchBooksFromCart();
+          }, 5000);
         }
-        this.setState({
-            subtotal: cartTotal
-        })
-        this.forceUpdate()
+      );
+    });
+  }
+
+  parseIntoBooks(response) {
+    response = JSON.parse(response).results;
+
+    let cartTotal = 0;
+    let bookArray = [];
+    let someJson;
+
+    for (let i = 0; i < response.books.length; i++) {
+      someJson = {
+        shopping_cart_item_id: response.books[i].shopping_cart_item_id,
+        book_id: response.books[i].book_id,
+        price: response.books[i].price,
+        quantity: response.books[i].quantity,
+        saved_for_later: response.books[i].saved_for_later
+      };
+      bookArray.push(someJson);
+      cartTotal += response.books[i].quantity * response.books[i].price;
+    }
+    this.setState({ books: bookArray })
+
+    this.calculateCartTotal(this.state.books);
+  }
+
+  calculateCartTotal(books) {
+    let newTotal = 0;
+
+    for (let i = 0; i < books.length; i++) {
+      if (!books[i].saved_for_later) {
+        newTotal += books[i].quantity * books[i].price;
+      }
     }
 
-    handleRemoveBookFromCart = (book_id) => {
+    this.setState({
+      subtotal: newTotal
+    });
+  }
 
-        this.setState({
-            books: this.state.books.filter(book => {
+  updateShoppingCart(updates) {
+    let user = decode(localStorage.getItem("token"));
 
-                if (book_id !== book.book_id) {
-                    return book
-                }
+    let formattedUpdates = {
+      books: updates
+    };
 
-            })
-        })
+    api.getUserById(user.id, result => {
+      let userData = JSON.parse(result);
+      console.log("here");
+      api.updateCart(
+        userData.results.shopping_cart_id,
+        formattedUpdates,
+        result => {
+          let data = JSON.parse(result);
+        }
+      );
+    });
+  }
 
+  handleRemoveBookFromCart = book_id => {
+    const currentBooks = this.state.books;
+
+    const remainingBooksAfterRemoval = currentBooks.filter(
+      book => book.book_id !== book_id
+    );
+
+    this.setState({
+      books: remainingBooksAfterRemoval
+    });
+
+    this.updateShoppingCart(remainingBooksAfterRemoval);
+
+    this.calculateCartTotal(remainingBooksAfterRemoval);
+  };
+
+  handleChangeBookQuantity = (book_id, newQuantity) => {
+    console.log("here");
+    if (newQuantity > 0) {
+      const currentBooks = this.state.books;
+
+      const updatedBooks = currentBooks.filter(book => {
+        if (book.book_id === book_id) {
+          book.quantity = newQuantity;
+        }
+
+        return book;
+      });
+
+      this.setState({
+        books: updatedBooks
+      });
+
+      this.updateShoppingCart(updatedBooks);
+      this.calculateCartTotal(updatedBooks);
+    } else {
+      this.handleRemoveBookFromCart(book_id);
     }
+  };
 
-    handleChangeBookQuantity = (book_id, newQuantity) => {
+  handleSaveForLater = (book_id, isCurrentlySavedForLater) => {
+    const currentBooks = this.state.books;
 
-        if (newQuantity > 0) {
-
-            this.setState({
-                books: this.state.books.map(book => {
-
-                    if (book.book_id === book_id) {
-                        book.quantity = newQuantity
-                    }
-                    return book
-                })
-            })
-
+    const updatedBooks = currentBooks.filter(book => {
+      if (book.book_id === book_id) {
+        if (isCurrentlySavedForLater) {
+          book.saved_for_later = false;
         } else {
-            this.handleRemoveBookFromCart(book_id)
+          book.saved_for_later = true;
         }
+      }
 
+      return book;
+    });
+
+    this.setState({
+      books: updatedBooks
+    });
+
+    this.updateShoppingCart(updatedBooks);
+    this.calculateCartTotal(updatedBooks);
+  };
+
+  render() {
+    // Loop through the books to find if there's one saved for SavedForLater
+
+    let currentBook = 0;
+    let booksSavedForLater = [];
+
+    let currentBook2 = 0;
+    let booksNotSavedForLater = [];
+
+    for (let i = 0; i < this.state.books.length; i++) {
+      if (this.state.books[i].saved_for_later) {
+        booksSavedForLater[currentBook] = this.state.books[i];
+        currentBook++;
+      } else {
+        booksNotSavedForLater[currentBook2] = this.state.books[i];
+        currentBook2++;
+      }
     }
 
-    render() {
-        return ( <
-            div >
-            <
-            h1 > Total number of books: {
-                this.state.books
-            }. < /h1> <
-            CartContainer books = {
-                this.state.books
-            }
-            subtotal = {
-                this.state.subtotal
-            }
-            handleRemoveBookFromCart = {
-                this.handleRemoveBookFromCart
-            }
-            handleChangeBookQuantity = {
-                this.handleChangeBookQuantity
-            }
-            /> <
-            h1 className = "subtotal-text" > Subtotal: $ {
-                this.state.subtotal
-            } < /h1> <
-            /div>
-        );
+    if (booksSavedForLater.length == 0) {
+      return (
+        <div className="shopping-cart-page-container">
+          <h1 className="title-text">Here's Whats In Your Cart.</h1>
+          <div className="free-text">Free delivery and free returns.</div>
+          <div className="cart-container">
+            <CartContainer
+              books={booksNotSavedForLater}
+              subtotal={this.state.subtotal}
+              handleRemoveBookFromCart={this.handleRemoveBookFromCart}
+              handleChangeBookQuantity={this.handleChangeBookQuantity}
+              handleSaveForLater={this.handleSaveForLater}
+            />{" "}
+            <div className="totals-container">
+              <div className="subtotal-text" style={{ display: "flex" }}>
+                <div>Subtotal</div>
+                <div style={{ textAlign: "right", width: "100%" }}>
+                  ${this.state.subtotal.toFixed(2)}
+                </div>
+              </div>
+
+              <div className="subtotal-text" style={{ display: "flex" }}>
+                <div>Shipping</div>
+                <div style={{ textAlign: "right", width: "100%" }}>FREE</div>
+              </div>
+
+              <hr />
+
+              <div className="subtotal-text" style={{ display: "flex" }}>
+                <div>Total</div>
+                <div style={{ textAlign: "right", width: "100%" }}>
+                  ${this.state.subtotal.toFixed(2)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div className="shopping-cart-page-container">
+            <h1 className="title-text">Here's Whats In Your Cart.</h1>
+            <div className="free-text">Free delivery and free returns.</div>
+            <div className="cart-container">
+              <CartContainer
+                books={booksNotSavedForLater}
+                subtotal={this.state.subtotal}
+                handleRemoveBookFromCart={this.handleRemoveBookFromCart}
+                handleChangeBookQuantity={this.handleChangeBookQuantity}
+                handleSaveForLater={this.handleSaveForLater}
+              />
+
+              <div className="totals-container">
+                <div className="subtotal-text" style={{ display: "flex" }}>
+                  <div>Subtotal</div>
+                  <div style={{ textAlign: "right", width: "100%" }}>
+                    ${this.state.subtotal.toFixed(2)}
+                  </div>
+                </div>
+
+                <div className="subtotal-text" style={{ display: "flex" }}>
+                  <div>Shipping</div>
+                  <div style={{ textAlign: "right", width: "100%" }}>FREE</div>
+                </div>
+
+                <hr />
+
+                <div className="subtotal-text" style={{ display: "flex" }}>
+                  <div>Total</div>
+                  <div style={{ textAlign: "right", width: "100%" }}>
+                    ${this.state.subtotal.toFixed(2)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="shopping-cart-page-container">
+            <h1 className="title-text">Here's Whats Saved For Later.</h1>
+
+            <div className="cart-container">
+              <CartContainer
+                books={booksSavedForLater}
+                subtotal={this.state.subtotal}
+                handleRemoveBookFromCart={this.handleRemoveBookFromCart}
+                handleChangeBookQuantity={this.handleChangeBookQuantity}
+                handleSaveForLater={this.handleSaveForLater}
+              />
+            </div>
+          </div>
+        </div>
+      );
     }
+  }
 }
 
 ShoppingCart.propTypes = {
-    books: PropTypes.object,
-    subtotal: PropTypes.object
-}
-
+  books: PropTypes.object,
+  subtotal: PropTypes.object
+};
 
 export default ShoppingCart;

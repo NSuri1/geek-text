@@ -1,4 +1,1 @@
-export {
-    default
-}
-from './BookContainer';
+export { default } from "./BookContainer";

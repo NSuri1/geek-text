@@ -3,21 +3,23 @@ import isEmpty from 'is-empty';
 
 module.exports = function validateUpdateInput(data) {
   
-    let errors = {};
-
-    //card number validation
-    if(data.card_number) {
-        data.card_number = data.card_number.replace(/ /g,'');
+	let errors = {};
+	
+  //card number validation
+  if(data.card_number) {
+		data.card_number = data.card_number.trim() 
+    data.card_number = data.card_number.replace(/ /g,'');
 		
 		if (!Validator.isCreditCard(data.card_number)) {
 			errors.card_number = 'Invalid credit card number';
 		}
-    }    
+  }    
     
-    //expiration date validation
-    if(data.expiration_date) {
-        if(data.expiration_date.length < 7 || /\s/.test(data.expiration_date)) {
-			errors.expiration_date = 'Invalid expiration date. must be of format xx/xxxx';
+	//expiration date validation
+	if(data.expiration_date) {
+		data.expiration_date = data.expiration_date.trim()
+		if(data.expiration_date.length < 7 || /\s/.test(data.expiration_date)) {
+		errors.expiration_date = 'Invalid expiration date. must be of format xx/xxxx';
 		}
 		else {
 
@@ -37,23 +39,24 @@ module.exports = function validateUpdateInput(data) {
 			}
 
 		}
-    } 
+  } 
 
-    //ccv validation
-    if(data.ccv) {
-        if(data.ccv.length < 3 ) {
+	//ccv validation
+	if(data.ccv) {
+		data.ccv = data.ccv.trim()
+		if(data.ccv.length < 3 ) {
 			errors.ccv = 'CCV / CVV cannot be less than 3 digits';
 		}
 
 		if(/\s/.test(data.ccv)) {
 			errors.ccv = 'Invalid ccv';
 		}
-    } 
+  } 
 
     
     
-    return {
+  return {
 		errors,
-        isValid: isEmpty(errors)
+    isValid: isEmpty(errors)
 	};
 };

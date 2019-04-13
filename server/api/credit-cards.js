@@ -29,7 +29,6 @@ function createCreditCard(request, response) {
 async function updateCreditCard(request, response) {
 	// Form validation
 	const { errors, isValid} = await validateUpdateInput(request.body);
-console.log(errors)
 	// Check validation
 	if(!isValid) {
 		return response.status(400).json(errors);

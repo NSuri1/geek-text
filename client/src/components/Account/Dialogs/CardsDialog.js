@@ -126,7 +126,7 @@ class CardsDialog extends Component{
                         name="name_on_card"
                         placeholder={card ? card.name_on_card : ""}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     Expiration Date:

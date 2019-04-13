@@ -78,7 +78,7 @@ class CredentialsDialog extends Component{
                         name="username"
                         placeholder={user.username}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     Password:

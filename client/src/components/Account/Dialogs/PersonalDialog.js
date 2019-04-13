@@ -107,7 +107,7 @@ class PersonalDialog extends Component{
                         name="first_name"
                         placeholder={user.first_name}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     Last Name:
@@ -117,7 +117,7 @@ class PersonalDialog extends Component{
                         name="last_name"
                         placeholder={user.last_name}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     Nickname:
@@ -127,7 +127,7 @@ class PersonalDialog extends Component{
                         name="nickname"
                         placeholder={user.nickname ? user.nickname : ""}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     Email Address:
@@ -137,7 +137,7 @@ class PersonalDialog extends Component{
                         name="email"
                         placeholder={user.email}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     <Button variant="outlined" onClick={this.toggleAddressesDialog} style={{width: "100%"}}>

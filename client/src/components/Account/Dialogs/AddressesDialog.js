@@ -58,21 +58,17 @@ class AddressesDialog extends Component{
                 this.props.close()
             }
         })
-
-        this.setState({
-            address_line1: "",
-            address_line2: "",
-            city: "",
-            state: "",
-            zip: "",
-            country: ""
-        })
     }
 
     deleteAddress() {
         api.deleteAddressById(this.props.userId, this.props.address._id, this.props.type, (result) => {
             let data = JSON.parse(result);
             console.log(data)
+
+            if(data.success === true) {
+                this.props.update()
+                this.props.close()
+            }
         })
     }
 
@@ -82,6 +78,11 @@ class AddressesDialog extends Component{
         api.createAddress(this.props.userId, this.props.type, form, (result) => {
             let data = JSON.parse(result);
             console.log(data)
+
+            if(data.success === true) {
+                this.props.update()
+                this.props.close()
+            }
         })
     }
 
@@ -119,7 +120,7 @@ class AddressesDialog extends Component{
                         name="address_line1"
                         placeholder={address ? address.address_line1 : ""}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     Address Line 2:
@@ -129,7 +130,7 @@ class AddressesDialog extends Component{
                         name="address_line2"
                         placeholder={address ? address.address_line2 : ""}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     City:
@@ -139,7 +140,7 @@ class AddressesDialog extends Component{
                         name="city"
                         placeholder={address ? address.city : ""}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     State:
@@ -149,7 +150,7 @@ class AddressesDialog extends Component{
                         name="state"
                         placeholder={address ? address.state : ""}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     Zip:
@@ -159,7 +160,7 @@ class AddressesDialog extends Component{
                         name="zip"
                         placeholder={address ? address.zip : ""}
                         onChange={this.handleInput}
-                        type="email"
+                        type="text"
                         fullWidth
                     />
                     Country:

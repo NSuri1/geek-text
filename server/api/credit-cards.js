@@ -4,6 +4,7 @@ import crud from './_crud';
 
 //input validation
 import validateCreateInput from '../validation/CreateCard';
+import validateUpdateInput from '../validation/updateCard';
 
 const router = new express.Router();
 
@@ -25,7 +26,14 @@ function createCreditCard(request, response) {
 	crud.create(creditCardService, request, response);
 }
 
-function updateCreditCard(request, response) {
+async function updateCreditCard(request, response) {
+	// Form validation
+	const { errors, isValid} = await validateUpdateInput(request.body);
+	// Check validation
+	if(!isValid) {
+		return response.status(400).json(errors);
+	}
+
 	crud.update(creditCardService, request, response);
 }
 

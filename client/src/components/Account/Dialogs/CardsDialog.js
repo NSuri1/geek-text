@@ -17,7 +17,8 @@ class CardsDialog extends Component{
             card_number: "",
             name_on_card: "",
             expiration_date: "",
-            ccv: ""
+            ccv: "",
+            server: {}
         }
 
         this.editCard = this.editCard.bind(this);
@@ -28,6 +29,7 @@ class CardsDialog extends Component{
     
     editCard() {
         let form = this.state
+        delete form.server
 
         if(form.card_number === "" && form.name_on_card === "" && form.expiration_date === "" && form.ccv === "") {return}
         if(form.card_number === "") {delete form.card_number};
@@ -43,7 +45,8 @@ class CardsDialog extends Component{
                 card_number: "",
                 name_on_card: "",
                 expiration_date: "",
-                ccv: ""
+                ccv: "",
+                server: data
             })
 
             if(data.success === true) {
@@ -67,14 +70,20 @@ class CardsDialog extends Component{
 
     addCard() {
         let form = this.state
+        delete form.server
         
         api.createCard(this.props.userId, form, (result) => {
              let data = JSON.parse(result);
              console.log(data)
 
-             if(data.success === true) {
+            if(data.success === true) {
                 this.props.update()
                 this.props.close()
+            }
+            else {
+                this.setState({
+                    server: data
+                })
             }
         })
     }
@@ -89,6 +98,14 @@ class CardsDialog extends Component{
 
         console.log(this.state)
     } 
+
+    inputError = (error) => {
+        return (
+          <div style={{color: "red"}}>
+              {error}
+            </div>
+        )
+    };
 
     render() {
 
@@ -119,6 +136,8 @@ class CardsDialog extends Component{
                         fullWidth
                         />}
                     </InputMask>
+                    {this.state.server.hasOwnProperty("card_number") && this.inputError(this.state.server.card_number)}
+                    <br></br>
                     Name on Card:
                     <TextField 
                         style={{marginBottom : "15px"}}
@@ -129,6 +148,8 @@ class CardsDialog extends Component{
                         type="text"
                         fullWidth
                     />
+                    {this.state.server.hasOwnProperty("name_on_card") && this.inputError(this.state.server.name_on_card)}
+                    <br></br>
                     Expiration Date:
                     <InputMask
                         mask="99/9999"
@@ -144,6 +165,8 @@ class CardsDialog extends Component{
                         fullWidth
                         />}
                     </InputMask>
+                    {this.state.server.hasOwnProperty("expiration_date") && this.inputError(this.state.server.expiration_date)}
+                    <br></br>
                     CCV / CVV:
                     <InputMask
                         mask="9999"
@@ -158,6 +181,8 @@ class CardsDialog extends Component{
                         fullWidth
                         />}
                     </InputMask>
+                    {this.state.server.hasOwnProperty("ccv") && this.inputError(this.state.server.ccv)}
+                    <br></br>
                 </DialogContent>
                 <DialogActions>
                     {!add && <Button onClick={this.editCard}  variant="contained" color="primary">Submit</Button>}

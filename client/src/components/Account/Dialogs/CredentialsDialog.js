@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -15,6 +15,7 @@ class CredentialsDialog extends Component{
         this.state = {
             username: "",
             password: "",
+            server: {}
         }
         
         this.editUser = this.editUser.bind(this);
@@ -23,6 +24,7 @@ class CredentialsDialog extends Component{
 
     editUser() {
         let form = this.state
+        delete form.server 
 
         if(form.username === "" && form.password === "") {return}
         if(form.username === "") {delete form.username};;
@@ -34,7 +36,8 @@ class CredentialsDialog extends Component{
             
             this.setState({
                 username: "",
-                password: ""
+                password: "",
+                server: data
             })
 
             if(data.success === true) {
@@ -55,6 +58,18 @@ class CredentialsDialog extends Component{
 
         console.log(this.state)
     }  
+
+    inputError = (error) => {
+        return (
+          <div style={{color: "red"}}>
+              {error}
+            </div>
+        )
+    };
+
+    passwordValidation = (password) => {
+        return (password.map((error, i) => <Fragment key={i} >{this.inputError(error)}</Fragment>))  
+    };  
     
     
     render() {
@@ -81,6 +96,8 @@ class CredentialsDialog extends Component{
                         type="text"
                         fullWidth
                     />
+                    {this.state.server.hasOwnProperty("username") && this.inputError(this.state.server.username)}
+                    <br></br>
                     Password:
                     <TextField 
                         style={{marginBottom : "15px"}}
@@ -91,6 +108,7 @@ class CredentialsDialog extends Component{
                         type="password"
                         fullWidth
                     />
+                    {this.state.server.hasOwnProperty("password") && this.passwordValidation(this.state.server.password)} 
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.editUser} color="primary">Submit</Button>

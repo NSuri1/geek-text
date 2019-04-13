@@ -1,4 +1,2 @@
-export {
-    default
-}
-from './CartContainer'
+export { default } from './CartContainer';
+

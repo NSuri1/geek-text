@@ -20,17 +20,20 @@ class AddressesDialog extends Component{
             city: "",
             state: "",
             zip: "",
-            country: ""
+            country: "",
+            server: {}
         }
         
         this.editAddress = this.editAddress.bind(this);
         this.deleteAddress = this.deleteAddress.bind(this);
         this.addAddress = this.addAddress.bind(this);
         this.handleInput = this.handleInput.bind(this);
+        this.inputError = this.inputError.bind(this);
     }
 
     editAddress() {
         let form = this.state
+        delete form.server
 
         if(form.address_line1 === "" && form.address_line2 === "" && form.city === "" && form.state === "" && form.zip === "" && form.country === "") {return}
         if(form.address_line1 === "") {delete form.address_line1};;
@@ -50,7 +53,8 @@ class AddressesDialog extends Component{
                 city: "",
                 state: "",
                 zip: "",
-                country: ""
+                country: "",
+                server: data
             })
 
             if(data.success === true) {
@@ -74,6 +78,7 @@ class AddressesDialog extends Component{
 
     addAddress() {
         let form = this.state
+        delete form.server
         
         api.createAddress(this.props.userId, this.props.type, form, (result) => {
             let data = JSON.parse(result);
@@ -82,6 +87,11 @@ class AddressesDialog extends Component{
             if(data.success === true) {
                 this.props.update()
                 this.props.close()
+            }
+            else {
+                this.setState({
+                    server: data
+                })
             }
         })
     }
@@ -96,6 +106,14 @@ class AddressesDialog extends Component{
 
         console.log(this.state)
     }
+
+    inputError = (error) => {
+        return (
+          <div style={{color: "red"}}>
+              {error}
+            </div>
+        )
+    };
     
 
     render() {
@@ -123,6 +141,8 @@ class AddressesDialog extends Component{
                         type="text"
                         fullWidth
                     />
+                    {this.state.server.hasOwnProperty("address_line1") && this.inputError(this.state.server.address_line1)}
+                    <br></br>
                     Address Line 2:
                     <TextField 
                         style={{marginBottom : "15px"}}
@@ -143,7 +163,9 @@ class AddressesDialog extends Component{
                         type="text"
                         fullWidth
                     />
-                    State:
+                    {this.state.server.hasOwnProperty("city") && this.inputError(this.state.server.city)}
+                    <br></br>
+                    State / Providence / Region:
                     <TextField 
                         style={{marginBottom : "15px"}}
                         margin="dense"
@@ -153,7 +175,9 @@ class AddressesDialog extends Component{
                         type="text"
                         fullWidth
                     />
-                    Zip:
+                    {this.state.server.hasOwnProperty("state") && this.inputError(this.state.server.state)}
+                    <br></br>
+                    Zip / Postal Code:
                     <TextField 
                         style={{marginBottom : "15px"}}
                         margin="dense"
@@ -163,16 +187,9 @@ class AddressesDialog extends Component{
                         type="text"
                         fullWidth
                     />
+                    {this.state.server.hasOwnProperty("zip") && this.inputError(this.state.server.zip)}
+                    <br></br>
                     Country:
-                    {/* <TextField 
-                    style={{marginBottom : "15px"}}
-                    margin="dense"
-                    name="country"
-                    placeholder={address ? address.country : ""}
-                    onChange={this.handleInput}
-                    type="email"
-                    fullWidth
-                    /> */}
                     <Select
                         native
                         onChange={this.handleInput}
@@ -186,6 +203,8 @@ class AddressesDialog extends Component{
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
                     </Select>
+                    {this.state.server.hasOwnProperty("country") && this.inputError(this.state.server.country)}
+                    <br></br>
                 </DialogContent>
                 <DialogActions>
                     {!add && <Button onClick={this.editAddress}  variant="contained" color="primary">Submit</Button>}

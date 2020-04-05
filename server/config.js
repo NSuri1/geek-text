@@ -7,7 +7,7 @@ const config = {
 	db: {
 		username: process.env.MONGODB_USERNAME || '',
 		password: process.env.MONGODB_PASSWORD || '',
-		url: process.env.MONGODB_URL || 'localhost:27017',
+		url: process.env.MONGODB_URL || 'mongo:27017',
 		name: process.env.MONGODB_TABLE_NAME || 'geek-text',
 	},
 	secretOrKey: 'secret',

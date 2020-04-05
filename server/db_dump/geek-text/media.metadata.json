@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"geek-text.media"}],"uuid":"563704c0baf2477191c8d3e1163c4a87"}
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"geek-text.media"}],"uuid":"160a5a55851e4e77887ad0452cc8eabb"}

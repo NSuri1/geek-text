@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"geek-text.bookratings"}],"uuid":"d6919e8a15db4755bffd2d1abd56d4b7"}

@@ -1,0 +1,1 @@
+{"options":{"autoIndexId":true},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"geek-text.objectlabs-system"}],"uuid":"f1430bfb4e0e4178b6ae6ccc270f62ec"}
